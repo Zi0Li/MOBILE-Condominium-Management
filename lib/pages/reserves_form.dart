@@ -35,21 +35,21 @@ class _ReservesFormState extends State<ReservesForm> {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            InputWidget('Local', _nounController, TextInputType.text),
-            InputWidget('Convidados', _guestController, TextInputType.text),
+            // InputWidget('Local', _nounController, TextInputType.text),
+            // InputWidget('Convidados', _guestController, TextInputType.text),
             Row(
               children: [
-                Flexible(
-                  child: InputWidget(
-                      'Data início', _dateStartController, TextInputType.text),
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                Flexible(
-                  child: InputWidget(
-                      'Data termino', _dateEndController, TextInputType.text),
-                ),
+                // Flexible(
+                //   child: InputWidget(
+                //       'Data início', _dateStartController, TextInputType.text),
+                // ),
+                // SizedBox(
+                //   width: 20,
+                // ),
+                // Flexible(
+                //   child: InputWidget(
+                //       'Data termino', _dateEndController, TextInputType.text),
+                // ),
               ],
             ),
             Divider(
