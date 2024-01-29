@@ -8,15 +8,19 @@ class InputWidget extends StatelessWidget {
   IconData icon;
   TextEditingController controller;
   TextInputType keyboardType;
+  double? height;
+  double? width;
 
   InputWidget(this.label, this.controller, this.keyboardType, this.icon,
-      {super.key});
+      {super.key, this.height, this.width});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15),
       child: SizedBox(
+        height: height,
+        width: width,
         child: TextFormField(
           validator: Config.validator,
           controller: controller,

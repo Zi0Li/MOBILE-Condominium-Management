@@ -16,6 +16,38 @@ class Config {
   static Color grey600 = Colors.grey.shade600;
   static Color grey800 = Colors.grey.shade800;
 
+  static final block = [
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+    'H',
+    'I',
+    'J',
+    'K',
+  ];
+
+  static final Apartment = [
+    '101',
+    '102',
+    '103',
+    '104',
+    '201',
+    '202',
+    '203',
+    '204',
+    '301',
+    '302',
+    '303',
+    '304',
+    '401',
+    '402',
+    '403',
+    '404',
+  ];
 
   static String? validator(value) {
     if (value == null || value.isEmpty) {
@@ -29,6 +61,6 @@ class Config {
     filter: {"#": RegExp(r'[0-9]')},
     type: MaskAutoCompletionType.lazy,
   );
-  
+
   static var maskNull = MaskTextInputFormatter();
 }

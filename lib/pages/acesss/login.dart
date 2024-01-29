@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tcc/pages/acesss/register_condo.dart';
 import 'package:tcc/pages/home.dart';
+import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/input.dart';
 
@@ -18,10 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Config.dark_purple,
-        toolbarHeight: 0,
-      ),
+      appBar: AppBarWidget(),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Center(
@@ -131,7 +130,14 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Center(
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RegisterCondoPage(),
+                        ),
+                      );
+                    },
                     child: Text(
                       'ou Registra-se',
                       style: TextStyle(
