@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tcc/pages/acesss/login.dart';
+import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -13,6 +14,9 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBarWidget(
+        height: 0,
+      ),
       body: Center(
         child: Container(
           width: 300,

@@ -20,7 +20,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(),
+      appBar: AppBarWidget(
+        height: 0,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Center(
@@ -33,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Text(
                     'SmartCondo',
                     style: TextStyle(
-                      color: Colors.orange,
+                      color: Config.orange,
                       fontSize: 48,
                       fontWeight: FontWeight.bold,
                     ),
@@ -45,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                 Text(
                   'Seja bem-vindo',
                   style: TextStyle(
-                    color: Colors.orange,
+                    color: Config.orange,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
@@ -70,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                     Text(
                       "Lembrar-me",
                       style: TextStyle(
-                        color: Colors.orange,
+                        color: Config.orange,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
@@ -81,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text(
                         'Esqueci a senha',
                         style: TextStyle(
-                          color: Colors.orange,
+                          color: Config.orange,
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),

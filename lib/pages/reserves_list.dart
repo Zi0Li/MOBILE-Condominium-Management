@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tcc/pages/reserves_form.dart';
+import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawer.dart';
 
@@ -15,14 +17,28 @@ class _ReservesListState extends State<ReservesList> {
     return Scaffold(
       backgroundColor: Config.backgroundColor,
       drawer: DrawerApp(),
-      appBar: AppBar(
-        backgroundColor: Config.dark_purple,
-        title: Text(
-          'Reservas',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            color: Colors.white,
-          ),
+      appBar: AppBarWidget(
+        title: 'Reservas',
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ReservesForm(),
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.add,
+              color: Config.orange,
+            ),
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Text('Nenhuma reserva realizada'),
         ),
       ),
     );

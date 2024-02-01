@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawer.dart';
 import 'package:tcc/widgets/input.dart';
@@ -24,16 +25,7 @@ class _AuthorizedPersonsPageState extends State<AuthorizedPersonsPage> {
     return Scaffold(
       backgroundColor: Config.backgroundColor,
       drawer: DrawerApp(),
-      appBar: AppBar(
-        backgroundColor: Config.dark_purple,
-        title: Text(
-          'Pessoas autorizadas',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      appBar: AppBarWidget(title: 'Pessoas autorizadas'),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
@@ -90,10 +82,20 @@ class _AuthorizedPersonsPageState extends State<AuthorizedPersonsPage> {
                 ),
               ),
             ),
-            // InputWidget('Nome', _nameController, TextInputType.text),
-            // InputWidget('Documento (RG / CPF)', _documentController,
-            //     TextInputType.text),
-            // InputWidget('Parentesco', _kinshipController, TextInputType.text),
+            InputWidget(
+              'Nome',
+              _nameController,
+              TextInputType.text,
+              Icons.person_outline_rounded,
+            ),
+            InputWidget('Documento (RG / CPF)', _documentController,
+                TextInputType.text, Icons.wallet_rounded),
+            InputWidget(
+              'Parentesco',
+              _kinshipController,
+              TextInputType.text,
+              Icons.family_restroom_rounded,
+            ),
             SizedBox(
               height: 20,
             ),

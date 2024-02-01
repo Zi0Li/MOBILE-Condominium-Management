@@ -15,24 +15,24 @@ class _DrawerAppState extends State<DrawerApp> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Config.light_purple,
+      backgroundColor: Config.white_background,
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text('Marcelo Zioli'),
+            accountName: Text('Marcelo Zioli', style: TextStyle(fontWeight: FontWeight.bold,),),
             accountEmail: Text('marceloaezioli@hotmail.com'),
             currentAccountPicture: CircleAvatar(
-              backgroundColor: Config.backgroundColor,
+              backgroundColor: Config.white_background,
               child: Text(
                 "MZ",
                 style: TextStyle(
-                  color: Config.orange,
+                  color: Config.grey_letter,
                   fontWeight: FontWeight.w600,
                   fontSize: 22,
                 ),
               ),
             ),
-            decoration: BoxDecoration(color: Config.dark_purple),
+            decoration: BoxDecoration(color: Config.orange),
           ),
           ListTile(
             leading: Icon(
@@ -134,6 +134,34 @@ class _DrawerAppState extends State<DrawerApp> {
           ),
           ListTile(
             leading: Icon(
+              Icons.rule_rounded,
+              color: Config.orange,
+            ),
+            title: Text(
+              "* Regras",
+              style: _textStyle(),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              _semPagina(context);
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.library_books_outlined,
+              color: Config.orange,
+            ),
+            title: Text(
+              "* Ticket/Boletim",
+              style: _textStyle(),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              _semPagina(context);
+            },
+          ),
+          ListTile(
+            leading: Icon(
               Icons.exit_to_app_rounded,
               color: Colors.red,
             ),
@@ -154,7 +182,7 @@ class _DrawerAppState extends State<DrawerApp> {
   TextStyle _textStyle() {
     return TextStyle(
         fontSize: 16,
-        color: Config.backgroundColor,
+        color: Config.grey_letter,
         fontWeight: FontWeight.w400);
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawer.dart';
 import 'package:tcc/widgets/input.dart';
@@ -21,35 +22,44 @@ class _ReservesFormState extends State<ReservesForm> {
     return Scaffold(
       backgroundColor: Config.backgroundColor,
       drawer: DrawerApp(),
-      appBar: AppBar(
-        backgroundColor: Config.dark_purple,
-        title: Text(
-          'Registrar reserva',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      appBar: AppBarWidget(title: 'Cadastrar reserva',),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            // InputWidget('Local', _nounController, TextInputType.text),
-            // InputWidget('Convidados', _guestController, TextInputType.text),
+            InputWidget(
+              'Local',
+              _nounController,
+              TextInputType.text,
+              Icons.location_on_outlined,
+            ),
+            InputWidget(
+              'Convidados',
+              _guestController,
+              TextInputType.text,
+              Icons.format_list_numbered_rounded,
+            ),
             Row(
               children: [
-                // Flexible(
-                //   child: InputWidget(
-                //       'Data início', _dateStartController, TextInputType.text),
-                // ),
-                // SizedBox(
-                //   width: 20,
-                // ),
-                // Flexible(
-                //   child: InputWidget(
-                //       'Data termino', _dateEndController, TextInputType.text),
-                // ),
+                Flexible(
+                  child: InputWidget(
+                    'Data início',
+                    _dateStartController,
+                    TextInputType.text,
+                    Icons.date_range_outlined,
+                  ),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Flexible(
+                  child: InputWidget(
+                    'Data termino',
+                    _dateEndController,
+                    TextInputType.text,
+                    Icons.date_range_outlined,
+                  ),
+                ),
               ],
             ),
             Divider(

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tcc/pages/authorized_persons.dart';
-import 'package:tcc/pages/reserves_list.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawer.dart';
 
@@ -12,20 +10,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  double contPessoas = 2;
+  double contPessoas = 4;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Config.backgroundColor,
+      backgroundColor: Config.white_background,
       drawer: DrawerApp(),
       appBar: AppBar(
-        backgroundColor: Config.dark_purple,
+        backgroundColor: Config.white_background,
+        toolbarHeight: 56,
         title: Text(
           'Tela inicial',
           style: TextStyle(
             fontWeight: FontWeight.w500,
-            color: Colors.white,
+            color: Config.orange,
           ),
         ),
       ),
@@ -36,37 +35,16 @@ class _HomePageState extends State<HomePage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(width: 1, color: Config.dark_purple),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.markunread_mailbox_outlined,
-                          color: Config.orange,
-                          size: 36,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Flexible(
-                          child: Text(
-                            'Atualmente você não tem correspondência',
-                            style: TextStyle(
-                              color: Config.dark_purple,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              _cardNotification(
+                'Atualmente você não tem correspondência',
+                Icons.markunread_mailbox_outlined,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              _cardNotification(
+                'Você não tem nenhuma notificação',
+                Icons.notifications_none_outlined,
               ),
               SizedBox(
                 height: 10,
@@ -75,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                 text: TextSpan(
                   text: 'Pessoas autorizadas ',
                   style: TextStyle(
-                    color: Config.dark_purple,
+                    color: Config.grey_letter,
                     fontWeight: FontWeight.w500,
                     fontSize: 20,
                   ),
@@ -92,22 +70,20 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Divider(
-                color: Config.dark_purple,
+                color: Config.grey400,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 90 * contPessoas,
-                  child: ListView.builder(
-                    itemCount: contPessoas.toInt(),
-                    itemBuilder: (context, index) {
-                      return _cardAutorizadas();
-                    },
-                  ),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: contPessoas.toInt(),
+                  itemBuilder: (context, index) {
+                    return _cardAutorizadas('Marcelo Erreiro Zioli', index);
+                  },
                 ),
               ),
               Divider(
-                color: Config.dark_purple,
+                color: Config.grey400,
               ),
               SizedBox(
                 height: 10,
@@ -165,72 +141,36 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _cardAutorizadas() {
-    return InkWell(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5),
-        child: Container(
-          height: 80,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              width: 1,
-              color: Config.dark_purple,
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              children: [
-                Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      width: 1,
-                      color: Config.dark_purple,
-                    ),
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.person_outline,
-                      color: Config.dark_purple,
-                      size: 36,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Marcelo Zioli',
-                      style: TextStyle(
-                        color: Config.dark_purple,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                      ),
-                    ),
-                    Text(
-                      'Primo',
-                      style: TextStyle(
-                        color: Config.dark_purple,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    )
-                  ],
-                )
-              ],
+  Widget _cardAutorizadas(String name, int index) {
+    List<String> aux = name.split(' ');
+    String logoName = aux[0][0];
+    logoName += aux[aux.length - 1][0];
+
+    return ListTile(
+      onLongPress: (){
+        print('Clicou: $index');
+      },
+      title: Text(
+        name,
+        style: TextStyle(fontSize: 18, overflow: TextOverflow.ellipsis),
+      ),
+      leading: Container(
+        height: 50,
+        width: 50,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(width: 1, color: Config.grey400),
+        ),
+        child: Center(
+          child: Text(
+            logoName.toUpperCase(),
+            style: TextStyle(
+              fontSize: 14,
             ),
           ),
         ),
       ),
+      subtitle: Text('Parentesco'),
     );
   }
 
@@ -241,7 +181,7 @@ class _HomePageState extends State<HomePage> {
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
             width: 1,
-            color: Config.dark_purple,
+            color: Config.grey600,
           ),
         ),
         child: Padding(
@@ -258,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Divider(
-                color: Config.dark_purple,
+                color: Config.grey400,
               ),
               Row(
                 children: [
@@ -287,7 +227,7 @@ class _HomePageState extends State<HomePage> {
       text: TextSpan(
         text: label1,
         style: TextStyle(
-          color: Config.dark_purple,
+          color: Config.grey_letter,
           fontWeight: FontWeight.w600,
           fontSize: 16,
         ),
@@ -300,6 +240,44 @@ class _HomePageState extends State<HomePage> {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  Widget _cardNotification(String title, IconData icon) {
+    return Center(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            width: 1,
+            color: Config.grey600,
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            children: [
+              Icon(
+                icon,
+                color: Config.orange,
+                size: 36,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Flexible(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color: Config.grey_letter,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -1,17 +1,37 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:tcc/widgets/config.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarWidget({super.key});
+  double? height;
+  String? title;
+  Color? backgroundColor;
+  List<Widget>? actions;
+  AppBarWidget({
+    super.key,
+    this.height = 56,
+    this.title = '',
+    this.backgroundColor,
+    this.actions
+  });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Config.dark_purple,
-      toolbarHeight: 0,
+      backgroundColor: backgroundColor,
+      toolbarHeight: height,
+      actions: actions,
+      title: Text(
+        title!,
+        style: TextStyle(
+          fontWeight: FontWeight.w500,
+          color: Config.orange,
+        ),
+      ),
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(0);
+  Size get preferredSize => Size.fromHeight(height!);
 }
