@@ -19,7 +19,7 @@ class Config {
   static Color grey600 = Colors.grey.shade600;
   static Color grey800 = Colors.grey.shade800;
 
- static final block = [
+  static final block = [
     'A',
     'B',
     'C',
@@ -65,4 +65,29 @@ class Config {
   );
 
   static var maskNull = MaskTextInputFormatter();
+
+  static Widget text(String label1, String label2, double fontSize) {
+    return RichText(
+      overflow: TextOverflow.ellipsis,
+      softWrap: false,
+      maxLines: 1,
+      text: TextSpan(
+        text: label1,
+        style: TextStyle(
+          color: grey_letter,
+          fontWeight: FontWeight.w600,
+          fontSize: fontSize,
+        ),
+        children: [
+          TextSpan(
+            text: label2,
+            style: TextStyle(
+              fontSize: fontSize,
+              fontWeight: FontWeight.w400,
+            ),
+          )
+        ],
+      ),
+    );
+  }
 }

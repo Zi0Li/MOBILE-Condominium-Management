@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> {
     logoName += aux[aux.length - 1][0];
 
     return ListTile(
-      onLongPress: (){
+      onLongPress: () {
         print('Clicou: $index');
       },
       title: Text(
@@ -202,44 +202,22 @@ class _HomePageState extends State<HomePage> {
               ),
               Row(
                 children: [
-                  _text('Local: ', 'Currasqueira'),
+                  Config.text('Local: ', 'Currasqueira', 16),
                   Spacer(),
-                  _text('Bloco: ', 'B'),
+                  Config.text('Bloco: ', 'B', 16),
                 ],
               ),
               Row(
                 children: [
-                  _text('Início: ', '12/04/2024'),
+                  Config.text('Início: ', '12/04/2024', 16),
                   Spacer(),
-                  _text('Término: ', '12/04/2024'),
+                  Config.text('Término: ', '12/04/2024', 16),
                 ],
               ),
-              _text('Convidados: ', '25'),
+              Config.text('Convidados: ', '25', 16),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _text(String label1, String label2) {
-    return RichText(
-      text: TextSpan(
-        text: label1,
-        style: TextStyle(
-          color: Config.grey_letter,
-          fontWeight: FontWeight.w600,
-          fontSize: 16,
-        ),
-        children: [
-          TextSpan(
-            text: label2,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-            ),
-          )
-        ],
       ),
     );
   }

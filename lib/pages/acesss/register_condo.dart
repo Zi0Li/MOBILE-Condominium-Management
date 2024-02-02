@@ -157,20 +157,21 @@ class _RegisterCondoPageState extends State<RegisterCondoPage> {
                             ),
                           ),
                           Divider(),
-                          _text('Nome: ', 'Condomínio Terra de Santa Cruz'),
+                          Config.text(
+                              'Nome: ', 'Condomínio Terra de Santa Cruz', 18),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              _text('Rua: ', 'Rio Claro'),
-                              _text('N°: ', '10'),
+                              Config.text('Rua: ', 'Rio Claro', 18),
+                              Config.text('N°: ', '10', 18),
                             ],
                           ),
-                          _text('Bairro: ', 'Vila Progresso'),
+                          Config.text('Bairro: ', 'Vila Progresso', 18),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              _text('Estado: ', 'SP'),
-                              _text('Cidade: ', 'Assis'),
+                              Config.text('Estado: ', 'SP', 18),
+                              Config.text('Cidade: ', 'Assis', 18),
                             ],
                           ),
                           Divider(),
@@ -198,7 +199,7 @@ class _RegisterCondoPageState extends State<RegisterCondoPage> {
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10)),
-        
+
                                 // dropdown below..
                                 child: DropdownButton<String>(
                                   value: selectedBlockValue,
@@ -212,7 +213,7 @@ class _RegisterCondoPageState extends State<RegisterCondoPage> {
                                                 child: Text(value),
                                               ))
                                       .toList(),
-        
+
                                   // add extra sugar..
                                   icon: Icon(Icons.arrow_drop_down),
                                   iconSize: 42,
@@ -234,19 +235,21 @@ class _RegisterCondoPageState extends State<RegisterCondoPage> {
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10)),
-        
+
                                 // dropdown below..
                                 child: DropdownButton<String>(
                                   value: selectedApartamentValue,
                                   onChanged: (String? newValue) => setState(
-                                      () => selectedApartamentValue = newValue!),
+                                      () =>
+                                          selectedApartamentValue = newValue!),
                                   items: Config.Apartment.map<
                                           DropdownMenuItem<String>>(
-                                      (String value) => DropdownMenuItem<String>(
+                                      (String value) =>
+                                          DropdownMenuItem<String>(
                                             value: value,
                                             child: Text(value),
                                           )).toList(),
-        
+
                                   // add extra sugar..
                                   icon: Icon(Icons.arrow_drop_down),
                                   iconSize: 42,
@@ -414,31 +417,6 @@ class _RegisterCondoPageState extends State<RegisterCondoPage> {
                   ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _text(String text1, String text2) {
-    return RichText(
-      textAlign: TextAlign.left,
-      text: TextSpan(
-        text: text1,
-        style: TextStyle(
-          fontSize: 18,
-          color: Config.grey800,
-          fontWeight: FontWeight.w600,
-        ),
-        children: <TextSpan>[
-          TextSpan(
-            text: text2,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 18,
-              color: Config.grey600,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
       ),
     );
   }

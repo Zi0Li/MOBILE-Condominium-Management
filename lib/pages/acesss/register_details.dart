@@ -171,27 +171,27 @@ class _RegisterDetailsPageState extends State<RegisterDetailsPage> {
                   SizedBox(
                     height: 10,
                   ),
-                  _text('Nome: ', 'Condomínio Terra de Santa Cruz'),
+                  Config.text('Nome: ', 'Condomínio Terra de Santa Cruz', 18),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _text('Rua: ', 'Rio Claro'),
-                      _text('N°: ', '10'),
+                      Config.text('Rua: ', 'Rio Claro', 18),
+                      Config.text('N°: ', '10', 18),
                     ],
                   ),
-                  _text('Bairro: ', 'Vila Progresso'),
+                  Config.text('Bairro: ', 'Vila Progresso', 18),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _text('Estado: ', 'SP'),
-                      _text('Cidade: ', 'Assis'),
+                      Config.text('Estado: ', 'SP', 18),
+                      Config.text('Cidade: ', 'Assis', 18),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _text('Bloco: ', selectedBlockValue),
-                      _text('Apartamento: ', selectedApartamentValue),
+                      Config.text('Bloco: ', selectedBlockValue, 18),
+                      Config.text('Apartamento: ', selectedApartamentValue, 18),
                     ],
                   ),
                   Divider(),
@@ -217,11 +217,11 @@ class _RegisterDetailsPageState extends State<RegisterDetailsPage> {
                   SizedBox(
                     height: 10,
                   ),
-                  _text('Nome: ', 'Marcelo A. Erreiro Zioli'),
-                  _text('Rg: ', '22.505.068-X'),
-                  _text('Cpf: ', '114.441.615-19'),
-                  _text('E-mail: ', 'marceloaezioli@hotmail.com'),
-                  _text('Phone: ', '(18) 9 9745-0597'),
+                  Config.text('Nome: ', 'Marcelo A. Erreiro Zioli', 18),
+                  Config.text('Rg: ', '22.505.068-X', 18),
+                  Config.text('Cpf: ', '114.441.615-19', 18),
+                  Config.text('E-mail: ', 'marceloaezioli@hotmail.com', 18),
+                  Config.text('Phone: ', '(18) 9 9745-0597', 18),
                   Divider(),
                   Row(
                     children: [
@@ -260,31 +260,6 @@ class _RegisterDetailsPageState extends State<RegisterDetailsPage> {
             )
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _text(String text1, String text2) {
-    return RichText(
-      textAlign: TextAlign.left,
-      text: TextSpan(
-        text: text1,
-        style: TextStyle(
-          fontSize: 18,
-          color: Config.grey800,
-          fontWeight: FontWeight.w600,
-        ),
-        children: <TextSpan>[
-          TextSpan(
-            text: text2,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 18,
-              color: Config.grey600,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
       ),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tcc/pages/acesss/welcome.dart';
 import 'package:tcc/pages/authorized_persons.dart';
+import 'package:tcc/pages/correspondence.dart';
 import 'package:tcc/pages/home.dart';
 import 'package:tcc/pages/reserves_list.dart';
 import 'package:tcc/widgets/config.dart';
@@ -19,7 +21,12 @@ class _DrawerAppState extends State<DrawerApp> {
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text('Marcelo Zioli', style: TextStyle(fontWeight: FontWeight.bold,),),
+            accountName: Text(
+              'Marcelo Zioli',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             accountEmail: Text('marceloaezioli@hotmail.com'),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Config.white_background,
@@ -52,7 +59,8 @@ class _DrawerAppState extends State<DrawerApp> {
                 ),
               );
             },
-          ),ListTile(
+          ),
+          ListTile(
             leading: Icon(
               Icons.person_outline,
               color: Config.orange,
@@ -124,12 +132,16 @@ class _DrawerAppState extends State<DrawerApp> {
               color: Config.orange,
             ),
             title: Text(
-              "* Correspondências",
+              "Correspondências",
               style: _textStyle(),
             ),
             onTap: () {
-              Navigator.pop(context);
-              _semPagina(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CorrespondencePage(),
+                ),
+              );
             },
           ),
           ListTile(
@@ -170,8 +182,12 @@ class _DrawerAppState extends State<DrawerApp> {
               style: _textStyle(),
             ),
             onTap: () {
-              Navigator.pop(context);
-              _semPagina(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => WelcomePage(),
+                ),
+              );
             },
           ),
         ],
@@ -181,9 +197,7 @@ class _DrawerAppState extends State<DrawerApp> {
 
   TextStyle _textStyle() {
     return TextStyle(
-        fontSize: 16,
-        color: Config.grey_letter,
-        fontWeight: FontWeight.w400);
+        fontSize: 16, color: Config.grey_letter, fontWeight: FontWeight.w400);
   }
 
   Future _semPagina(BuildContext context) {
