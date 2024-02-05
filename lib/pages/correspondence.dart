@@ -13,21 +13,20 @@ class CorrespondencePage extends StatefulWidget {
 class _CorrespondencePageState extends State<CorrespondencePage> {
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
-        drawer: DrawerApp(),
-        appBar: AppBarWidget(
-          title: 'Correspondências',
+      drawer: DrawerApp(),
+      appBar: AppBarWidget(
+        title: 'Correspondências',
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: 5,
+          itemBuilder: (context, index) => _cardCorrespondence(),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: 5,
-            itemBuilder: (context, index) => _cardCorrespondence(),
-          ),
-        ));
+      ),
+    );
   }
 
   Widget _cardCorrespondence() {

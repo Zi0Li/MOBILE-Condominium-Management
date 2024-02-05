@@ -3,6 +3,7 @@ import 'package:tcc/pages/acesss/welcome.dart';
 import 'package:tcc/pages/authorized_persons.dart';
 import 'package:tcc/pages/correspondence.dart';
 import 'package:tcc/pages/home.dart';
+import 'package:tcc/pages/profile.dart';
 import 'package:tcc/pages/reserves_list.dart';
 import 'package:tcc/widgets/config.dart';
 
@@ -66,12 +67,16 @@ class _DrawerAppState extends State<DrawerApp> {
               color: Config.orange,
             ),
             title: Text(
-              "* Perfil",
+              "Perfil",
               style: _textStyle(),
             ),
             onTap: () {
-              Navigator.pop(context);
-              _semPagina(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfilePage(),
+                ),
+              );
             },
           ),
           ListTile(

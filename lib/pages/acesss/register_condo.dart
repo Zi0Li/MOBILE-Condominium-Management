@@ -199,8 +199,6 @@ class _RegisterCondoPageState extends State<RegisterCondoPage> {
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10)),
-
-                                // dropdown below..
                                 child: DropdownButton<String>(
                                   value: selectedBlockValue,
                                   onChanged: (String? newValue) => setState(
@@ -213,8 +211,6 @@ class _RegisterCondoPageState extends State<RegisterCondoPage> {
                                                 child: Text(value),
                                               ))
                                       .toList(),
-
-                                  // add extra sugar..
                                   icon: Icon(Icons.arrow_drop_down),
                                   iconSize: 42,
                                   underline: SizedBox(),
@@ -234,9 +230,7 @@ class _RegisterCondoPageState extends State<RegisterCondoPage> {
                                     horizontal: 10, vertical: 5),
                                 decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10)),
-
-                                // dropdown below..
+                                    borderRadius: BorderRadius.circular(10),),
                                 child: DropdownButton<String>(
                                   value: selectedApartamentValue,
                                   onChanged: (String? newValue) => setState(
