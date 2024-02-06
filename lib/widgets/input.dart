@@ -10,9 +10,10 @@ class InputWidget extends StatelessWidget {
   TextInputType keyboardType;
   double? height;
   double? width;
+  int? maxLine;
 
   InputWidget(this.label, this.controller, this.keyboardType, this.icon,
-      {super.key, this.height, this.width});
+      {super.key, this.height, this.width, this.maxLine = 1});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,7 @@ class InputWidget extends StatelessWidget {
           validator: Config.validator,
           controller: controller,
           keyboardType: keyboardType,
+          maxLines: maxLine,
           decoration: InputDecoration(
             prefixIcon: Icon(
               icon,

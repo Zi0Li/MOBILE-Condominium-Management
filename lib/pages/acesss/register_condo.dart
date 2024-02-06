@@ -205,11 +205,12 @@ class _RegisterCondoPageState extends State<RegisterCondoPage> {
                                       () => selectedBlockValue = newValue!),
                                   items: Config.block
                                       .map<DropdownMenuItem<String>>(
-                                          (String value) =>
-                                              DropdownMenuItem<String>(
-                                                value: value,
-                                                child: Text(value),
-                                              ))
+                                        (String value) =>
+                                            DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        ),
+                                      )
                                       .toList(),
                                   icon: Icon(Icons.arrow_drop_down),
                                   iconSize: 42,
@@ -229,22 +230,21 @@ class _RegisterCondoPageState extends State<RegisterCondoPage> {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 5),
                                 decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                                 child: DropdownButton<String>(
                                   value: selectedApartamentValue,
                                   onChanged: (String? newValue) => setState(
                                       () =>
                                           selectedApartamentValue = newValue!),
                                   items: Config.Apartment.map<
-                                          DropdownMenuItem<String>>(
-                                      (String value) =>
-                                          DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          )).toList(),
-
-                                  // add extra sugar..
+                                      DropdownMenuItem<String>>(
+                                    (String value) => DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    ),
+                                  ).toList(),
                                   icon: Icon(Icons.arrow_drop_down),
                                   iconSize: 42,
                                   underline: SizedBox(),
