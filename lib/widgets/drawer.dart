@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tcc/pages/report/report_menu.dart';
 import 'package:tcc/pages/acesss/welcome.dart';
 import 'package:tcc/pages/authorized_persons.dart';
 import 'package:tcc/pages/correspondence.dart';
@@ -169,12 +170,16 @@ class _DrawerAppState extends State<DrawerApp> {
               color: Config.orange,
             ),
             title: Text(
-              "* Ticket/Boletim",
+              "Reportar",
               style: _textStyle(),
             ),
             onTap: () {
-              Navigator.pop(context);
-              _semPagina(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ReportMenuPage(),
+                ),
+              );
             },
           ),
           ListTile(
@@ -202,7 +207,10 @@ class _DrawerAppState extends State<DrawerApp> {
 
   TextStyle _textStyle() {
     return TextStyle(
-        fontSize: 16, color: Config.grey_letter, fontWeight: FontWeight.w400);
+      fontSize: 16,
+      color: Config.grey_letter,
+      fontWeight: FontWeight.w400,
+    );
   }
 
   Future _semPagina(BuildContext context) {
