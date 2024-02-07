@@ -6,6 +6,7 @@ import 'package:tcc/pages/correspondence.dart';
 import 'package:tcc/pages/home.dart';
 import 'package:tcc/pages/profile.dart';
 import 'package:tcc/pages/reserves_list.dart';
+import 'package:tcc/pages/rules.dart';
 import 'package:tcc/widgets/config.dart';
 
 class DrawerApp extends StatefulWidget {
@@ -156,12 +157,16 @@ class _DrawerAppState extends State<DrawerApp> {
               color: Config.orange,
             ),
             title: Text(
-              "* Regras",
+              "Regras",
               style: _textStyle(),
             ),
             onTap: () {
-              Navigator.pop(context);
-              _semPagina(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RulesPage(),
+                ),
+              );
             },
           ),
           ListTile(

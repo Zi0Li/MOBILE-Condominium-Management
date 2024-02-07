@@ -21,6 +21,14 @@ class Config {
   static Color grey600 = Colors.grey.shade600;
   static Color grey800 = Colors.grey.shade800;
 
+  static final List<String> listCategory = [
+    'Administração',
+    'Funcionário',
+    'Manutenção',
+    'Morador',
+    'Reclamação',
+  ];
+
   static final block = [
     'A',
     'B',
@@ -105,7 +113,7 @@ class Config {
     for (int i = 0; i < qty; i++) {
       int selectedNumber = randomNumber(from, to);
       random += selectedNumber.toString();
-      if (i == (qty/2)-1) {
+      if (i == (qty / 2) - 1) {
         random += ' - ';
       }
     }
