@@ -18,19 +18,13 @@ class _AnonymousPageState extends State<AnonymousPage> {
   TextEditingController _titleController = TextEditingController();
   String? selectedCategoryValue;
   List<Map<String, String>> listImagePath = [];
-  List<String> listCategory = [
-    'Administração',
-    'Funcionário',
-    'Manutenção',
-    'Morador',
-    'Reclamação',
-  ];
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-        title: 'Reportar',
+        title: 'Denúncia anônima',
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -38,6 +32,13 @@ class _AnonymousPageState extends State<AnonymousPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                'Nenhum dos seus dados serão exibidos, evitando a sua identificação.',
+                style: TextStyle(
+                  color: Config.grey600,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
               Row(
                 children: [
                   Text(
@@ -57,7 +58,7 @@ class _AnonymousPageState extends State<AnonymousPage> {
                       value: selectedCategoryValue,
                       onChanged: (String? newValue) =>
                           setState(() => selectedCategoryValue = newValue!),
-                      items: listCategory
+                      items: Config.listCategory
                           .map<DropdownMenuItem<String?>>(
                             (String? value) => DropdownMenuItem<String?>(
                               value: value,
@@ -88,7 +89,6 @@ class _AnonymousPageState extends State<AnonymousPage> {
               TextButton.icon(
                 onPressed: () {
                   _selectImage();
-                  
                 },
                 icon: Icon(
                   Icons.image_search,
@@ -176,7 +176,10 @@ class _AnonymousPageState extends State<AnonymousPage> {
                     color: Config.grey600,
                   ),
                 ),
-              ),SizedBox(height: 10,),
+              ),
+              SizedBox(
+                height: 10,
+              ),
               TextButton.icon(
                 onPressed: () {
                   ImagePicker()
@@ -220,7 +223,6 @@ class _AnonymousPageState extends State<AnonymousPage> {
                   ),
                 ),
               ),
-
             ],
           ),
           actions: <Widget>[

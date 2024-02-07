@@ -26,7 +26,7 @@ class _ReportMenuPageState extends State<ReportMenuPage> {
               children: [
                 Expanded(
                   child: _button(
-                    "Anônimo",
+                    "Denúncia Anônima",
                     Icons.person_off_outlined,
                     AnonymousPage(),
                   ),
@@ -36,9 +36,9 @@ class _ReportMenuPageState extends State<ReportMenuPage> {
                 ),
                 Expanded(
                   child: _button(
-                    "Ticket",
+                    "Reportar/Ticket",
                     Icons.report_gmailerrorred_sharp,
-                    TicketPage(),
+                    ReportTicketPage(),
                   ),
                 ),
               ],
