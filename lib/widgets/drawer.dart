@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tcc/pages/chat/menu.dart';
 import 'package:tcc/pages/report/report_menu.dart';
 import 'package:tcc/pages/acesss/welcome.dart';
 import 'package:tcc/pages/authorized_persons.dart';
@@ -125,12 +126,16 @@ class _DrawerAppState extends State<DrawerApp> {
               color: Config.orange,
             ),
             title: Text(
-              "* Chat",
+              "Chat",
               style: _textStyle(),
             ),
             onTap: () {
-              Navigator.pop(context);
-              _semPagina(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MenuChatPage(),
+                ),
+              );
             },
           ),
           ListTile(

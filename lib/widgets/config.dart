@@ -20,6 +20,8 @@ class Config {
   static Color grey400 = Colors.grey.shade400;
   static Color grey600 = Colors.grey.shade600;
   static Color grey800 = Colors.grey.shade800;
+  static Color green = Colors.green;
+  static Color amber = Colors.amber;
 
   static final List<String> listCategory = [
     'Administração',
