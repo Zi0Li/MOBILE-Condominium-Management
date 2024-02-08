@@ -78,9 +78,9 @@ class Config {
 
   static Widget text(String label1, String label2, double fontSize) {
     return RichText(
-      overflow: TextOverflow.ellipsis,
-      softWrap: false,
-      maxLines: 1,
+      overflow: TextOverflow.clip,
+      softWrap: true,
+      maxLines: null,
       text: TextSpan(
         text: label1,
         style: TextStyle(

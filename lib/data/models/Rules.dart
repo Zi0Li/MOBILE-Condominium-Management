@@ -18,10 +18,10 @@ List<Rules> gerarRegras(int qty) {
   for (var i = 0; i < qty; i++) {
     rules.add(
       Rules(id: i + 1, title: 'Regra de numero: ${i + 1}', content: [
-        'Não fazer nada',
-        'Não fazer nada',
-        'Não fazer nada',
-        'Não fazer nada',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo quam, vitae vestibulum mauris. Nulla rutrum eu diam et accumsan.',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo quam, vitae vestibulum mauris. Nulla rutrum eu diam et accumsan.',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo quam, vitae vestibulum mauris. Nulla rutrum eu diam et accumsan.',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eu commodo quam, vitae vestibulum mauris. Nulla rutrum eu diam et accumsan.',
       ]),
     );
   }

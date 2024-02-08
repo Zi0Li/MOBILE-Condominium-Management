@@ -23,13 +23,13 @@ class _RulesPageState extends State<RulesPage> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [_buildPanel()],
+          children: [_rulesPanel()],
         ),
       ),
     );
   }
 
-  Widget _buildPanel() {
+  Widget _rulesPanel() {
     return ExpansionPanelList(
       expansionCallback: (int index, bool isExpanded) {
         setState(() {
@@ -57,31 +57,37 @@ class _RulesPageState extends State<RulesPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 for (int i = 0; i < rules.content.length; i++)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      RichText(
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: false,
-                        maxLines: 1,
-                        text: TextSpan(
-                          text: "${rules.id}.${i + 1} ",
-                          style: TextStyle(
-                            color: Config.grey_letter,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: rules.content[i],
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          child: RichText(
+                            overflow: TextOverflow.clip,
+                            softWrap: true,
+                            maxLines: null,
+                            textAlign: TextAlign.justify,
+                            text: TextSpan(
+                              text: "${rules.id}.${i + 1} ",
                               style: TextStyle(
-                                fontWeight: FontWeight.w400,
+                                color: Config.grey_letter,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
                               ),
-                            )
-                          ],
+                              children: [
+                                TextSpan(
+                                  text: rules.content[i],
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                      )
-                    ],
+                      ],
+                    ),
                   ),
               ],
             ),

@@ -47,24 +47,31 @@ class _CorrespondencePageState extends State<CorrespondencePage> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
                 'img/correios.jpg',
                 fit: BoxFit.fill,
                 height: 130,
                 width: 150,
-              ),
-              VerticalDivider(),
+              ), SizedBox(width: 5,),
               Container(
                 width: screenWidth * 0.5,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Config.text(
-                      'Remetente: ',
-                      'Mercado livre',
-                      16,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          child: Config.text(
+                            'Remetente: ',
+                            'Mercado livre',
+                            16,
+                          ),
+                        ),
+                      ],
                     ),
                     Config.text(
                       'Local: ',
