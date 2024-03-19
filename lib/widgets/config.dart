@@ -23,6 +23,13 @@ class Config {
   static Color green = Colors.green;
   static Color amber = Colors.amber;
 
+  static final List<String> typeVehicle = [
+    "Carro",
+    "Moto",
+    "Bicicleta",
+    "Transporte"
+  ];
+
   static final List<String> listCategory = [
     'Administração',
     'Funcionário',

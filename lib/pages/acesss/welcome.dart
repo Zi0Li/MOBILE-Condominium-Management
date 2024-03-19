@@ -135,8 +135,7 @@ class _WelcomePageState extends State<WelcomePage> {
           'Você é',
           style: TextStyle(color: Colors.black),
         ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
+        content: Column( 
           children: [
             Column(
               mainAxisSize: MainAxisSize.min,
@@ -185,7 +184,14 @@ class _WelcomePageState extends State<WelcomePage> {
                   height: 10,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage(),
+                      ),
+                    );
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
