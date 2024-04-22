@@ -135,97 +135,93 @@ class _WelcomePageState extends State<WelcomePage> {
           'Você é',
           style: TextStyle(color: Colors.black),
         ),
-        content: Column( 
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginPage(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        width: 1,
-                        color: Config.dark_purple,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.people_alt_outlined,
-                            color: Config.orange,
-                            size: 32,
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            'Morador',
-                            style: TextStyle(
-                                color: Config.dark_purple, fontSize: 18),
-                          ),
-                        ],
-                      ),
-                    ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage(),
+                  ),
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    width: 1,
+                    color: Config.dark_purple,
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginPage(),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.people_alt_outlined,
+                        color: Config.orange,
+                        size: 32,
                       ),
-                    );
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        width: 1,
-                        color: Config.dark_purple,
+                      SizedBox(
+                        width: 8,
                       ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.home_work_outlined,
-                            color: Config.orange,
-                            size: 32,
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Flexible(
-                            child: Text(
-                              'Síndico/Operário',
-                              style: TextStyle(
-                                  color: Config.dark_purple, fontSize: 18),
-                            ),
-                          ),
-                        ],
+                      Text(
+                        'Morador',
+                        style: TextStyle(
+                            color: Config.dark_purple, fontSize: 18),
                       ),
-                    ),
+                    ],
                   ),
                 ),
-              ],
-            )
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage(),
+                  ),
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    width: 1,
+                    color: Config.dark_purple,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.home_work_outlined,
+                        color: Config.orange,
+                        size: 32,
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Flexible(
+                        child: Text(
+                          'Síndico/Operário',
+                          style: TextStyle(
+                              color: Config.dark_purple, fontSize: 18),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
