@@ -3,7 +3,8 @@ class Resident {
   String? name;
   String? rg;
   String? cpf;
-  int? age;
+  String? block;
+  String? apt;
   String? phone;
   String? email;
 
@@ -12,7 +13,8 @@ class Resident {
     required this.name,
     required this.rg,
     required this.cpf,
-    required this.age,
+    required this.block,
+    required this.apt,
     required this.phone,
     required this.email,
   });
@@ -23,7 +25,8 @@ class Resident {
       name: map['name'],
       rg: map['rg'],
       cpf: map['cpf'],
-      age: map['age'],
+      block: map['block'],
+      apt: map['apt'],
       phone: map['phone'],
       email: map['email'],
     );
@@ -35,15 +38,16 @@ class Resident {
       'name': name,
       'rg': rg,
       'cpf': cpf,
-      'age': age,
+      'block': block,
+      'apt': apt,
       'phone': phone,
       'email': email,
     };
     return map;
   }
-  
+
   @override
   String toString() {
-    return "RESIDENT(id: $id | name: $name | rg: $rg | cpf: $cpf | age: $age | phone: $phone | email: $email)";
+    return "RESIDENT(id: $id | name: $name | rg: $rg | cpf: $cpf | block: $block | apt: $apt | phone: $phone | email: $email)";
   }
 }

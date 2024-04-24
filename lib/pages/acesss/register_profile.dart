@@ -1,12 +1,24 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tcc/data/models/Condominium.dart';
+import 'package:tcc/data/models/Resident.dart';
 import 'package:tcc/pages/acesss/register_details.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/input.dart';
 
 class RegisterProfilePage extends StatefulWidget {
-  const RegisterProfilePage({super.key});
+  Condominium? condominium;
+  String? block;
+  String? apt;
+  RegisterProfilePage({
+    required this.condominium,
+    required this.block,
+    required this.apt,
+    super.key,
+  });
 
   @override
   State<RegisterProfilePage> createState() => _RegisterProfilePageState();
@@ -203,10 +215,23 @@ class _RegisterProfilePageState extends State<RegisterProfilePage> {
                       Expanded(
                         child: TextButton(
                           onPressed: () {
+                            Resident resident = Resident(
+                                id: null,
+                                name: _nameController.text,
+                                rg: _rgController.text,
+                                cpf: _cpfController.text,
+                                block: widget.block,
+                                apt: widget.apt,
+                                phone: _phoneController.text,
+                                email: _emailController.text);
+                                
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => RegisterDetailsPage(),
+                                builder: (context) => RegisterDetailsPage(
+                                  condominium: widget.condominium,
+                                  resident: resident,
+                                ),
                               ),
                             );
                           },

@@ -7,19 +7,25 @@ abstract class IHttpClient {
   Future post({required String address, required Object object});
 }
 
-const String url = "http://192.168.0.211:8080";
+const String url = "http://192.168.0.234:8080";
 String token = "";
 
 class HttpClient implements IHttpClient {
   final client = http.Client();
   Map<String, String> requestHeaders = {
     'Content-Type': 'application/json',
+    'Authorization': 'Bearer $token',
   };
 
   @override
-  Future get({required String address}) async {
+  Future get({required String address, bool withToken = false}) async {
     print("$url$address");
-    return await client.get(Uri.parse("$url$address"), headers: requestHeaders);
+    if (withToken) {
+      return await client.get(Uri.parse("$url$address"),
+          headers: requestHeaders);
+    } else {
+      return await client.get(Uri.parse("$url$address"));
+    }
   }
 
   @override

@@ -1,25 +1,48 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tcc/data/models/Condominium.dart';
+import 'package:tcc/data/models/Resident.dart';
 import 'package:tcc/pages/home.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/input.dart';
 
 class RegisterDetailsPage extends StatefulWidget {
-  const RegisterDetailsPage({super.key});
+  Condominium? condominium;
+  Resident? resident;
+  RegisterDetailsPage({
+    required this.condominium,
+    required this.resident,
+    super.key,
+  });
 
   @override
   State<RegisterDetailsPage> createState() => _RegisterDetailsPageState();
 }
 
 class _RegisterDetailsPageState extends State<RegisterDetailsPage> {
-  String selectedBlockValue = 'A';
-  String selectedApartamentValue = '101';
+  String selectedBlockValue = '';
+  String selectedApartamentValue = '';
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _cpfController = TextEditingController();
   final TextEditingController _rgController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _emailController.text = widget.resident!.email!;
+    _nameController.text = widget.resident!.name!;
+    _phoneController.text = widget.resident!.phone!;
+    _cpfController.text = widget.resident!.cpf!;
+    _rgController.text = widget.resident!.rg!;
+    selectedApartamentValue = widget.resident!.apt!;
+    selectedBlockValue = widget.resident!.block!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -171,20 +194,21 @@ class _RegisterDetailsPageState extends State<RegisterDetailsPage> {
                   SizedBox(
                     height: 10,
                   ),
-                  Config.text('Nome: ', 'Condomínio Terra de Santa Cruz', 18),
+                  Config.text('Nome: ', widget.condominium!.name!, 18),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Config.text('Rua: ', 'Rio Claro', 18),
-                      Config.text('N°: ', '10', 18),
+                      Config.text('Rua: ', widget.condominium!.street!, 18),
+                      Config.text('N°: ',
+                          widget.condominium!.number_address!.toString(), 18),
                     ],
                   ),
-                  Config.text('Bairro: ', 'Vila Progresso', 18),
+                  Config.text('Bairro: ', widget.condominium!.district!, 18),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Config.text('Estado: ', 'SP', 18),
-                      Config.text('Cidade: ', 'Assis', 18),
+                      Config.text('Estado: ', widget.condominium!.uf!, 18),
+                      Config.text('Cidade: ', widget.condominium!.city!, 18),
                     ],
                   ),
                   Row(
@@ -217,11 +241,11 @@ class _RegisterDetailsPageState extends State<RegisterDetailsPage> {
                   SizedBox(
                     height: 10,
                   ),
-                  Config.text('Nome: ', 'Marcelo A. Erreiro Zioli', 18),
-                  Config.text('Rg: ', '22.505.068-X', 18),
-                  Config.text('Cpf: ', '114.441.615-19', 18),
-                  Config.text('E-mail: ', 'marceloaezioli@hotmail.com', 18),
-                  Config.text('Phone: ', '(18) 9 9745-0597', 18),
+                  Config.text('Nome: ', _nameController.text, 18),
+                  Config.text('Rg: ', _rgController.text, 18),
+                  Config.text('Cpf: ', _cpfController.text, 18),
+                  Config.text('E-mail: ', _emailController.text, 18),
+                  Config.text('Phone: ', _phoneController.text, 18),
                   Divider(),
                   Row(
                     children: [
@@ -355,26 +379,6 @@ class _RegisterDetailsPageState extends State<RegisterDetailsPage> {
             TextButton(
               style: TextButton.styleFrom(
                 fixedSize: Size.fromHeight(10),
-                backgroundColor: Config.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: BorderSide(color: Config.grey400)),
-                side: BorderSide(
-                  width: 1,
-                  color: Config.grey600,
-                ),
-              ),
-              child: Text(
-                'Cancelar',
-                style: TextStyle(color: Config.grey800),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                fixedSize: Size.fromHeight(10),
                 backgroundColor: Config.orange,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -385,10 +389,11 @@ class _RegisterDetailsPageState extends State<RegisterDetailsPage> {
                 ),
               ),
               child: Text(
-                'Salvar',
+                'Voltar',
                 style: TextStyle(color: Config.white),
               ),
               onPressed: () {
+                setState(() {});
                 Navigator.of(context).pop();
               },
             ),
@@ -445,26 +450,6 @@ class _RegisterDetailsPageState extends State<RegisterDetailsPage> {
             TextButton(
               style: TextButton.styleFrom(
                 fixedSize: Size.fromHeight(10),
-                backgroundColor: Config.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: BorderSide(color: Config.grey400)),
-                side: BorderSide(
-                  width: 1,
-                  color: Config.grey600,
-                ),
-              ),
-              child: Text(
-                'Cancelar',
-                style: TextStyle(color: Config.grey800),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                fixedSize: Size.fromHeight(10),
                 backgroundColor: Config.orange,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -475,10 +460,11 @@ class _RegisterDetailsPageState extends State<RegisterDetailsPage> {
                 ),
               ),
               child: Text(
-                'Salvar',
+                'Voltar',
                 style: TextStyle(color: Config.white),
               ),
               onPressed: () {
+                setState(() {});
                 Navigator.of(context).pop();
               },
             ),
