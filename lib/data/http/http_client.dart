@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 abstract class IHttpClient {
-  Future get({required String address});
+  Future get({required String address, bool withToken = false});
   Future post({required String address, required Object object});
 }
 

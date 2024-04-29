@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -132,5 +133,9 @@ class Config {
     }
 
     return random;
+  }
+
+  static String textToUtf8(String text){
+    return utf8.decode(text.codeUnits);
   }
 }

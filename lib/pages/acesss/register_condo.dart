@@ -6,7 +6,9 @@ import 'package:tcc/data/stores/Condominium_Store.dart';
 import 'package:tcc/pages/acesss/register_profile.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
+import 'package:tcc/widgets/error_message.dart';
 import 'package:tcc/widgets/loading.dart';
+
 
 class RegisterCondoPage extends StatefulWidget {
   const RegisterCondoPage({super.key});
@@ -157,6 +159,12 @@ class _RegisterCondoPageState extends State<RegisterCondoPage> {
               builder: (context, child) {
                 if (store.isLoading.value) {
                   return WidgetLoading.containerLoading();
+                } else if (store.erro.value.isNotEmpty) {
+                  return ErrorMessage.containerError(store.erro.value, (){
+                    setState(() {
+                      store.erro.value = '';
+                    });
+                  });
                 } else {
                   if (store.state.value.isEmpty) {
                     return _insertCodingToCondominium();

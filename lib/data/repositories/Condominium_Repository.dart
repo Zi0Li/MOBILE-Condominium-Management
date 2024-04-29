@@ -28,8 +28,9 @@ class CondominiumRepository implements ICondominiumRepository {
       return Condominium.fromMap(body);
 
     } else if (response.statusCode == 404) {
-      throw NotFoundException("A url informada não e valida!");
+      throw NotFoundException("Código do condomínio inválido!");
     } else if (response.statusCode == 405) {
+
       throw NotFoundException("Sem autorização");
     } else {
       throw Exception("não foi possivel carregar os Funcionarios");

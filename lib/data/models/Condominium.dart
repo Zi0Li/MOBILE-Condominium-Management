@@ -1,3 +1,5 @@
+import 'package:tcc/widgets/config.dart';
+
 class Condominium {
   int? id;
   int? code;
@@ -48,16 +50,16 @@ class Condominium {
       id: map['id'],
       code: map['code'],
       cnpj: map['cnpj'],
-      name: map['name'],
+      name: Config.textToUtf8(map['name']),
       cep: map['cep'],
-      street: map['street'],
-      district: map['district'],
+      street: Config.textToUtf8(map['street']),
+      district: Config.textToUtf8(map['district']),
       number_address: map['number_address'],
       uf: map['uf'],
       block: map['block'],
       number_apt: map['number_apt'],
-      city: map['city'],
-      reference: map['reference'],
+      city: Config.textToUtf8(map['city']),
+      reference: Config.textToUtf8(map['reference']),
     );
   }
 

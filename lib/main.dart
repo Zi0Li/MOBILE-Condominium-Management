@@ -19,6 +19,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: RegisterCondoPage());
+    return Scaffold(body: WelcomePage());
   }
 }

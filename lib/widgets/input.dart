@@ -11,9 +11,10 @@ class InputWidget extends StatelessWidget {
   double? height;
   double? width;
   int? maxLine;
+  bool obscureText;
 
   InputWidget(this.label, this.controller, this.keyboardType, this.icon,
-      {super.key, this.height, this.width, this.maxLine = 1});
+      {super.key, this.height, this.width, this.maxLine = 1, this.obscureText = false});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,7 @@ class InputWidget extends StatelessWidget {
           controller: controller,
           keyboardType: keyboardType,
           maxLines: maxLine,
+          obscureText: obscureText,
           decoration: InputDecoration(
             prefixIcon: Icon(
               icon,

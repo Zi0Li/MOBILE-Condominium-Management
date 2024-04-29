@@ -30,6 +30,7 @@ class _RegisterProfilePageState extends State<RegisterProfilePage> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _cpfController = TextEditingController();
   final TextEditingController _rgController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -174,12 +175,6 @@ class _RegisterProfilePageState extends State<RegisterProfilePage> {
                     Icons.person_outline_rounded,
                   ),
                   InputWidget(
-                    'E-mail',
-                    _emailController,
-                    TextInputType.emailAddress,
-                    Icons.email_outlined,
-                  ),
-                  InputWidget(
                     'Telefone',
                     _phoneController,
                     TextInputType.phone,
@@ -209,6 +204,27 @@ class _RegisterProfilePageState extends State<RegisterProfilePage> {
                         ),
                       ),
                     ],
+                  ),
+                  Text(
+                    'Login',
+                    style: TextStyle(
+                      fontSize: 22,
+                      color: Config.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  InputWidget(
+                    'E-mail',
+                    _emailController,
+                    TextInputType.emailAddress,
+                    Icons.email_outlined,
+                  ),
+                  InputWidget(
+                    'Senha',
+                    _passwordController,
+                    TextInputType.text,
+                    Icons.lock_outline,
+                    obscureText: true,
                   ),
                   Row(
                     children: [

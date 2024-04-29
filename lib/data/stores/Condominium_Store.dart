@@ -19,6 +19,7 @@ class CondominiumStore {
       print("RESULT: $result");
       state.value.add(result);
     } on NotFoundException catch (e) {
+      print("Error: ${erro.value}");
       erro.value = e.message;
     } catch (e) {
       erro.value = e.toString();
