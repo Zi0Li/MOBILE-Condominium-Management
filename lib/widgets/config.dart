@@ -12,7 +12,7 @@ class Config {
   static Color backgroundColor = Colors.white;
   static Color orange = Color.fromRGBO(255, 96, 0, 1);
   static Color dark_purple = Color.fromRGBO(54, 48, 98, 1);
-  static Color light_purple = Color.fromRGBO(77, 76, 125, 1);
+  static Color light_purple = Color.fromRGBO(104, 116, 232, 1);
   static Color white = Colors.white;
   static Color white_background = Color.fromRGBO(248, 247, 243, 1);
   static Color black = Colors.black;

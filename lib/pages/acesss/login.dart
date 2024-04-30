@@ -212,7 +212,7 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => HomePage(entity: store.state.value[0].entity),
+          builder: (context) => HomePage(),
         ),
       );
     } else if (store.state.value[0].role == Config.sindico) {
@@ -221,7 +221,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _saveLogin() {
-    if (_checkBox && login == null) {
+    LoginController.internal().deletaAll();
+    if (_checkBox) {
       LoginController.internal().saveLogin(
         Login(
           id: store.state.value[0].entity.id,
@@ -230,15 +231,21 @@ class _LoginPageState extends State<LoginPage> {
           remember: (_checkBox) ? 1 : 0,
         ),
       );
-    } else if (_checkBox == false) {
-      LoginController.internal().deletaAll();
+    } else {
+      LoginController.internal().saveLogin(
+        Login(
+          id: store.state.value[0].entity.id,
+          email: "",
+          password: "",
+          remember: 0,
+        ),
+      );
     }
   }
 
   void _getLogin() {
     store.isLoading.value = true;
     LoginController.internal().getAllLogins().then((value) {
-      print(value.runtimeType);
       if (value.isNotEmpty) {
         login = value[0];
         _emailController.text = login!.email!;

@@ -22,9 +22,9 @@ class AuthenticationRepository implements IAuthenticationRepository {
     Map<String, dynamic> object = {"login": login, "password": password};
 
     final response = await client.post(address: "/auth/login", object: object);
-    print('Depois da requisição');
-    print('STATUS CODE: ${response.statusCode}');
-    print('BODY: ${response.body}');
+    // print('Depois da requisição');
+    // print('STATUS CODE: ${response.statusCode}');
+    // print('BODY: ${response.body}');
     final body = jsonDecode(response.body);
     if (response.statusCode == 200) {
       token = body['token'];

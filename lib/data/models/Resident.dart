@@ -1,3 +1,6 @@
+import 'package:tcc/data/models/AuthorizedPersons.dart';
+import 'package:tcc/widgets/config.dart';
+
 class Resident {
   int? id;
   String? name;
@@ -7,6 +10,7 @@ class Resident {
   String? apt;
   String? phone;
   String? email;
+  List<AuthorizedPersons>? authorizedPersons;
 
   Resident({
     required this.id,
@@ -17,18 +21,25 @@ class Resident {
     required this.apt,
     required this.phone,
     required this.email,
+    required this.authorizedPersons,
   });
 
   factory Resident.fromMap(Map map) {
+    final List<AuthorizedPersons> authorizedPersonsList = [];
+    map['authorizedPersons'].map((item) {
+      final AuthorizedPersons condominium = AuthorizedPersons.fromMap(item);
+      authorizedPersonsList.add(condominium);
+    }).toList();
     return Resident(
       id: map['id'],
-      name: map['name'],
+      name: Config.textToUtf8(map['name']),
       rg: map['rg'],
       cpf: map['cpf'],
       block: map['block'],
       apt: map['apt'],
       phone: map['phone'],
       email: map['email'],
+      authorizedPersons: authorizedPersonsList,
     );
   }
 
@@ -48,6 +59,6 @@ class Resident {
 
   @override
   String toString() {
-    return "RESIDENT(id: $id | name: $name | rg: $rg | cpf: $cpf | block: $block | apt: $apt | phone: $phone | email: $email)";
+    return "RESIDENT(id: $id | name: $name | rg: $rg | cpf: $cpf | block: $block | apt: $apt | phone: $phone | email: $email | authorizedPersons: $authorizedPersons)";
   }
 }

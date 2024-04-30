@@ -232,15 +232,17 @@ class _RegisterProfilePageState extends State<RegisterProfilePage> {
                         child: TextButton(
                           onPressed: () {
                             Resident resident = Resident(
-                                id: null,
-                                name: _nameController.text,
-                                rg: _rgController.text,
-                                cpf: _cpfController.text,
-                                block: widget.block,
-                                apt: widget.apt,
-                                phone: _phoneController.text,
-                                email: _emailController.text);
-                                
+                              id: null,
+                              name: _nameController.text,
+                              rg: _rgController.text,
+                              cpf: _cpfController.text,
+                              block: widget.block,
+                              apt: widget.apt,
+                              phone: _phoneController.text,
+                              email: _emailController.text,
+                              authorizedPersons: null,
+                            );
+
                             Navigator.push(
                               context,
                               MaterialPageRoute(

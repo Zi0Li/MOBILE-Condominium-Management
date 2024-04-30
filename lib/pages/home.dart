@@ -1,27 +1,34 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
-import 'package:tcc/data/models/Resident.dart';
+import 'package:tcc/data/controllers/Login_Controller.dart';
+import 'package:tcc/data/http/http_client.dart';
+import 'package:tcc/data/models/AuthorizedPersons.dart';
+import 'package:tcc/data/repositories/Resident_Repository.dart';
+import 'package:tcc/data/stores/Resident_Store.dart';
+import 'package:tcc/pages/acesss/welcome.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawer.dart';
+import 'package:tcc/widgets/loading.dart';
 
 class HomePage extends StatefulWidget {
-  final dynamic entity;
-  HomePage({this.entity, super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  double contPessoas = 4;
+  final ResidentStore store = ResidentStore(
+    repository: ResidentRepository(
+      client: HttpClient(),
+    ),
+  );
+
+  int? contAuthorizedPersons;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    print(widget.entity);
-    print(widget.entity.name);
+    _getResident();
   }
 
   @override
@@ -40,11 +47,28 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10),
+      body: Center(
+        child: AnimatedBuilder(
+          animation: Listenable.merge([store.erro, store.isLoading, store.state]),
+          builder: (context, child) {
+            if (store.isLoading.value) {
+              return WidgetLoading.containerLoading();
+            } else {
+              return _body();
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _body() {
+    return Column(
+      children: [
+        SingleChildScrollView(
+          padding: EdgeInsets.all(10),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _cardNotification(
@@ -71,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   children: [
                     TextSpan(
-                      text: '${contPessoas.toInt()}/4',
+                      text: '${contAuthorizedPersons}/4',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w300,
@@ -88,9 +112,9 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(8.0),
                 child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: contPessoas.toInt(),
+                  itemCount: contAuthorizedPersons,
                   itemBuilder: (context, index) {
-                    return _cardAutorizadas(widget.entity.name, index);
+                    return _cardAutorizadas(store.state.value[0].authorizedPersons![index]);
                   },
                 ),
               ),
@@ -104,66 +128,19 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-      ),
+      ],
     );
   }
 
-  Widget _button(IconData icon, String label, Widget page) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(10),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => page),
-        );
-      },
-      child: Container(
-        width: 150,
-        height: 80,
-        decoration: BoxDecoration(
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            width: 1,
-            color: Config.dark_purple,
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Icon(
-                icon,
-                color: Config.orange,
-              ),
-              SizedBox(height: 5),
-              Text(
-                label,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: Config.dark_purple,
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _cardAutorizadas(String name, int index) {
-    List<String> aux = name.split(' ');
+  Widget _cardAutorizadas(AuthorizedPersons authorizedPerson) {
+    List<String> aux = authorizedPerson.name!.split(' ');
     String logoName = aux[0][0];
     logoName += aux[aux.length - 1][0];
 
     return ListTile(
-      onLongPress: () {
-        print('Clicou: $index');
-      },
+      onLongPress: () {},
       title: Text(
-        name,
+        authorizedPerson.name!,
         style: TextStyle(fontSize: 18, overflow: TextOverflow.ellipsis),
       ),
       leading: Container(
@@ -182,7 +159,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      subtitle: Text('Parentesco'),
+      subtitle: Text(authorizedPerson.kinship!),
     );
   }
 
@@ -270,5 +247,25 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void _getResident() {
+    store.isLoading.value = true;
+    LoginController.internal().getAllLogins().then((value) {
+      if (value.isNotEmpty) {
+        store.getResident(value[0].id).then((residents) {
+          print(residents);
+          contAuthorizedPersons = store.state.value[0].authorizedPersons!.length;
+          store.isLoading.value = false;
+        });
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => WelcomePage(),
+          ),
+        );
+      }
+    });
   }
 }
