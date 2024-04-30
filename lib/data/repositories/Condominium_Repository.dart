@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:tcc/data/http/exceptions.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/Condominium.dart';
+import 'package:tcc/widgets/config.dart';
 
 abstract class ICondominiumRepository {
   Future<dynamic> getCondominiumByCode(int code);
@@ -20,20 +21,17 @@ class CondominiumRepository implements ICondominiumRepository {
     print('Depois da requisição');
     print('STATUS CODE: ${response.statusCode}');
     print('BODY: ${response.body}');
-    if (response.statusCode == 200) {
-      
-      final body = jsonDecode(response.body);
-      Condominium condo = Condominium.fromMap(body);
-      print("Condo: $condo");
+    final body = jsonDecode(response.body);
+    if (response.statusCode == 200) {    
       return Condominium.fromMap(body);
-
     } else if (response.statusCode == 404) {
       throw NotFoundException("Código do condomínio inválido!");
     } else if (response.statusCode == 405) {
-
       throw NotFoundException("Sem autorização");
+    } else if (response.statusCode == 500) {
+      throw NotFoundException(Config.textToUtf8(body['message']));
     } else {
-      throw Exception("não foi possivel carregar os Funcionarios");
+      throw NotFoundException(Config.textToUtf8(body['message']));
     }
   }
 }

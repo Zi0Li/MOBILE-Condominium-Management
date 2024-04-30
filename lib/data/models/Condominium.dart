@@ -45,7 +45,7 @@ class Condominium {
     // print("${map['number_apt']} | ${map['number_apt'].runtimeType}");
     // print("${map['city']} | ${map['city'].runtimeType}");
     // print("${map['reference']} | ${map['reference'].runtimeType}");
-
+    // print('-------------------------------------------');
     return Condominium(
       id: map['id'],
       code: map['code'],
@@ -80,5 +80,10 @@ class Condominium {
       'reference': reference,
     };
     return map;
+  }
+
+  @override
+  String toString() {
+    return "CONDOMINIUM(id: $id | code: $code  | cnpj: $cnpj | name: $name | cep: $cep | street: $street | district: $district | number_address: $number_address | uf: $uf | block: $block | number_apt: $number_apt | city: $city | reference: $reference)";
   }
 }

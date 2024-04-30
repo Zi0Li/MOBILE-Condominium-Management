@@ -1,9 +1,13 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
+import 'package:tcc/data/models/Resident.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawer.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final dynamic entity;
+  HomePage({this.entity, super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -11,6 +15,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   double contPessoas = 4;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(widget.entity);
+    print(widget.entity.name);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                   shrinkWrap: true,
                   itemCount: contPessoas.toInt(),
                   itemBuilder: (context, index) {
-                    return _cardAutorizadas('Marcelo Erreiro Zioli', index);
+                    return _cardAutorizadas(widget.entity.name, index);
                   },
                 ),
               ),

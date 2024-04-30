@@ -4,10 +4,13 @@ import 'package:http/http.dart' as http;
 
 abstract class IHttpClient {
   Future get({required String address, bool withToken = false});
-  Future post({required String address, required Object object});
+  Future post(
+      {required String address,
+      required Object object,
+      bool withToken = false});
 }
 
-const String url = "http://192.168.0.234:8080";
+const String url = "http://192.168.0.211:8080";
 String token = "";
 
 class HttpClient implements IHttpClient {
@@ -30,13 +33,24 @@ class HttpClient implements IHttpClient {
 
   @override
   Future<dynamic> post(
-      {required String address, required Object object}) async {
-    print("TOKEN post: $token");
-    print('ADDRESS: $url$address | OBJETO: ${object.toString()}');
-    return client.post(
-      Uri.parse("$url$address"),
-      headers: requestHeaders,
-      body: jsonEncode(object),
-    );
+      {required String address,
+      required Object object,
+      bool withToken = false}) async {
+    print('ADDRESS: $url$address | OBJETO: ${object.toString()} | "TOKEN post: $token"');
+    if (withToken) {
+      return client.post(
+        Uri.parse("$url$address"),
+        headers: requestHeaders,
+        body: jsonEncode(object),
+      );
+    } else {
+      return client.post(
+        Uri.parse("$url$address"),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(object),
+      );
+    }
   }
 }

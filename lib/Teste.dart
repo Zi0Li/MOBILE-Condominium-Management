@@ -31,10 +31,6 @@ class _TestePageState extends State<TestePage> {
         children: [
           TextButton(
             onPressed: () {
-              store.getSyndicate().then((value){
-                print(value);
-                print(token);
-              });
             },
             child: Text('TESTE'),
           ),

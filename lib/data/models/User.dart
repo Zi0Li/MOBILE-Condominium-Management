@@ -1,42 +1,26 @@
 class User {
-  int? id;
-  int? user_id;
-  String? login;
-  String? password;
   String? role;
+  Object? entity;
 
   User({
-    required this.id,
-    required this.user_id,
-    required this.login,
-    required this.password,
     required this.role,
+    required this.entity,
   });
 
   factory User.fromMap(Map map) {
-    return User(
-      id: map['id'],
-      user_id: map['user_id'],
-      login: map['login'],
-      password: map['password'],
-      role: map['role'],
-    );
+    return User(role: map['role'], entity: map['entity']);
   }
 
-   Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
-      'id': id,
-      'user_id': user_id,
-      'login': login,
-      'password': password,
       'role': role,
+      'entity': entity,
     };
     return map;
   }
 
-
   @override
   String toString() {
-    return "USER(id: $id | user_id: $user_id | login: $login | password: $password | role: $role)";
+    return "USER(role: $role | entity: $entity)";
   }
 }
