@@ -44,7 +44,7 @@ class AuthenticationRepository implements IAuthenticationRepository {
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
     } else if (response.statusCode == 500) {
-      throw NotFoundException(Config.textToUtf8(body['message']));
+      throw NotFoundException("Usuário ou senha inválido!");
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }

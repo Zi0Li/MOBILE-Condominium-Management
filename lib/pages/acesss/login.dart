@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tcc/data/controllers/Login_Controller.dart';
 import 'package:tcc/data/http/http_client.dart';
+import 'package:tcc/data/models/Login.dart';
 import 'package:tcc/data/repositories/Authentication_Repository.dart';
 import 'package:tcc/data/stores/Authentication_Store.dart';
 import 'package:tcc/pages/acesss/register_condo.dart';
@@ -24,15 +26,19 @@ class _LoginPageState extends State<LoginPage> {
     ),
   );
 
+  Login? login;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _checkBox = false;
 
   @override
-  Widget build(BuildContext context) {
-    _emailController.text = "morador1@gmail.com";
-    _passwordController.text = "123123";
+  void initState() {
+    super.initState();
+    _getLogin();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
         height: 0,
@@ -150,17 +156,10 @@ class _LoginPageState extends State<LoginPage> {
                   store
                       .getLogin(_emailController.text, _passwordController.text)
                       .then((value) {
-                    if (store.state.value[0].role == Config.morador) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomePage(entity: store.state.value[0].entity),
-                        ),
-                      );
-                    } else if (store.state.value[0].role == Config.sindico) {
-                    } else if (store.state.value[0].role ==
-                        Config.funcionario) {
-                    } else {}
+                    if (value.isNotEmpty) {
+                      _saveLogin();
+                      _navigatorPage();
+                    }
                   });
                 },
                 child: Text(
@@ -206,5 +205,47 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
+  }
+
+  void _navigatorPage() {
+    if (store.state.value[0].role == Config.morador) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(entity: store.state.value[0].entity),
+        ),
+      );
+    } else if (store.state.value[0].role == Config.sindico) {
+    } else if (store.state.value[0].role == Config.funcionario) {
+    } else {}
+  }
+
+  void _saveLogin() {
+    if (_checkBox && login == null) {
+      LoginController.internal().saveLogin(
+        Login(
+          id: store.state.value[0].entity.id,
+          email: _emailController.text,
+          password: _passwordController.text,
+          remember: (_checkBox) ? 1 : 0,
+        ),
+      );
+    } else if (_checkBox == false) {
+      LoginController.internal().deletaAll();
+    }
+  }
+
+  void _getLogin() {
+    store.isLoading.value = true;
+    LoginController.internal().getAllLogins().then((value) {
+      print(value.runtimeType);
+      if (value.isNotEmpty) {
+        login = value[0];
+        _emailController.text = login!.email!;
+        _passwordController.text = login!.password!;
+        _checkBox = (login!.remember == 1) ? true : false;
+      }
+      store.isLoading.value = false;
+    });
   }
 }

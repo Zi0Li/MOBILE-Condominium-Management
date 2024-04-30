@@ -1,6 +1,6 @@
 class User {
   String? role;
-  Object? entity;
+  dynamic entity;
 
   User({
     required this.role,
