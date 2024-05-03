@@ -2,8 +2,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tcc/pages/Profile/address.dart';
+import 'package:tcc/pages/Profile/vehicle_list.dart';
 import 'package:tcc/pages/home.dart';
-import 'package:tcc/pages/vehicle_form.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawer.dart';
@@ -17,15 +18,25 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _nameController.text = Config.resident.name;
+    _emailController.text = Config.resident.email;
+    _phoneController.text = Config.resident.phone;
+    _rgController.text = Config.resident.rg;
+    _cpfController.text = Config.resident.cpf;
+  }
+
   //Controller Profile
-  final TextEditingController _nicknameController = TextEditingController();
-  final TextEditingController _bithController = TextEditingController();
-  final TextEditingController _numberController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _rgController = TextEditingController();
   final TextEditingController _cpfController = TextEditingController();
 
-  String dropdownBlock = 'K';
-  String dropdownApartament = Config.Apartment[0];
   String? _img;
 
   List<IconData> iconListButton = [
@@ -109,7 +120,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Marcelo A. Erreiro Zioli',
+                        _nameController.text,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 18,
@@ -117,7 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       Text(
-                        "K - 303",
+                        "${Config.resident.block} - ${Config.resident.apt}",
                         style: TextStyle(
                           fontSize: 14,
                           color: Config.grey600,
@@ -162,107 +173,10 @@ class _ProfilePageState extends State<ProfilePage> {
     if (index == 0) {
       return _personBody();
     } else if (index == 1) {
-      return _vehicleBody();
+      return VehiclePage();
     } else {
-      return _addressBody();
+      return AddressPage();
     }
-  }
-
-  Widget _vehicleBody() {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: Config.typeVehicle.length,
-      itemBuilder: (context, index) => _vehicleCard(index),
-    );
-  }
-
-  Widget _vehicleCard(int index) {
-    IconData iconVehicle = Icons.drive_eta_outlined;
-    if (Config.typeVehicle[index] == Config.typeVehicle[1]) {
-      iconVehicle = Icons.motorcycle_outlined;
-    } else if (Config.typeVehicle[index] == Config.typeVehicle[2]) {
-      iconVehicle = Icons.pedal_bike_outlined;
-    } else if (Config.typeVehicle[index] == Config.typeVehicle[3]) {
-      iconVehicle = Icons.directions_bus_outlined;
-    }
-
-    return ListTile(
-      contentPadding: EdgeInsets.all(10),
-      title: Text("Veiculo Name $index"),
-      subtitle: Text(Config.typeVehicle[index]),
-      leading: Icon(
-        iconVehicle,
-        size: 30,
-      ),
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => VehicleForm(
-            typeVehicle: Config.typeVehicle[index],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _addressBody() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Config.text('Nome: ', 'Condomínio Terra de Santa Cruz', 18),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Config.text('Rua: ', 'Rio Claro', 18),
-            Config.text('N°: ', '10', 18),
-          ],
-        ),
-        Config.text('Bairro: ', 'Vila Progresso', 18),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Config.text('Estado: ', 'SP', 18),
-            Config.text('Cidade: ', 'Assis', 18),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Config.text('Bloco: ', dropdownBlock, 18),
-            Config.text('Apartamento: ', dropdownApartament, 18),
-          ],
-        ),
-        SizedBox(height: 30),
-        Row(
-          children: [
-            Expanded(
-              child: TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  fixedSize: Size.fromHeight(52),
-                  backgroundColor: Config.orange,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  side: BorderSide(
-                    width: 1,
-                    color: Config.grey400,
-                  ),
-                ),
-                child: Text(
-                  'Compartilhar localização',
-                  style: TextStyle(
-                    color: Config.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
   }
 
   Widget _personBody() {
@@ -270,13 +184,13 @@ class _ProfilePageState extends State<ProfilePage> {
       children: [
         InputWidget(
           'Nome',
-          _nicknameController,
+          _nameController,
           TextInputType.text,
           Icons.person_outline_rounded,
         ),
-        InputWidget("Telefone", _numberController, TextInputType.number,
+        InputWidget("Telefone", _phoneController, TextInputType.number,
             Icons.phone_android_outlined),
-        InputWidget('E-mail', _bithController, TextInputType.number,
+        InputWidget('E-mail', _emailController, TextInputType.number,
             Icons.email_outlined),
         InputWidget(
           'Rg',
