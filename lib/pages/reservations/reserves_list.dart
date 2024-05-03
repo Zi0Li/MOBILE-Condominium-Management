@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tcc/pages/reserves_form.dart';
+import 'package:tcc/pages/reservations/reserves_form.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawer.dart';

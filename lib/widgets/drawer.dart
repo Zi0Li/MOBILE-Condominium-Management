@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:tcc/data/http/http_client.dart';
+import 'package:tcc/data/repositories/Resident_Repository.dart';
+import 'package:tcc/data/stores/Resident_Store.dart';
+import 'package:tcc/pages/AuthorizedPersons.dart/authorizedPersons_list.dart';
 import 'package:tcc/pages/chat/menu.dart';
 import 'package:tcc/pages/report/report_menu.dart';
 import 'package:tcc/pages/acesss/welcome.dart';
-import 'package:tcc/pages/authorized_persons.dart';
 import 'package:tcc/pages/correspondence.dart';
 import 'package:tcc/pages/home.dart';
-import 'package:tcc/pages/profile.dart';
-import 'package:tcc/pages/reserves_list.dart';
+import 'package:tcc/pages/Profile/profile.dart';
+import 'package:tcc/pages/reservations/reserves_list.dart';
 import 'package:tcc/pages/rules.dart';
 import 'package:tcc/widgets/config.dart';
 
@@ -18,24 +21,33 @@ class DrawerApp extends StatefulWidget {
 }
 
 class _DrawerAppState extends State<DrawerApp> {
+  final ResidentStore store = ResidentStore(
+    repository: ResidentRepository(
+      client: HttpClient(),
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
+    List<String> aux = Config.resident.name.split(' ');
+    String logoName = aux[0][0];
+    logoName += aux[aux.length - 1][0];
     return Drawer(
       backgroundColor: Config.white_background,
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
             accountName: Text(
-              'Marcelo Zioli',
+              Config.resident.name,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
-            accountEmail: Text('marceloaezioli@hotmail.com'),
+            accountEmail: Text(Config.resident.email),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Config.white_background,
               child: Text(
-                "MZ",
+                logoName,
                 style: TextStyle(
                   color: Config.grey_letter,
                   fontWeight: FontWeight.w600,
@@ -96,7 +108,7 @@ class _DrawerAppState extends State<DrawerApp> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AuthorizedPersonsPage(),
+                  builder: (context) => AuthorizedPersonsListPage(),
                 ),
               );
             },

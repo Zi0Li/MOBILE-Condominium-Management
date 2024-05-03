@@ -24,6 +24,8 @@ class Config {
   static Color green = Colors.green;
   static Color amber = Colors.amber;
 
+  static dynamic resident;
+
   static String sindico = "SINDICO";
   static String morador = "MORADOR";
   static String funcionario = "FUNCIONARIO";
@@ -56,6 +58,7 @@ class Config {
     'J',
     'K',
   ];
+  
   static final Apartment = [
     '101',
     '102',

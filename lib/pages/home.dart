@@ -256,7 +256,7 @@ class _HomePageState extends State<HomePage> {
         store.getResident(value[0].id).then((residents) {
           print(residents);
           contAuthorizedPersons = store.state.value[0].authorizedPersons!.length;
-          store.isLoading.value = false;
+          Config.resident = store.state.value[0];
         });
       } else {
         Navigator.push(
