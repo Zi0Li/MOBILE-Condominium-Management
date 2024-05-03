@@ -1,0 +1,28 @@
+import 'package:flutter/material.dart';
+import 'package:tcc/data/http/exceptions.dart';
+import 'package:tcc/data/models/AuthorizedPersons.dart';
+import 'package:tcc/data/repositories/AuthorizedPersons_Repository.dart';
+
+class AuthorizedPersonsStore {
+  final IAuthorizedPersonsRepository repository;
+  final ValueNotifier<bool> isLoading = ValueNotifier<bool>(false);
+  final ValueNotifier<List<AuthorizedPersons>> state =
+      ValueNotifier<List<AuthorizedPersons>>([]);
+  final ValueNotifier<String> erro = ValueNotifier<String>("");
+
+  AuthorizedPersonsStore({required this.repository});
+
+  Future getAuthorizedPersonsByResident(int id) async {
+    isLoading.value = true;
+    try {
+      final result = await repository.getAuthorizedPersonsByResident(id);
+      state.value = result;
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+    return state.value;
+  }
+}

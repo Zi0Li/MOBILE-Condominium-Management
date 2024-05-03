@@ -1,19 +1,19 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
-import 'package:tcc/widgets/drawer.dart';
 import 'package:tcc/widgets/input.dart';
 
-class AuthorizedPersonsPage extends StatefulWidget {
-  const AuthorizedPersonsPage({super.key});
+class AuthorizedPersonsAddPage extends StatefulWidget {
+  const AuthorizedPersonsAddPage({super.key});
 
   @override
-  State<AuthorizedPersonsPage> createState() => _AuthorizedPersonsPageState();
+  State<AuthorizedPersonsAddPage> createState() => _AuthorizedPersonsAddPageState();
 }
 
-class _AuthorizedPersonsPageState extends State<AuthorizedPersonsPage> {
+class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _documentController = TextEditingController();
   final TextEditingController _kinshipController = TextEditingController();
@@ -24,7 +24,6 @@ class _AuthorizedPersonsPageState extends State<AuthorizedPersonsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Config.backgroundColor,
-      drawer: DrawerApp(),
       appBar: AppBarWidget(title: 'Pessoas autorizadas'),
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -33,9 +32,7 @@ class _AuthorizedPersonsPageState extends State<AuthorizedPersonsPage> {
             InkWell(
               borderRadius: BorderRadius.circular(100),
               onTap: () {
-                ImagePicker()
-                    .pickImage(source: ImageSource.camera)
-                    .then((file) {
+                ImagePicker().pickImage(source: ImageSource.camera).then((file) {
                   if (file == null) {
                     return;
                   } else {
@@ -47,8 +44,8 @@ class _AuthorizedPersonsPageState extends State<AuthorizedPersonsPage> {
                 });
               },
               child: Container(
-                width: 60,
-                height: 60,
+                width: 100,
+                height: 100,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Config.backgroundColor,
@@ -61,12 +58,12 @@ class _AuthorizedPersonsPageState extends State<AuthorizedPersonsPage> {
                   child: _img == null
                       ? Icon(
                           Icons.person,
-                          size: 40,
+                          size: 60,
                           color: Config.dark_purple,
                         )
                       : Container(
-                          width: 60,
-                          height: 60,
+                          width: 100,
+                          height: 100,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
