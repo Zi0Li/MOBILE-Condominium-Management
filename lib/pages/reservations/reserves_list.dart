@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:tcc/data/http/http_client.dart';
+import 'package:tcc/data/repositories/Reservation_Repository.dart';
+import 'package:tcc/data/stores/Reservation_Store.dart';
 import 'package:tcc/pages/reservations/reserves_form.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawer.dart';
+import 'package:tcc/widgets/error_message.dart';
+import 'package:tcc/widgets/loading.dart';
+import 'package:tcc/widgets/reservation_card.dart';
 
 class ReservesList extends StatefulWidget {
   const ReservesList({super.key});
@@ -12,6 +18,18 @@ class ReservesList extends StatefulWidget {
 }
 
 class _ReservesListState extends State<ReservesList> {
+  @override
+  void initState() {
+    super.initState();
+    _getReservation();
+  }
+
+  final ReservationStore store = ReservationStore(
+    repository: ReservationRepository(
+      client: HttpClient(),
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,11 +54,42 @@ class _ReservesListState extends State<ReservesList> {
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Text('Nenhuma reserva realizada'),
-        ),
+      body: AnimatedBuilder(
+        animation: Listenable.merge([store.erro, store.isLoading, store.state]),
+        builder: (context, child) {
+          if (store.isLoading.value) {
+            return Center(child: WidgetLoading.containerLoading(),);
+          } else if (store.erro.value.isNotEmpty) {
+            return ErrorMessage.containerError(
+                store.erro.value, () => store.erro.value = '');
+          } else {
+            if (store.state.value.isNotEmpty) {
+              return _body();
+            } else {
+              return Center(
+                child: Text('Nenhuma reserva encontrada!', style: TextStyle(fontSize: 18),),
+              );
+            }
+          }
+        },
       ),
     );
+  }
+
+  Widget _body() {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: store.state.value.length,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+          child: ReservationCard(reservation: store.state.value[index]),
+        );
+      },
+    );
+  }
+
+  void _getReservation() {
+    store.getReservationByResident(Config.resident.id);
   }
 }
