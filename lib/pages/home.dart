@@ -8,6 +8,7 @@ import 'package:tcc/pages/acesss/welcome.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawer.dart';
 import 'package:tcc/widgets/loading.dart';
+import 'package:tcc/widgets/reservation_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -49,7 +50,8 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Center(
         child: AnimatedBuilder(
-          animation: Listenable.merge([store.erro, store.isLoading, store.state]),
+          animation:
+              Listenable.merge([store.erro, store.isLoading, store.state]),
           builder: (context, child) {
             if (store.isLoading.value) {
               return WidgetLoading.containerLoading();
@@ -114,7 +116,8 @@ class _HomePageState extends State<HomePage> {
                   shrinkWrap: true,
                   itemCount: contAuthorizedPersons,
                   itemBuilder: (context, index) {
-                    return _cardAutorizadas(store.state.value[0].authorizedPersons![index]);
+                    return _cardAutorizadas(
+                        store.state.value[0].authorizedPersons![index]);
                   },
                 ),
               ),
@@ -124,7 +127,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 10,
               ),
-              _cardReserva(),
+              //ReservationCard(),
             ],
           ),
         ),
@@ -160,54 +163,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       subtitle: Text(authorizedPerson.kinship!),
-    );
-  }
-
-  Widget _cardReserva() {
-    return InkWell(
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            width: 1,
-            color: Config.grey600,
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Próxima reserva',
-                style: TextStyle(
-                  color: Config.orange,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 22,
-                ),
-              ),
-              Divider(
-                color: Config.grey400,
-              ),
-              Row(
-                children: [
-                  Config.text('Local: ', 'Currasqueira', 16),
-                  Spacer(),
-                  Config.text('Bloco: ', 'B', 16),
-                ],
-              ),
-              Row(
-                children: [
-                  Config.text('Início: ', '12/04/2024', 16),
-                  Spacer(),
-                  Config.text('Término: ', '12/04/2024', 16),
-                ],
-              ),
-              Config.text('Convidados: ', '25', 16),
-            ],
-          ),
-        ),
-      ),
     );
   }
 
@@ -255,7 +210,8 @@ class _HomePageState extends State<HomePage> {
       if (value.isNotEmpty) {
         store.getResident(value[0].id).then((residents) {
           print(residents);
-          contAuthorizedPersons = store.state.value[0].authorizedPersons!.length;
+          contAuthorizedPersons =
+              store.state.value[0].authorizedPersons!.length;
           Config.resident = store.state.value[0];
         });
       } else {

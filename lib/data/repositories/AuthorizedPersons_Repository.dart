@@ -25,8 +25,8 @@ class AuthorizedPersonsRepository implements IAuthorizedPersonsRepository {
     if (response.statusCode == 200) {
     final List<AuthorizedPersons> authorizedPersonsList = [];
       body.map((item) {
-        final AuthorizedPersons condominium = AuthorizedPersons.fromMap(item);
-        authorizedPersonsList.add(condominium);
+        final AuthorizedPersons authorizedPerson = AuthorizedPersons.fromMap(item);
+        authorizedPersonsList.add(authorizedPerson);
       }).toList();
       return authorizedPersonsList;
     } else if (response.statusCode == 404) {
