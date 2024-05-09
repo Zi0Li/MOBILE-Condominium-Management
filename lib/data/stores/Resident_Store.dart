@@ -25,4 +25,18 @@ class ResidentStore {
     isLoading.value = false;
     return state.value;
   }
+
+  Future postResident(dynamic resident,dynamic register) async {
+    isLoading.value = true;
+    try {
+      final result = await repository.postResident(resident, register);
+      state.value.add(result);
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+    return state.value;
+  }
 }

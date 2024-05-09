@@ -249,6 +249,7 @@ class _RegisterProfilePageState extends State<RegisterProfilePage> {
                                 builder: (context) => RegisterDetailsPage(
                                   condominium: widget.condominium,
                                   resident: resident,
+                                  password: _passwordController.text,
                                 ),
                               ),
                             );

@@ -10,6 +10,7 @@ import 'package:tcc/widgets/config.dart';
 
 abstract class IAuthenticationRepository {
   Future<User> getLogin(String login, String password);
+  Future<void> postRegister(dynamic register);
 }
 
 class AuthenticationRepository implements IAuthenticationRepository {
@@ -22,9 +23,6 @@ class AuthenticationRepository implements IAuthenticationRepository {
     Map<String, dynamic> object = {"login": login, "password": password};
 
     final response = await client.post(address: "/auth/login", object: object);
-    // print('Depois da requisição');
-    // print('STATUS CODE: ${response.statusCode}');
-    // print('BODY: ${response.body}');
     final body = jsonDecode(response.body);
     if (response.statusCode == 200) {
       token = body['token'];
@@ -38,7 +36,6 @@ class AuthenticationRepository implements IAuthenticationRepository {
       }
 
       return User(role: body['role'], entity: entity);
-
     } else if (response.statusCode == 404) {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {
@@ -47,6 +44,22 @@ class AuthenticationRepository implements IAuthenticationRepository {
       throw NotFoundException("Usuário ou senha inválido!");
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
+    }
+  }
+
+  @override
+  Future<void> postRegister(dynamic register) async {
+    final response =
+        await client.post(address: "/auth/register", object: register);
+    if (response.statusCode == 200) {
+    } else if (response.statusCode == 404) {
+      throw NotFoundException("A url informada não e valida!");
+    } else if (response.statusCode == 405) {
+      throw NotFoundException("Sem autorização");
+    } else if (response.statusCode == 500) {
+      throw NotFoundException("Usuário ou senha inválido!");
+    } else {
+      throw NotFoundException("Error");
     }
   }
 }

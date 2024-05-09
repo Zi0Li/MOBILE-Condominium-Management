@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/repositories/AuthorizedPersons_Repository.dart';
 import 'package:tcc/data/stores/AuthorizedPersons_Store.dart';
-import 'package:tcc/pages/AuthorizedPersons.dart/authorizedPersons_add.dart';
+import 'package:tcc/pages/authorizedPersons.dart/authorizedPersons_add.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawer.dart';

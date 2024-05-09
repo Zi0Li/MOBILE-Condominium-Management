@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/repositories/Resident_Repository.dart';
 import 'package:tcc/data/stores/Resident_Store.dart';
-import 'package:tcc/pages/AuthorizedPersons.dart/authorizedPersons_list.dart';
+import 'package:tcc/pages/authorizedPersons.dart/authorizedPersons_list.dart';
 import 'package:tcc/pages/chat/menu.dart';
 import 'package:tcc/pages/report/report_menu.dart';
 import 'package:tcc/pages/acesss/welcome.dart';

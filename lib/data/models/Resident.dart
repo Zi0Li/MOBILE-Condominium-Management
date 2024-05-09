@@ -25,11 +25,13 @@ class Resident {
   });
 
   factory Resident.fromMap(Map map) {
-    final List<AuthorizedPersons> authorizedPersonsList = [];
-    map['authorizedPersons'].map((item) {
-      final AuthorizedPersons condominium = AuthorizedPersons.fromMap(item);
-      authorizedPersonsList.add(condominium);
-    }).toList();
+    List<AuthorizedPersons>? authorizedPersonsList = [];
+    if (map['authorizedPersons'] != null) {
+      map['authorizedPersons'].map((item) {
+        final AuthorizedPersons condominium = AuthorizedPersons.fromMap(item);
+        authorizedPersonsList.add(condominium);
+      }).toList();
+    }
     return Resident(
       id: map['id'],
       name: Config.textToUtf8(map['name']),

@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: AnimatedBuilder(
           animation:
-              Listenable.merge([store.erro, store.isLoading, store.state]),
+              Listenable.merge([store.erro, store.isLoading, store.state,]),
           builder: (context, child) {
             if (store.isLoading.value) {
               return WidgetLoading.containerLoading();
@@ -209,7 +209,6 @@ class _HomePageState extends State<HomePage> {
     LoginController.internal().getAllLogins().then((value) {
       if (value.isNotEmpty) {
         store.getResident(value[0].id).then((residents) {
-          print(residents);
           contAuthorizedPersons =
               store.state.value[0].authorizedPersons!.length;
           Config.resident = store.state.value[0];
