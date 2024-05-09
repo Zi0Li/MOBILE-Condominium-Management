@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 
 abstract class IHttpClient {
   Future get({required String address, bool withToken = false});
+  Future put({required String address, required Object object});
   Future post(
       {required String address,
       required Object object,
@@ -22,7 +23,7 @@ class HttpClient implements IHttpClient {
 
   @override
   Future get({required String address, bool withToken = false}) async {
-    print("$url$address");
+    print('GET(ADDRESS: $url$address |  TOKEN post: $token)');
     if (withToken) {
       return await client.get(Uri.parse("$url$address"),
           headers: requestHeaders);
@@ -36,7 +37,8 @@ class HttpClient implements IHttpClient {
       {required String address,
       required Object object,
       bool withToken = false}) async {
-    print('ADDRESS: $url$address | OBJETO: ${object.toString()} | "TOKEN post: $token"');
+    print(
+        'POST(ADDRESS: $url$address | OBJETO: ${object.toString()} | TOKEN post: $token)');
     if (withToken) {
       return client.post(
         Uri.parse("$url$address"),
@@ -52,5 +54,17 @@ class HttpClient implements IHttpClient {
         body: jsonEncode(object),
       );
     }
+  }
+
+  @override
+  Future<dynamic> put({required String address, required Object object}) async {
+    print(
+        'PUT(ADDRESS: $url$address | OBJETO: ${object.toString()} | TOKEN post: $token)');
+
+    return client.put(
+      Uri.parse("$url$address"),
+      headers: requestHeaders,
+      body: jsonEncode(object),
+    );
   }
 }

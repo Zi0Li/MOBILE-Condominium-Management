@@ -1,14 +1,19 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tcc/data/models/Resident.dart';
+import 'package:tcc/data/repositories/Resident_Repository.dart';
+import 'package:tcc/data/stores/Resident_Store.dart';
 import 'package:tcc/pages/Profile/address.dart';
 import 'package:tcc/pages/Profile/vehicle_list.dart';
 import 'package:tcc/pages/home.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawer.dart';
+import 'package:tcc/widgets/error_message.dart';
 import 'package:tcc/widgets/input.dart';
+import 'package:tcc/data/http/http_client.dart';
+import 'package:tcc/widgets/loading.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -18,6 +23,11 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  ResidentStore store = ResidentStore(
+    repository: ResidentRepository(
+      client: HttpClient(),
+    ),
+  );
 
   @override
   void initState() {
@@ -171,7 +181,21 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _body(int index) {
     if (index == 0) {
-      return _personBody();
+      return AnimatedBuilder(
+        animation: Listenable.merge([store.erro, store.isLoading, store.state]),
+        builder: (context, child) {
+          if (store.isLoading.value) {
+            return Center(
+              child: WidgetLoading.containerLoading(),
+            );
+          } else if (store.erro.value.isNotEmpty) {
+            return ErrorMessage.containerError(
+                store.erro.value, () => store.erro.value = '');
+          } else {
+            return _personBody();
+          }
+        },
+      );
     } else if (index == 1) {
       return VehiclePage();
     } else {
@@ -242,7 +266,9 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Expanded(
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  _updateResident();
+                },
                 style: TextButton.styleFrom(
                   fixedSize: Size.fromHeight(52),
                   backgroundColor: Config.orange,
@@ -306,11 +332,22 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  TextStyle _textStyle() {
-    return TextStyle(
-      fontWeight: FontWeight.w500,
-      fontSize: 16,
-      color: Config.grey600,
+  void _updateResident() {
+    Resident resident = Resident(
+      id: Config.resident.id,
+      name: _nameController.text,
+      rg: _rgController.text,
+      cpf: _cpfController.text,
+      block: Config.resident.block,
+      apt: Config.resident.apt,
+      phone: _phoneController.text,
+      email: _emailController.text,
+      authorizedPersons: null,
     );
+    store.putResident(resident).then((value) {
+      setState(() {
+        print(value);
+      });
+    });
   }
 }

@@ -9,6 +9,7 @@ import 'package:tcc/widgets/config.dart';
 abstract class IResidentRepository {
   Future<Resident> getResident(int id);
   Future<Resident> postResident(dynamic resident, dynamic register);
+  Future<Resident> putResident(Resident resident);
 }
 
 class ResidentRepository implements IResidentRepository {
@@ -51,6 +52,26 @@ class ResidentRepository implements IResidentRepository {
       register['user_id'] = entity.id;
       authenticationRepository.postRegister(register);
       return entity;
+    } else if (response.statusCode == 404) {
+      throw NotFoundException("A url informada não e valida!");
+    } else if (response.statusCode == 405) {
+      throw NotFoundException("Sem autorização");
+    } else if (response.statusCode == 500) {
+      throw NotFoundException("E-mail já cadastrado!");
+    } else {
+      throw NotFoundException(Config.textToUtf8(body['message']));
+    }
+  }
+
+  @override
+  Future<Resident> putResident(Resident resident) async {
+    final response = await client.put(address: "/resident", object: resident.toMap());
+    print('Depois da requisição');
+    print('STATUS CODE: ${response.statusCode}');
+    print('BODY: ${response.body}');
+    final body = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      return Resident.fromMap(body);
     } else if (response.statusCode == 404) {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {
