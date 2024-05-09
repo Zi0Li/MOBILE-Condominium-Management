@@ -85,11 +85,11 @@ class _VehiclePageState extends State<VehiclePage> {
 
   Widget _vehicleCard(int index) {
     IconData iconVehicle = Icons.drive_eta_outlined;
-    if (Config.typeVehicle[index] == Config.typeVehicle[1]) {
+    if (store.state.value[index].type! == Config.typeVehicle[1]) {
       iconVehicle = Icons.motorcycle_outlined;
-    } else if (Config.typeVehicle[index] == Config.typeVehicle[2]) {
+    } else if (store.state.value[index].type! == Config.typeVehicle[2]) {
       iconVehicle = Icons.pedal_bike_outlined;
-    } else if (Config.typeVehicle[index] == Config.typeVehicle[3]) {
+    } else if (store.state.value[index].type! == Config.typeVehicle[3]) {
       iconVehicle = Icons.directions_bus_outlined;
     }
 

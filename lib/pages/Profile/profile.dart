@@ -346,7 +346,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
     store.putResident(resident).then((value) {
       setState(() {
-        print(value);
+        Config.resident = value.first;
       });
     });
   }
