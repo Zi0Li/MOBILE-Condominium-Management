@@ -1,23 +1,42 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tcc/data/models/AuthorizedPersons.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/input.dart';
 
 class AuthorizedPersonsAddPage extends StatefulWidget {
-  const AuthorizedPersonsAddPage({super.key});
+  AuthorizedPersons? authorizedPersons;
+  AuthorizedPersonsAddPage({this.authorizedPersons, super.key});
 
   @override
-  State<AuthorizedPersonsAddPage> createState() => _AuthorizedPersonsAddPageState();
+  State<AuthorizedPersonsAddPage> createState() =>
+      _AuthorizedPersonsAddPageState();
 }
 
 class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.authorizedPersons != null) {
+      _nameController.text = widget.authorizedPersons!.name!;
+      _cpfController.text = widget.authorizedPersons!.cpf!;
+      _rgController.text = widget.authorizedPersons!.rg!;
+      _kinshipController.text = widget.authorizedPersons!.kinship!;
+      _phoneController.text = widget.authorizedPersons!.phone!;
+    }
+  }
+
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _documentController = TextEditingController();
+  final TextEditingController _rgController = TextEditingController();
+  final TextEditingController _cpfController = TextEditingController();
   final TextEditingController _kinshipController = TextEditingController();
   final TextEditingController _photoController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   String? _img;
 
   @override
@@ -32,7 +51,9 @@ class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
             InkWell(
               borderRadius: BorderRadius.circular(100),
               onTap: () {
-                ImagePicker().pickImage(source: ImageSource.camera).then((file) {
+                ImagePicker()
+                    .pickImage(source: ImageSource.camera)
+                    .then((file) {
                   if (file == null) {
                     return;
                   } else {
@@ -51,7 +72,7 @@ class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
                   color: Config.backgroundColor,
                   border: Border.all(
                     width: 1,
-                    color: Config.dark_purple,
+                    color: Config.light_purple,
                   ),
                 ),
                 child: Center(
@@ -59,7 +80,7 @@ class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
                       ? Icon(
                           Icons.person,
                           size: 60,
-                          color: Config.dark_purple,
+                          color: Config.light_purple,
                         )
                       : Container(
                           width: 100,
@@ -79,20 +100,14 @@ class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
                 ),
               ),
             ),
+            InputWidget('Nome', _nameController, TextInputType.text,
+                Icons.person_outline_rounded),
             InputWidget(
-              'Nome',
-              _nameController,
-              TextInputType.text,
-              Icons.person_outline_rounded,
-            ),
-            InputWidget('Documento (RG / CPF)', _documentController,
-                TextInputType.text, Icons.wallet_rounded),
-            InputWidget(
-              'Parentesco',
-              _kinshipController,
-              TextInputType.text,
-              Icons.family_restroom_rounded,
-            ),
+                'Rg', _rgController, TextInputType.text, Icons.wallet_rounded),
+            InputWidget('CPF', _cpfController, TextInputType.text,
+                Icons.description_outlined),
+            InputWidget('Parentesco', _kinshipController, TextInputType.text,
+                Icons.family_restroom_rounded),
             SizedBox(
               height: 20,
             ),
@@ -110,13 +125,13 @@ class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
                       ),
                       side: BorderSide(
                         width: 1,
-                        color: Config.dark_purple,
+                        color: Config.light_purple,
                       ),
                     ),
                     child: Text(
                       'Cancelar',
                       style: TextStyle(
-                        color: Config.dark_purple,
+                        color: Config.light_purple,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),

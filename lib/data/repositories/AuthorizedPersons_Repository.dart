@@ -17,7 +17,7 @@ class AuthorizedPersonsRepository implements IAuthorizedPersonsRepository {
   @override
   Future<List<AuthorizedPersons>> getAuthorizedPersonsByResident(int id) async {
 
-    final response = await client.get(address: "/auth/login", withToken: true);
+    final response = await client.get(address: "/authorizedPersons/resident=$id", withToken: true);
     // print('Depois da requisição');
     // print('STATUS CODE: ${response.statusCode}');
     // print('BODY: ${response.body}');

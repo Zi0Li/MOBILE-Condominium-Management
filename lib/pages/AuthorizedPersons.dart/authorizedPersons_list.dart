@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/repositories/AuthorizedPersons_Repository.dart';
 import 'package:tcc/data/stores/AuthorizedPersons_Store.dart';
-import 'package:tcc/pages/authorizedPersons.dart/authorizedPersons_add.dart';
+import 'package:tcc/pages/authorizedPersons.dart/authorizedPersons_form.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawer.dart';
+import 'package:tcc/widgets/error_message.dart';
 import 'package:tcc/widgets/loading.dart';
 
 class AuthorizedPersonsListPage extends StatefulWidget {
@@ -17,6 +18,12 @@ class AuthorizedPersonsListPage extends StatefulWidget {
 }
 
 class _AuthorizedPersonsListPageState extends State<AuthorizedPersonsListPage> {
+  @override
+  void initState() {
+    super.initState();
+    _getAuthorizedPersons();
+  }
+
   final AuthorizedPersonsStore store = AuthorizedPersonsStore(
     repository: AuthorizedPersonsRepository(
       client: HttpClient(),
@@ -29,7 +36,7 @@ class _AuthorizedPersonsListPageState extends State<AuthorizedPersonsListPage> {
       backgroundColor: Config.backgroundColor,
       drawer: DrawerApp(),
       appBar: AppBarWidget(
-        title: 'Pessoas autorizadas (${Config.resident.authorizedPersons.length}/4)',
+        title: 'Pessoas autorizadas (${store.state.value.length}/4)',
         actions: [
           IconButton(
             onPressed: () {
@@ -54,7 +61,12 @@ class _AuthorizedPersonsListPageState extends State<AuthorizedPersonsListPage> {
                 Listenable.merge([store.erro, store.isLoading, store.state]),
             builder: (context, child) {
               if (store.isLoading.value) {
-                return WidgetLoading.containerLoading();
+                return Center(
+                  child: WidgetLoading.containerLoading(),
+                );
+              } else if (store.erro.value.isNotEmpty) {
+                return ErrorMessage.containerError(
+                    store.erro.value, () => store.erro.value = '');
               } else {
                 return _body();
               }
@@ -65,15 +77,24 @@ class _AuthorizedPersonsListPageState extends State<AuthorizedPersonsListPage> {
 
   Widget _body() {
     return ListView.builder(
-      itemCount: Config.resident.authorizedPersons.length,
+      itemCount: store.state.value.length,
       itemBuilder: (context, index) {
-        List<String> aux = Config.resident.authorizedPersons[index].name.split(' ');
+        List<String> aux = store.state.value[index].name!.split(' ');
         String logoName = aux[0][0];
         logoName += aux[aux.length - 1][0];
         return ListTile(
-          onLongPress: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AuthorizedPersonsAddPage(
+                  authorizedPersons: store.state.value[index],
+                ),
+              ),
+            );
+          },
           title: Text(
-            Config.resident.authorizedPersons[index].name!,
+            store.state.value[index].name!,
             style: TextStyle(fontSize: 18, overflow: TextOverflow.ellipsis),
           ),
           leading: Container(
@@ -92,9 +113,13 @@ class _AuthorizedPersonsListPageState extends State<AuthorizedPersonsListPage> {
               ),
             ),
           ),
-          subtitle: Text(Config.resident.authorizedPersons[index].kinship!),
+          subtitle: Text(store.state.value[index].kinship!),
         );
       },
     );
+  }
+
+  void _getAuthorizedPersons() {
+    store.getAuthorizedPersonsByResident(Config.resident.id);
   }
 }
