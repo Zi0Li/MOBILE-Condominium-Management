@@ -55,7 +55,7 @@ class _ReservesListState extends State<ReservesList> {
         ],
       ),
       body: AnimatedBuilder(
-        animation: Listenable.merge([store.erro, store.isLoading, store.state]),
+        animation: Listenable.merge([store.erro, store.isLoading, store.state, store.stateDTO]),
         builder: (context, child) {
           if (store.isLoading.value) {
             return Center(child: WidgetLoading.containerLoading(),);
@@ -63,7 +63,7 @@ class _ReservesListState extends State<ReservesList> {
             return ErrorMessage.containerError(
                 store.erro.value, () => store.erro.value = '');
           } else {
-            if (store.state.value.isNotEmpty) {
+            if (store.stateDTO.value.isNotEmpty) {
               return _body();
             } else {
               return Center(
@@ -79,11 +79,11 @@ class _ReservesListState extends State<ReservesList> {
   Widget _body() {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: store.state.value.length,
+      itemCount: store.stateDTO.value.length,
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-          child: ReservationCard(reservation: store.state.value[index]),
+          child: ReservationCard(reservationAndKioskDTO: store.stateDTO.value[index]),
         );
       },
     );

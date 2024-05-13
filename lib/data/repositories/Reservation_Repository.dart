@@ -1,12 +1,14 @@
 import 'dart:convert';
 
+import 'package:tcc/data/dtos/ReservationAndKioskDTO.dart';
 import 'package:tcc/data/http/exceptions.dart';
 import 'package:tcc/data/http/http_client.dart';
+import 'package:tcc/data/models/Kiosk.dart';
 import 'package:tcc/data/models/Reservation.dart';
 import 'package:tcc/widgets/config.dart';
 
 abstract class IReservationRepository {
-  Future<List<Reservation>> getReservationByResident(int id);
+  Future<List<ReservationAndKioskDTO>> getReservationByResident(int id);
 }
 
 class ReservationRepository implements IReservationRepository {
@@ -15,15 +17,17 @@ class ReservationRepository implements IReservationRepository {
   ReservationRepository({required this.client});
 
   @override
-  Future<List<Reservation>> getReservationByResident(int id) async {
+  Future<List<ReservationAndKioskDTO>> getReservationByResident(int id) async {
     final response = await client.get(address: "/reservation/resident=$id", withToken: true);
     final body = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      final List<Reservation> reservationList = [];
+      final List<ReservationAndKioskDTO> reservationList = [];
       body.map((item) {
-        final Reservation reservation = Reservation.fromMap(item);
-        reservationList.add(reservation);
+        final Reservation reservation = Reservation.fromMap(item['reservation']);
+        final Kiosk kiosk = Kiosk.fromMap(item['kiosk']);
+        reservationList.add(ReservationAndKioskDTO(reservation: reservation, kiosk: kiosk));
       }).toList();
+      print(reservationList);
       return reservationList;
     } else if (response.statusCode == 404) {
       throw NotFoundException("A url informada não e valida!");

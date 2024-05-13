@@ -1,20 +1,20 @@
 import 'package:tcc/widgets/config.dart';
 
-class Reservation {
+class Kiosk {
   int? id;
-  String? date;
+  String? type;
   String? description;
 
-  Reservation({
+  Kiosk({
     required this.id,
-    required this.date,
+    required this.type,
     required this.description,
   });
 
-  factory Reservation.fromMap(Map map) {
-    return Reservation(
+  factory Kiosk.fromMap(Map map) {
+    return Kiosk(
       id: map['id'],
-      date: map['date'],
+      type: Config.textToUtf8(map['type']),
       description: Config.textToUtf8(map['description']),
     );
   }
@@ -22,7 +22,7 @@ class Reservation {
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
       'id': id,
-      'date': date,
+      'type': type,
       'description': description,
     };
     return map;
@@ -30,6 +30,6 @@ class Reservation {
 
   @override
   String toString() {
-    return "RESERVATION(id: $id | date: $date | description: $description)";
+    return "KIOSK(id: $id | type: $type | description: $description)";
   }
 }

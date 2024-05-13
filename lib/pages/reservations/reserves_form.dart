@@ -63,7 +63,7 @@ class _ReservesFormState extends State<ReservesForm> {
               ],
             ),
             Divider(
-              color: Config.dark_purple,
+              color: Config.light_purple,
               height: 1,
             ),
             SizedBox(
@@ -83,13 +83,13 @@ class _ReservesFormState extends State<ReservesForm> {
                       ),
                       side: BorderSide(
                         width: 1,
-                        color: Config.dark_purple,
+                        color: Config.light_purple,
                       ),
                     ),
                     child: Text(
                       'Cancelar',
                       style: TextStyle(
-                        color: Config.dark_purple,
+                        color: Config.light_purple,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),

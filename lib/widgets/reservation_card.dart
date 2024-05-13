@@ -1,15 +1,20 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:tcc/data/dtos/ReservationAndKioskDTO.dart';
+import 'package:tcc/data/models/Kiosk.dart';
 import 'package:tcc/data/models/Reservation.dart';
 import 'package:tcc/widgets/config.dart';
 
 class ReservationCard extends StatelessWidget {
-  Reservation reservation;
-  ReservationCard({required this.reservation, super.key});
+  ReservationAndKioskDTO reservationAndKioskDTO;
+  ReservationCard({required this.reservationAndKioskDTO, super.key});
 
   @override
   Widget build(BuildContext context) {
+    Reservation reservation = reservationAndKioskDTO.reservation!;
+    Kiosk kiosk = reservationAndKioskDTO.kiosk!;
+
     return InkWell(
       child: Container(
         decoration: BoxDecoration(
@@ -37,11 +42,10 @@ class ReservationCard extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Config.text('Local: ', 'Currasqueira', 16),
-                  Spacer(),
-                  Config.text('Bloco: ', 'B', 16),
+                  Config.text('Local: ', kiosk.type!, 16),
                 ],
               ),
+              Config.text('Descrição: ', kiosk.description!, 16),
               Row(
                 children: [
                   Config.text('Início: ', reservation.date!, 16),
