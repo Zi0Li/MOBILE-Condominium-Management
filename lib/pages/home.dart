@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:tcc/data/controllers/Login_Controller.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/AuthorizedPersons.dart';
+import 'package:tcc/data/repositories/AuthorizedPersons_Repository.dart';
+import 'package:tcc/data/repositories/Reservation_Repository.dart';
 import 'package:tcc/data/repositories/Resident_Repository.dart';
+import 'package:tcc/data/stores/AuthorizedPersons_Store.dart';
+import 'package:tcc/data/stores/Reservation_Store.dart';
 import 'package:tcc/data/stores/Resident_Store.dart';
 import 'package:tcc/pages/acesss/welcome.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawer.dart';
+import 'package:tcc/widgets/error_message.dart';
 import 'package:tcc/widgets/loading.dart';
 import 'package:tcc/widgets/reservation_card.dart';
 
@@ -18,13 +23,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final ResidentStore store = ResidentStore(
+  final ResidentStore residentStore = ResidentStore(
     repository: ResidentRepository(
       client: HttpClient(),
     ),
   );
 
-  int? contAuthorizedPersons;
+  final AuthorizedPersonsStore authorizedPersonsStore = AuthorizedPersonsStore(
+    repository: AuthorizedPersonsRepository(
+      client: HttpClient(),
+    ),
+  );
+
+  final ReservationStore reservationStore = ReservationStore(
+    repository: ReservationRepository(
+      client: HttpClient(),
+    ),
+  );
+
+  int contAuthorizedPersons = 0;
 
   @override
   void initState() {
@@ -50,10 +67,13 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Center(
         child: AnimatedBuilder(
-          animation:
-              Listenable.merge([store.erro, store.isLoading, store.state,]),
+          animation: Listenable.merge([
+            residentStore.erro,
+            residentStore.isLoading,
+            residentStore.state,
+          ]),
           builder: (context, child) {
-            if (store.isLoading.value) {
+            if (residentStore.isLoading.value) {
               return WidgetLoading.containerLoading();
             } else {
               return _body();
@@ -97,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   children: [
                     TextSpan(
-                      text: '${contAuthorizedPersons}/4',
+                      text: '${authorizedPersonsStore.state.value.length}/4',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w300,
@@ -110,24 +130,70 @@ class _HomePageState extends State<HomePage> {
               Divider(
                 color: Config.grey400,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: contAuthorizedPersons,
-                  itemBuilder: (context, index) {
-                    return _cardAutorizadas(
-                        store.state.value[0].authorizedPersons![index]);
-                  },
-                ),
+              AnimatedBuilder(
+                animation: Listenable.merge([
+                  authorizedPersonsStore.erro,
+                  authorizedPersonsStore.isLoading,
+                  authorizedPersonsStore.state,
+                ]),
+                builder: (context, child) {
+                  if (authorizedPersonsStore.isLoading.value) {
+                    return Center(
+                      child: WidgetLoading.containerLoading(),
+                    );
+                  } else if (authorizedPersonsStore.erro.value.isNotEmpty) {
+                    return ErrorMessage.containerError(
+                        authorizedPersonsStore.erro.value,
+                        () => authorizedPersonsStore.erro.value = '');
+                  } else {
+                   if (authorizedPersonsStore.state.value.isNotEmpty) {
+                      return _cardAutorizadas(authorizedPersonsStore.state.value);
+                   } else {
+                     return _isEmpty('Nenhuma pessoa autorizada cadastra!');
+                   }
+                  }
+                },
               ),
               Divider(
                 color: Config.grey400,
               ),
+              Text(
+                'Próxima reserva',
+                style: TextStyle(
+                  color: Config.grey_letter,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 20,
+                ),
+              ),
               SizedBox(
                 height: 10,
               ),
-              //ReservationCard(),
+              AnimatedBuilder(
+                animation: Listenable.merge([
+                  reservationStore.erro,
+                  reservationStore.isLoading,
+                  reservationStore.stateDTO,
+                ]),
+                builder: (context, child) {
+                  if (reservationStore.isLoading.value) {
+                    return Center(
+                      child: WidgetLoading.containerLoading(),
+                    );
+                  } else if (reservationStore.erro.value.isNotEmpty) {
+                    return ErrorMessage.containerError(
+                        reservationStore.erro.value,
+                        () => reservationStore.erro.value = '');
+                  } else {
+                    if (reservationStore.stateDTO.value.isNotEmpty) {
+                      return ReservationCard(
+                          reservationAndKioskDTO:
+                              reservationStore.stateDTO.value.first);
+                    } else {
+                      return _isEmpty('Nenhuma reserva feita!');
+                    }
+                  }
+                },
+              )
             ],
           ),
         ),
@@ -135,34 +201,43 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _cardAutorizadas(AuthorizedPersons authorizedPerson) {
-    List<String> aux = authorizedPerson.name!.split(' ');
-    String logoName = aux[0][0];
-    logoName += aux[aux.length - 1][0];
+  Widget _cardAutorizadas(List<AuthorizedPersons> authorizedPersons) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: authorizedPersons.length,
+        itemBuilder: (context, index) {
+          List<String> aux = authorizedPersons[index].name!.split(' ');
+          String logoName = aux[0][0];
+          logoName += aux[aux.length - 1][0];
 
-    return ListTile(
-      onLongPress: () {},
-      title: Text(
-        authorizedPerson.name!,
-        style: TextStyle(fontSize: 18, overflow: TextOverflow.ellipsis),
-      ),
-      leading: Container(
-        height: 50,
-        width: 50,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(width: 1, color: Config.grey400),
-        ),
-        child: Center(
-          child: Text(
-            logoName.toUpperCase(),
-            style: TextStyle(
-              fontSize: 14,
+          return ListTile(
+            onLongPress: () {},
+            title: Text(
+              authorizedPersons[index].name!,
+              style: TextStyle(fontSize: 18, overflow: TextOverflow.ellipsis),
             ),
-          ),
-        ),
+            leading: Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(width: 1, color: Config.grey400),
+              ),
+              child: Center(
+                child: Text(
+                  logoName.toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            ),
+            subtitle: Text(authorizedPersons[index].kinship!),
+          );
+        },
       ),
-      subtitle: Text(authorizedPerson.kinship!),
     );
   }
 
@@ -205,13 +280,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _getResident() {
-    store.isLoading.value = true;
+    residentStore.isLoading.value = true;
     LoginController.internal().getAllLogins().then((value) {
       if (value.isNotEmpty) {
-        store.getResident(value[0].id).then((residents) {
-          contAuthorizedPersons =
-              store.state.value[0].authorizedPersons!.length;
-          Config.resident = store.state.value[0];
+        residentStore.getResident(value.first.id).then((residents) {
+          Config.resident = residentStore.state.value.first;
+          _getAuthorizationPerons();
+          _getReservation();
         });
       } else {
         Navigator.push(
@@ -222,5 +297,28 @@ class _HomePageState extends State<HomePage> {
         );
       }
     });
+  }
+
+  void _getAuthorizationPerons() {
+    authorizedPersonsStore
+        .getAuthorizedPersonsByResident(Config.resident.id)
+        .then((authorizedPersons) =>
+            contAuthorizedPersons = authorizedPersons.length);
+  }
+
+  void _getReservation() {
+    reservationStore.getReservationByResident(Config.resident.id);
+  }
+
+  Widget _isEmpty(String text) {
+    return Center(
+      child: Text(
+        text,
+        style: TextStyle(
+          color: Config.grey_letter,
+          fontSize: 16,
+        ),
+      ),
+    );
   }
 }
