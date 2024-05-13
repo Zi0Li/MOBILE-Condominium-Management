@@ -37,11 +37,11 @@ class _VehicleFormState extends State<VehicleForm> {
       _colorController.text = widget.vehicle!.color!;
       _modelController.text = widget.vehicle!.model!;
       _yearController.text = widget.vehicle!.year!;
-      selectTypeVehicle = widget.vehicle!.type!;
+      _selectTypeVehicle = widget.vehicle!.type!;
     }
   }
 
-  String? selectTypeVehicle;
+  String? _selectTypeVehicle;
   TextEditingController _plateController = TextEditingController();
   TextEditingController _brandController = TextEditingController();
   TextEditingController _colorController = TextEditingController();
@@ -107,7 +107,7 @@ class _VehicleFormState extends State<VehicleForm> {
           ),
           DropdownMenu<dynamic>(
             width: 230,
-            initialSelection: selectTypeVehicle,
+            initialSelection: _selectTypeVehicle,
             label: Text(
               'Tipo',
               style: TextStyle(
@@ -127,7 +127,7 @@ class _VehicleFormState extends State<VehicleForm> {
             ),
             onSelected: (value) {
               setState(() {
-                selectTypeVehicle = value!;
+                _selectTypeVehicle = value!;
               });
             },
             dropdownMenuEntries:
@@ -183,7 +183,7 @@ class _VehicleFormState extends State<VehicleForm> {
       "year": _yearController.text,
       "plate": _plateController.text,
       "color": _colorController.text,
-      "type": selectTypeVehicle,
+      "type": _selectTypeVehicle,
       "resident": {"id": Config.resident.id}
     };
     store.postVehicle(Vehicle).then((value) {

@@ -152,7 +152,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
                     width: 1,
-                    color: Config.dark_purple,
+                    color: Config.light_purple,
                   ),
                 ),
                 child: Padding(
@@ -171,7 +171,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       Text(
                         'Morador',
                         style: TextStyle(
-                            color: Config.dark_purple, fontSize: 18),
+                            color: Config.light_purple, fontSize: 18),
                       ),
                     ],
                   ),
@@ -195,7 +195,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
                     width: 1,
-                    color: Config.dark_purple,
+                    color: Config.light_purple,
                   ),
                 ),
                 child: Padding(
@@ -214,7 +214,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         child: Text(
                           'Síndico/Operário',
                           style: TextStyle(
-                              color: Config.dark_purple, fontSize: 18),
+                              color: Config.light_purple, fontSize: 18),
                         ),
                       ),
                     ],
