@@ -27,7 +27,6 @@ class ReservationRepository implements IReservationRepository {
         final Kiosk kiosk = Kiosk.fromMap(item['kiosk']);
         reservationList.add(ReservationAndKioskDTO(reservation: reservation, kiosk: kiosk));
       }).toList();
-      print(reservationList);
       return reservationList;
     } else if (response.statusCode == 404) {
       throw NotFoundException("A url informada não e valida!");

@@ -8,7 +8,7 @@ import 'package:tcc/pages/acesss/register_condo.dart';
 import 'package:tcc/pages/home.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
-import 'package:tcc/widgets/error_message.dart';
+import 'package:tcc/widgets/error.dart';
 import 'package:tcc/widgets/input.dart';
 import 'package:tcc/widgets/loading.dart';
 
@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                 Listenable.merge([store.state, store.isLoading, store.erro]),
             builder: (context, child) {
               if (store.erro.value.isNotEmpty) {
-                return ErrorMessage.containerError(store.erro.value, () {
+                return WidgetError.containerError(store.erro.value, () {
                   setState(() {
                     store.erro.value = '';
                   });

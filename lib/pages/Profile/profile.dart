@@ -10,7 +10,7 @@ import 'package:tcc/pages/home.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawer.dart';
-import 'package:tcc/widgets/error_message.dart';
+import 'package:tcc/widgets/error.dart';
 import 'package:tcc/widgets/input.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/widgets/loading.dart';
@@ -189,7 +189,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: WidgetLoading.containerLoading(),
             );
           } else if (store.erro.value.isNotEmpty) {
-            return ErrorMessage.containerError(
+            return WidgetError.containerError(
                 store.erro.value, () => store.erro.value = '');
           } else {
             return _personBody();

@@ -11,7 +11,7 @@ import 'package:tcc/data/stores/Resident_Store.dart';
 import 'package:tcc/pages/acesss/welcome.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawer.dart';
-import 'package:tcc/widgets/error_message.dart';
+import 'package:tcc/widgets/error.dart';
 import 'package:tcc/widgets/loading.dart';
 import 'package:tcc/widgets/reservation_card.dart';
 
@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                       child: WidgetLoading.containerLoading(),
                     );
                   } else if (authorizedPersonsStore.erro.value.isNotEmpty) {
-                    return ErrorMessage.containerError(
+                    return WidgetError.containerError(
                         authorizedPersonsStore.erro.value,
                         () => authorizedPersonsStore.erro.value = '');
                   } else {
@@ -180,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                       child: WidgetLoading.containerLoading(),
                     );
                   } else if (reservationStore.erro.value.isNotEmpty) {
-                    return ErrorMessage.containerError(
+                    return WidgetError.containerError(
                         reservationStore.erro.value,
                         () => reservationStore.erro.value = '');
                   } else {

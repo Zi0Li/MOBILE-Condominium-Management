@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tcc/widgets/config.dart';
 
-class ErrorMessage {
-  ErrorMessage._();
+class WidgetError {
+  WidgetError._();
 
   static containerError(String error, Function() function) {
     return Column(

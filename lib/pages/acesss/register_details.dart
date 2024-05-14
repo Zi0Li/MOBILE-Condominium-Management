@@ -10,7 +10,7 @@ import 'package:tcc/data/stores/Resident_Store.dart';
 import 'package:tcc/pages/acesss/login.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
-import 'package:tcc/widgets/error_message.dart';
+import 'package:tcc/widgets/error.dart';
 import 'package:tcc/widgets/input.dart';
 import 'package:tcc/widgets/loading.dart';
 
@@ -73,7 +73,7 @@ class _RegisterDetailsPageState extends State<RegisterDetailsPage> {
                 child: WidgetLoading.containerLoading(),
               );
             } else if (store.erro.value.isNotEmpty) {
-              return ErrorMessage.containerError(
+              return WidgetError.containerError(
                   store.erro.value, () => store.erro.value = '');
             } else {
               return _body();

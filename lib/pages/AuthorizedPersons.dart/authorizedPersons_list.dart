@@ -6,7 +6,7 @@ import 'package:tcc/pages/authorizedPersons.dart/authorizedPersons_form.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawer.dart';
-import 'package:tcc/widgets/error_message.dart';
+import 'package:tcc/widgets/error.dart';
 import 'package:tcc/widgets/loading.dart';
 
 class AuthorizedPersonsListPage extends StatefulWidget {
@@ -30,13 +30,15 @@ class _AuthorizedPersonsListPageState extends State<AuthorizedPersonsListPage> {
     ),
   );
 
+  int _contList = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Config.backgroundColor,
       drawer: DrawerApp(),
       appBar: AppBarWidget(
-        title: 'Pessoas autorizadas (${store.state.value.length}/4)',
+        title: 'Pessoas autorizadas (${_contList}/4)',
         actions: [
           IconButton(
             onPressed: () {
@@ -50,6 +52,7 @@ class _AuthorizedPersonsListPageState extends State<AuthorizedPersonsListPage> {
             icon: Icon(
               Icons.add,
               color: Config.orange,
+              size: 28,
             ),
           )
         ],
@@ -65,7 +68,7 @@ class _AuthorizedPersonsListPageState extends State<AuthorizedPersonsListPage> {
                   child: WidgetLoading.containerLoading(),
                 );
               } else if (store.erro.value.isNotEmpty) {
-                return ErrorMessage.containerError(
+                return WidgetError.containerError(
                     store.erro.value, () => store.erro.value = '');
               } else {
                 return _body();
@@ -120,6 +123,10 @@ class _AuthorizedPersonsListPageState extends State<AuthorizedPersonsListPage> {
   }
 
   void _getAuthorizedPersons() {
-    store.getAuthorizedPersonsByResident(Config.resident.id);
+    store.getAuthorizedPersonsByResident(Config.resident.id).then((value){
+      setState(() {
+        _contList = value.length;
+      });
+    });
   }
 }

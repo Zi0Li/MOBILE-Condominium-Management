@@ -6,7 +6,7 @@ import 'package:tcc/pages/reservations/reserves_form.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawer.dart';
-import 'package:tcc/widgets/error_message.dart';
+import 'package:tcc/widgets/error.dart';
 import 'package:tcc/widgets/loading.dart';
 import 'package:tcc/widgets/reservation_card.dart';
 
@@ -60,7 +60,7 @@ class _ReservesListState extends State<ReservesList> {
           if (store.isLoading.value) {
             return Center(child: WidgetLoading.containerLoading(),);
           } else if (store.erro.value.isNotEmpty) {
-            return ErrorMessage.containerError(
+            return WidgetError.containerError(
                 store.erro.value, () => store.erro.value = '');
           } else {
             if (store.stateDTO.value.isNotEmpty) {
