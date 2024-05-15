@@ -48,57 +48,92 @@ class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            InkWell(
-              borderRadius: BorderRadius.circular(100),
-              onTap: () {
-                ImagePicker()
-                    .pickImage(source: ImageSource.camera)
-                    .then((file) {
-                  if (file == null) {
-                    return;
-                  } else {
-                    setState(() {
-                      _img = file.path;
-                      _photoController.text = file.path;
-                    });
-                  }
-                });
-              },
-              child: Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Config.backgroundColor,
-                  border: Border.all(
-                    width: 1,
-                    color: Config.light_purple,
-                  ),
-                ),
-                child: Center(
-                  child: _img == null
-                      ? Icon(
-                          Icons.person,
-                          size: 60,
-                          color: Config.light_purple,
-                        )
-                      : Container(
-                          width: 100,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: FileImage(
-                                File(
-                                  _img!,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      color: Config.backgroundColor,
+                      border: Border.all(
+                        width: 1,
+                        color: Config.grey800,
+                      ),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Center(
+                    child: _img == null
+                        ? Icon(
+                            Icons.person,
+                            size: 60,
+                            color: Config.grey800,
+                          )
+                        : Container(
+                            width: 100,
+                            height: 100,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: FileImage(
+                                  File(
+                                    _img!,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
+                  ),
                 ),
-              ),
+                SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextButton.icon(
+                      onPressed: () {
+                        ImagePicker()
+                            .pickImage(source: ImageSource.camera)
+                            .then((file) {
+                          if (file == null) {
+                            return;
+                          } else {
+                            setState(() {
+                              _img = file.path;
+                              _photoController.text = file.path;
+                            });
+                          }
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: BorderSide(color: Config.orange, width: 1),
+                        ),
+                      ),
+                      label: Text(
+                        'Adicionar foto',
+                        style: TextStyle(color: Config.black),
+                      ),
+                      icon: Icon(
+                        Icons.add_a_photo_outlined,
+                        color: Config.orange,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'Adicione a foto da pessoa',
+                      style: TextStyle(fontSize: 14, color: Config.grey800),
+                    )
+                  ],
+                )
+              ],
             ),
             InputWidget('Nome', _nameController, TextInputType.text,
                 Icons.person_outline_rounded),
@@ -125,13 +160,13 @@ class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
                       ),
                       side: BorderSide(
                         width: 1,
-                        color: Config.light_purple,
+                        color: Config.grey800,
                       ),
                     ),
                     child: Text(
                       'Cancelar',
                       style: TextStyle(
-                        color: Config.light_purple,
+                        color: Config.grey800,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
