@@ -40,21 +40,23 @@ class _AuthorizedPersonsListPageState extends State<AuthorizedPersonsListPage> {
       appBar: AppBarWidget(
         title: 'Pessoas autorizadas (${_contList}/4)',
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AuthorizedPersonsAddPage(),
-                ),
-              );
-            },
-            icon: Icon(
-              Icons.add,
-              color: Config.orange,
-              size: 28,
-            ),
-          )
+          (_contList != 4)
+              ? IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AuthorizedPersonsAddPage(),
+                      ),
+                    );
+                  },
+                  icon: Icon(
+                    Icons.add,
+                    color: Config.orange,
+                    size: 28,
+                  ),
+                )
+              : Container()
         ],
       ),
       body: Padding(
@@ -123,7 +125,7 @@ class _AuthorizedPersonsListPageState extends State<AuthorizedPersonsListPage> {
   }
 
   void _getAuthorizedPersons() {
-    store.getAuthorizedPersonsByResident(Config.resident.id).then((value){
+    store.getAuthorizedPersonsByResident(Config.resident.id).then((value) {
       setState(() {
         _contList = value.length;
       });
