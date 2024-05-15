@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tcc/pages/Profile/profile.dart';
 import 'package:tcc/widgets/config.dart';
 
 class WidgetShowDialog {
@@ -49,12 +48,7 @@ class WidgetShowDialog {
           TextButton(
             onPressed: () {
               function();
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProfilePage(),
-                ),
-              );
+              
             },
             style: TextButton.styleFrom(
               backgroundColor: Config.orange,

@@ -33,7 +33,7 @@ class _DrawerAppState extends State<DrawerApp> {
     String logoName = aux[0][0];
     logoName += aux[aux.length - 1][0];
     return Drawer(
-      backgroundColor: Config.white_background,
+      backgroundColor: Config.backgroundColor,
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
@@ -45,7 +45,7 @@ class _DrawerAppState extends State<DrawerApp> {
             ),
             accountEmail: Text(Config.resident.email),
             currentAccountPicture: CircleAvatar(
-              backgroundColor: Config.white_background,
+              backgroundColor: Config.backgroundColor,
               child: Text(
                 logoName,
                 style: TextStyle(

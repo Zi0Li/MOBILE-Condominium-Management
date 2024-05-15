@@ -9,11 +9,11 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 class Config {
   Config._();
 
-  static Color backgroundColor = Colors.white;
+  static Color backgroundColor = Color.fromRGBO(248, 247, 243, 1);
   static Color orange = Color.fromRGBO(255, 96, 0, 1);
   static Color light_purple = Color.fromRGBO(104, 116, 232, 1);
   static Color white = Colors.white;
-  static Color white_background = Color.fromRGBO(248, 247, 243, 1);
+
   static Color black = Colors.black;
   static Color red = Colors.red;
   static Color grey_letter = Color.fromRGBO(64, 61, 56, 1);

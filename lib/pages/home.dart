@@ -52,10 +52,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Config.white_background,
+      backgroundColor: Config.backgroundColor,
       drawer: DrawerApp(),
       appBar: AppBar(
-        backgroundColor: Config.white_background,
+        backgroundColor: Config.backgroundColor,
         toolbarHeight: 56,
         title: Text(
           'Tela inicial',
@@ -146,11 +146,12 @@ class _HomePageState extends State<HomePage> {
                         authorizedPersonsStore.erro.value,
                         () => authorizedPersonsStore.erro.value = '');
                   } else {
-                   if (authorizedPersonsStore.state.value.isNotEmpty) {
-                      return _cardAutorizadas(authorizedPersonsStore.state.value);
-                   } else {
-                     return _isEmpty('Nenhuma pessoa autorizada cadastra!');
-                   }
+                    if (authorizedPersonsStore.state.value.isNotEmpty) {
+                      return _cardAutorizadas(
+                          authorizedPersonsStore.state.value);
+                    } else {
+                      return _isEmpty('Nenhuma pessoa autorizada cadastra!');
+                    }
                   }
                 },
               ),

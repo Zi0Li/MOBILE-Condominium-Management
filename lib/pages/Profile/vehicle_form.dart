@@ -200,11 +200,11 @@ class _VehicleFormState extends State<VehicleForm> {
   void _saveVehicle() {
     if (widget.vehicle != null) {
       Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ProfilePage(),
-            ),
-          );
+        context,
+        MaterialPageRoute(
+          builder: (context) => ProfilePage(),
+        ),
+      );
     } else {
       Map<String, dynamic> Vehicle = {
         "brand": _brandController.text,
@@ -230,6 +230,12 @@ class _VehicleFormState extends State<VehicleForm> {
 
   void _deleteVehicle() {
     store.deleteVehicle(widget.vehicle!.id!).then((value) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ProfilePage(),
+        ),
+      );
       WidgetSnackMessage.notificationSnackMessage(
         context: context,
         mensage: "${widget.vehicle!.model!} excluído com sucesso!",
