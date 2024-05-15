@@ -38,4 +38,18 @@ class VehicleStore {
     isLoading.value = false;
     return state.value;
   }
+
+  Future deleteVehicle(int id) async{
+     isLoading.value = true;
+    try {
+      final result = await repository.deleteVehicle(id);
+      state.value.add(result);
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+    return state.value;
+  }
 }

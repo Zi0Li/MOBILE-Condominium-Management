@@ -8,9 +8,11 @@ import 'package:tcc/data/stores/Vehicle_Store.dart';
 import 'package:tcc/pages/Profile/profile.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
-import 'package:tcc/widgets/error_message.dart';
+import 'package:tcc/widgets/error.dart';
 import 'package:tcc/widgets/input.dart';
 import 'package:tcc/widgets/loading.dart';
+import 'package:tcc/widgets/showDialog.dart';
+import 'package:tcc/widgets/snackMessage.dart';
 
 class VehicleForm extends StatefulWidget {
   Vehicle? vehicle;
@@ -53,6 +55,25 @@ class _VehicleFormState extends State<VehicleForm> {
     return Scaffold(
       appBar: AppBarWidget(
         title: "${widget.title} veículo",
+        actions: [
+          (widget.vehicle != null)
+              ? IconButton(
+                  onPressed: () {
+                    WidgetShowDialog.DeleteShowDialog(
+                      context,
+                      _modelController.text,
+                      Icons.delete_forever,
+                      _deleteVehicle,
+                    );
+                  },
+                  icon: Icon(
+                    Icons.delete_outline,
+                    color: Config.orange,
+                    size: 28,
+                  ),
+                )
+              : Container()
+        ],
       ),
       body: Padding(
           padding: const EdgeInsets.all(10),
@@ -65,7 +86,7 @@ class _VehicleFormState extends State<VehicleForm> {
                   child: WidgetLoading.containerLoading(),
                 );
               } else if (store.erro.value.isNotEmpty) {
-                return ErrorMessage.containerError(
+                return WidgetError.containerError(
                     store.erro.value, () => store.erro.value = '');
               } else {
                 return _body();
@@ -177,24 +198,44 @@ class _VehicleFormState extends State<VehicleForm> {
   }
 
   void _saveVehicle() {
-    Map<String, dynamic> Vehicle = {
-      "brand": _brandController.text,
-      "model": _modelController.text,
-      "year": _yearController.text,
-      "plate": _plateController.text,
-      "color": _colorController.text,
-      "type": _selectTypeVehicle,
-      "resident": {"id": Config.resident.id}
-    };
-    store.postVehicle(Vehicle).then((value) {
-      if (value.isNotEmpty) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ProfilePage(),
-          ),
-        );
-      }
+    if (widget.vehicle != null) {
+      Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfilePage(),
+            ),
+          );
+    } else {
+      Map<String, dynamic> Vehicle = {
+        "brand": _brandController.text,
+        "model": _modelController.text,
+        "year": _yearController.text,
+        "plate": _plateController.text,
+        "color": _colorController.text,
+        "type": _selectTypeVehicle,
+        "resident": {"id": Config.resident.id}
+      };
+      store.postVehicle(Vehicle).then((value) {
+        if (value.isNotEmpty) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfilePage(),
+            ),
+          );
+        }
+      });
+    }
+  }
+
+  void _deleteVehicle() {
+    store.deleteVehicle(widget.vehicle!.id!).then((value) {
+      WidgetSnackMessage.notificationSnackMessage(
+        context: context,
+        mensage: "${widget.vehicle!.model!} excluído com sucesso!",
+        backgroundColor: Config.green,
+        icon: Icons.check,
+      );
     });
   }
 }
