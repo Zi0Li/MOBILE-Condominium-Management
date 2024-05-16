@@ -4,11 +4,12 @@ import 'package:tcc/widgets/config.dart';
 class WidgetSnackMessage {
   WidgetSnackMessage._();
 
-  static notificationSnackMessage(
-      {required BuildContext? context,
-      required String? mensage,
-      required Color? backgroundColor,
-      IconData? icon}) {
+  static notificationSnackMessage({
+    required BuildContext? context,
+    required String? mensage,
+    Color backgroundColor = const Color.fromRGBO(0, 128, 0, 1),
+    IconData icon = Icons.check,
+  }) {
     final snackBar = SnackBar(
       content: Row(
         children: [

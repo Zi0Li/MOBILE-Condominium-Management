@@ -211,12 +211,15 @@ class _VehicleFormState extends State<VehicleForm> {
 
     if (widget.vehicle != null) {
       store.putVehicle(vehicle).then((value) {
-        print(value);
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => ProfilePage(),
           ),
+        );
+        WidgetSnackMessage.notificationSnackMessage(
+          context: context,
+          mensage: "${widget.vehicle!.model!} atualizado com sucesso!",
         );
       });
     } else {
@@ -227,6 +230,10 @@ class _VehicleFormState extends State<VehicleForm> {
             MaterialPageRoute(
               builder: (context) => ProfilePage(),
             ),
+          );
+          WidgetSnackMessage.notificationSnackMessage(
+            context: context,
+            mensage: "${_modelController.text} criado com sucesso!",
           );
         }
       });
@@ -244,8 +251,6 @@ class _VehicleFormState extends State<VehicleForm> {
       WidgetSnackMessage.notificationSnackMessage(
         context: context,
         mensage: "${widget.vehicle!.model!} excluído com sucesso!",
-        backgroundColor: Config.green,
-        icon: Icons.check,
       );
     });
   }

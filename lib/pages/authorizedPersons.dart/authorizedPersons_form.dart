@@ -265,6 +265,11 @@ class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
             builder: (context) => AuthorizedPersonsListPage(),
           ),
         );
+        WidgetSnackMessage.notificationSnackMessage(
+          context: context,
+          mensage:
+              "${widget.authorizedPersons!.name} foi atualizado com sucesso",
+        );
       });
     } else {
       store.postAuthorizedPersons(authorizedPerson).then((value) {
@@ -273,6 +278,11 @@ class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
           MaterialPageRoute(
             builder: (context) => AuthorizedPersonsListPage(),
           ),
+        );
+        WidgetSnackMessage.notificationSnackMessage(
+          context: context,
+          mensage:
+              "${_nameController.text} foi criado com sucesso",
         );
       });
     }
@@ -289,8 +299,6 @@ class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
       WidgetSnackMessage.notificationSnackMessage(
         context: context,
         mensage: "${widget.authorizedPersons!.name!} excluído com sucesso!",
-        backgroundColor: Config.green,
-        icon: Icons.check,
       );
     });
   }
