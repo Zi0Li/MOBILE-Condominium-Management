@@ -10,6 +10,8 @@ abstract class IAuthorizedPersonsRepository {
   Future<dynamic> deleteAuthorizedPersons(int id);
   Future<AuthorizedPersons> postAuthorizedPersons(
       Map<String, dynamic> authorizedPersons);
+  Future<AuthorizedPersons> putAuthorizedPersons(
+      Map<String, dynamic> authorizedPersons);
 }
 
 class AuthorizedPersonsRepository implements IAuthorizedPersonsRepository {
@@ -71,6 +73,28 @@ class AuthorizedPersonsRepository implements IAuthorizedPersonsRepository {
       object: authorizedPersons,
       withToken: true,
     );
+    // print('Depois da requisição');
+    // print('STATUS CODE: ${response.statusCode}');
+    // print('BODY: ${response.body}');
+    final body = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      return AuthorizedPersons.fromMap(body);
+    } else if (response.statusCode == 404) {
+      throw NotFoundException("A url informada não e valida!");
+    } else if (response.statusCode == 405) {
+      throw NotFoundException("Sem autorização");
+    } else if (response.statusCode == 500) {
+      throw NotFoundException("Usuário ou senha inválido!");
+    } else {
+      throw NotFoundException(Config.textToUtf8(body['message']));
+    }
+  }
+
+  @override
+  Future<AuthorizedPersons> putAuthorizedPersons(
+      Map<String, dynamic> authorizedPersons) async {
+    final response = await client.put(
+        address: "/authorizedPersons", object: authorizedPersons);
     print('Depois da requisição');
     print('STATUS CODE: ${response.statusCode}');
     print('BODY: ${response.body}');
@@ -81,8 +105,6 @@ class AuthorizedPersonsRepository implements IAuthorizedPersonsRepository {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException("Usuário ou senha inválido!");
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }

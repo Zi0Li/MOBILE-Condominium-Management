@@ -213,7 +213,7 @@ class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
                   Expanded(
                     child: TextButton(
                       onPressed: () {
-                        _saveAuthorizedPersons();
+                        _saveAndUpdateAuthorizedPersons();
                       },
                       style: TextButton.styleFrom(
                         fixedSize: Size.fromHeight(52),
@@ -245,23 +245,28 @@ class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
     );
   }
 
-  void _saveAuthorizedPersons() {
+  void _saveAndUpdateAuthorizedPersons() {
+    Map<String, dynamic> authorizedPerson = {
+      "id": (widget.authorizedPersons != null)
+          ? widget.authorizedPersons!.id
+          : null,
+      "name": _nameController.text,
+      "cpf": _cpfController.text,
+      "rg": _rgController.text,
+      "kinship": _kinshipController.text,
+      "phone": _phoneController.text,
+      "resident": {"id": Config.resident.id}
+    };
     if (widget.authorizedPersons != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => AuthorizedPersonsListPage(),
-        ),
-      );
+      store.putAuthorizedPersons(authorizedPerson).then((value) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AuthorizedPersonsListPage(),
+          ),
+        );
+      });
     } else {
-      Map<String, dynamic> authorizedPerson = {
-        "name": _nameController.text,
-        "cpf": _cpfController.text,
-        "rg": _rgController.text,
-        "kinship": _kinshipController.text,
-        "phone": _phoneController.text,
-        "resident": {"id": Config.resident.id}
-      };
       store.postAuthorizedPersons(authorizedPerson).then((value) {
         Navigator.push(
           context,
