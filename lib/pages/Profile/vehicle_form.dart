@@ -167,7 +167,7 @@ class _VehicleFormState extends State<VehicleForm> {
               Expanded(
                 child: TextButton(
                   onPressed: () {
-                    _saveVehicle();
+                    _saveAndUpdateVehicle();
                   },
                   style: TextButton.styleFrom(
                     fixedSize: Size.fromHeight(52),
@@ -197,25 +197,30 @@ class _VehicleFormState extends State<VehicleForm> {
     );
   }
 
-  void _saveVehicle() {
+  void _saveAndUpdateVehicle() {
+    Map<String, dynamic> vehicle = {
+      "id": (widget.vehicle != null) ? widget.vehicle!.id : null,
+      "brand": _brandController.text,
+      "model": _modelController.text,
+      "year": _yearController.text,
+      "plate": _plateController.text,
+      "color": _colorController.text,
+      "type": _selectTypeVehicle,
+      "resident": {"id": Config.resident.id}
+    };
+
     if (widget.vehicle != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ProfilePage(),
-        ),
-      );
+      store.putVehicle(vehicle).then((value) {
+        print(value);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProfilePage(),
+          ),
+        );
+      });
     } else {
-      Map<String, dynamic> Vehicle = {
-        "brand": _brandController.text,
-        "model": _modelController.text,
-        "year": _yearController.text,
-        "plate": _plateController.text,
-        "color": _colorController.text,
-        "type": _selectTypeVehicle,
-        "resident": {"id": Config.resident.id}
-      };
-      store.postVehicle(Vehicle).then((value) {
+      store.postVehicle(vehicle).then((value) {
         if (value.isNotEmpty) {
           Navigator.push(
             context,
