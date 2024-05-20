@@ -303,8 +303,10 @@ class _HomePageState extends State<HomePage> {
   void _getAuthorizationPerons() {
     authorizedPersonsStore
         .getAuthorizedPersonsByResident(Config.resident.id)
-        .then((authorizedPersons) =>
-            contAuthorizedPersons = authorizedPersons.length);
+        .then(
+          (authorizedPersons) =>
+              setState(() => contAuthorizedPersons = authorizedPersons.length),
+        );
   }
 
   void _getReservation() {
