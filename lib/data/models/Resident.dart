@@ -28,8 +28,8 @@ class Resident {
     List<AuthorizedPersons>? authorizedPersonsList = [];
     if (map['authorizedPersons'] != null) {
       map['authorizedPersons'].map((item) {
-        final AuthorizedPersons condominium = AuthorizedPersons.fromMap(item);
-        authorizedPersonsList.add(condominium);
+        final AuthorizedPersons authorizedPersons = AuthorizedPersons.fromMap(item);
+        authorizedPersonsList.add(authorizedPersons);
       }).toList();
     }
     return Resident(
