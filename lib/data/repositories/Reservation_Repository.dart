@@ -23,7 +23,7 @@ class ReservationRepository implements IReservationRepository {
     if (response.statusCode == 200) {
       final List<ReservationAndKioskDTO> reservationList = [];
       body.map((item) {
-        final Reservation reservation = Reservation.fromMap(item['reservation']);
+        final Reservation reservation = Reservation.fromMap(item['reservation'].first);
         final Kiosk kiosk = Kiosk.fromMap(item['kiosk']);
         reservationList.add(ReservationAndKioskDTO(reservation: reservation, kiosk: kiosk));
       }).toList();
