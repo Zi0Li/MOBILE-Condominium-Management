@@ -2,7 +2,7 @@ import 'package:tcc/data/models/Kiosk.dart';
 import 'package:tcc/data/models/Reservation.dart';
 
 class ReservationAndKioskDTO {
-  Reservation? reservation;
+  List<Reservation>? reservation;
   Kiosk? kiosk;
 
   ReservationAndKioskDTO({
@@ -11,8 +11,13 @@ class ReservationAndKioskDTO {
   });
 
   factory ReservationAndKioskDTO.fromMap(Map map) {
+    List<Reservation>? reservationList = [];
+    map['reservation'].map((item) {
+        final Reservation reservation = Reservation.fromMap(item);
+        reservationList.add(reservation);
+      }).toList();
     return ReservationAndKioskDTO(
-      reservation: Reservation.fromMap(map['reservation']),
+      reservation: reservationList,
       kiosk: Kiosk.fromMap(map['kiosk']),
     );
   }

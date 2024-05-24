@@ -12,7 +12,7 @@ class ReservationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Reservation reservation = reservationAndKioskDTO.reservation!;
+    List<Reservation> reservations = reservationAndKioskDTO.reservation!;
     Kiosk kiosk = reservationAndKioskDTO.kiosk!;
 
     return InkWell(
@@ -30,7 +30,7 @@ class ReservationCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                reservation.description!,
+                reservations.first.description!,
                 style: TextStyle(
                   color: Config.orange,
                   fontWeight: FontWeight.w600,
@@ -48,7 +48,7 @@ class ReservationCard extends StatelessWidget {
               Config.text('Descrição: ', kiosk.description!, 16),
               Row(
                 children: [
-                  Config.text('Início: ', reservation.date!, 16),
+                  Config.text('Início: ', reservations.first.date!, 16),
                   Spacer(),
                   Config.text('Convidados: ', '25', 16),
                 ],

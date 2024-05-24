@@ -10,20 +10,18 @@ import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/error.dart';
 import 'package:tcc/widgets/loading.dart';
 
-List<ReservationAndKioskDTO> auxlist = [];
-
 final kToday = DateTime.now();
 final kFirstDay = DateTime(kToday.year, kToday.month, kToday.day);
 final kLastDay = DateTime(kToday.year, kToday.month + 6, kToday.day);
 
-class ReservesForm extends StatefulWidget {
-  const ReservesForm({super.key});
+class TestePageWidget extends StatefulWidget {
+  const TestePageWidget({super.key});
 
   @override
-  State<ReservesForm> createState() => _ReservesFormState();
+  State<TestePageWidget> createState() => _TestePageWidgetState();
 }
 
-class _ReservesFormState extends State<ReservesForm> {
+class _TestePageWidgetState extends State<TestePageWidget> {
   late final ValueNotifier<List<Kiosk>> _selectedReservations;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;

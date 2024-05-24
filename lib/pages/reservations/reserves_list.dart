@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/repositories/Reservation_Repository.dart';
 import 'package:tcc/data/stores/Reservation_Store.dart';
@@ -40,12 +41,14 @@ class _ReservesListState extends State<ReservesList> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ReservesForm(),
-                ),
-              );
+              initializeDateFormatting().then((value) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ReservesForm(),
+                  ),
+                );
+              });
             },
             icon: Icon(
               Icons.add,

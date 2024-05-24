@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/repositories/Resident_Repository.dart';
 import 'package:tcc/data/stores/Resident_Store.dart';
@@ -11,6 +12,7 @@ import 'package:tcc/pages/home.dart';
 import 'package:tcc/pages/Profile/profile.dart';
 import 'package:tcc/pages/reservations/reserves_list.dart';
 import 'package:tcc/pages/rules.dart';
+import 'package:tcc/teste.dart';
 import 'package:tcc/widgets/config.dart';
 
 class DrawerApp extends StatefulWidget {
@@ -220,6 +222,26 @@ class _DrawerAppState extends State<DrawerApp> {
                   builder: (context) => WelcomePage(),
                 ),
               );
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.warning_amber,
+              color: Colors.green.shade600,
+            ),
+            title: Text(
+              "*TESTE*",
+              style: _textStyle(),
+            ),
+            onTap: () {
+              initializeDateFormatting().then((value) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TestePageWidget(),
+                  ),
+                );
+              });
             },
           ),
         ],

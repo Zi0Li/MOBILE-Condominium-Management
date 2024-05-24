@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tcc/data/dtos/ReservationAndKioskDTO.dart';
 import 'package:tcc/data/http/exceptions.dart';
 import 'package:tcc/data/models/Kiosk.dart';
 import 'package:tcc/data/repositories/Kiosk_repository.dart';
@@ -8,6 +9,8 @@ class KioskStore {
   final ValueNotifier<bool> isLoading = ValueNotifier<bool>(false);
   final ValueNotifier<List<Kiosk>> state =
       ValueNotifier<List<Kiosk>>([]);
+  final ValueNotifier<List<ReservationAndKioskDTO>> stateDTO =
+      ValueNotifier<List<ReservationAndKioskDTO>>([]);
   final ValueNotifier<String> erro = ValueNotifier<String>("");
 
   KioskStore({required this.repository});
@@ -30,13 +33,13 @@ class KioskStore {
     isLoading.value = true;
     try {
       final result = await repository.getAllDetails(id);
-      state.value = result;
+      stateDTO.value = result;
     } on NotFoundException catch (e) {
       erro.value = e.message;
     } catch (e) {
       erro.value = e.toString();
     }
     isLoading.value = false;
-    return state.value;
+    return stateDTO.value;
   }
 }
