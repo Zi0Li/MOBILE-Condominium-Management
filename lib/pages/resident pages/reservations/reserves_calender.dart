@@ -5,7 +5,7 @@ import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/Kiosk.dart';
 import 'package:tcc/data/repositories/Kiosk_repository.dart';
 import 'package:tcc/data/stores/Kiosk_Store.dart';
-import 'package:tcc/pages/reservations/reserves_add.dart';
+import 'package:tcc/pages/resident%20pages/reservations/reserves_add.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/error.dart';

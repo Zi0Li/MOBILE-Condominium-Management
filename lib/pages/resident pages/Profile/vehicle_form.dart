@@ -5,7 +5,7 @@ import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/Vehicle.dart';
 import 'package:tcc/data/repositories/Vehicle_Repository.dart';
 import 'package:tcc/data/stores/Vehicle_Store.dart';
-import 'package:tcc/pages/Profile/profile.dart';
+import 'package:tcc/pages/resident%20pages/Profile/profile.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/error.dart';

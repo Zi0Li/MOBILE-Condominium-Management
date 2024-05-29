@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tcc/pages/report/anonymous.dart';
-import 'package:tcc/pages/report/ticket.dart';
+import 'package:tcc/pages/resident%20pages/report/anonymous.dart';
+import 'package:tcc/pages/resident%20pages/report/ticket.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 

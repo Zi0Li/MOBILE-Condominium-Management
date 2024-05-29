@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/repositories/Vehicle_Repository.dart';
 import 'package:tcc/data/stores/Vehicle_Store.dart';
-import 'package:tcc/pages/Profile/vehicle_form.dart';
+import 'package:tcc/pages/resident%20pages/Profile/vehicle_form.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/loading.dart';
 

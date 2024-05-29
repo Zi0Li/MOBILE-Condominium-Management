@@ -6,7 +6,7 @@ import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/Kiosk.dart';
 import 'package:tcc/data/repositories/Reservation_Repository.dart';
 import 'package:tcc/data/stores/Reservation_Store.dart';
-import 'package:tcc/pages/reservations/reserves_list.dart';
+import 'package:tcc/pages/resident%20pages/reservations/reserves_list.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/input.dart';

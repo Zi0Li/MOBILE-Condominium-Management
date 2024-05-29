@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/repositories/Resident_Repository.dart';
 import 'package:tcc/data/stores/Resident_Store.dart';
-import 'package:tcc/pages/chat/chat.dart';
+import 'package:tcc/pages/resident%20pages/chat/chat.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/error.dart';
