@@ -28,4 +28,30 @@ class ReservationStore {
     isLoading.value = false;
     return stateDTO.value;
   }
+
+  Future postReservation(Map<String, dynamic> reservation) async {
+    isLoading.value = true;
+    try {
+      final result = await repository.postReservation(reservation);
+      state.value.add(result);
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+    return state.value;
+  }
+
+  Future deleteReservation(int id) async {
+    isLoading.value = true;
+    try {
+      await repository.deleteReservation(id);
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+  }
 }

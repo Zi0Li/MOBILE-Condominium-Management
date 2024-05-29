@@ -12,9 +12,15 @@ class InputWidget extends StatelessWidget {
   double? width;
   int? maxLine;
   bool obscureText;
+  bool enabled;
 
   InputWidget(this.label, this.controller, this.keyboardType, this.icon,
-      {super.key, this.height, this.width, this.maxLine = 1, this.obscureText = false});
+      {super.key,
+      this.height,
+      this.width,
+      this.maxLine = 1,
+      this.obscureText = false,
+      this.enabled = true});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +30,7 @@ class InputWidget extends StatelessWidget {
         height: height,
         width: width,
         child: TextFormField(
+          enabled: enabled,
           validator: Config.validator,
           controller: controller,
           keyboardType: keyboardType,

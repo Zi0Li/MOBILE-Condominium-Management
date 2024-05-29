@@ -5,6 +5,7 @@ import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/Kiosk.dart';
 import 'package:tcc/data/repositories/Kiosk_repository.dart';
 import 'package:tcc/data/stores/Kiosk_Store.dart';
+import 'package:tcc/pages/reservations/reserves_add.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/error.dart';
@@ -27,6 +28,7 @@ class _ReservesFormState extends State<ReservesForm> {
   late final ValueNotifier<List<Kiosk>> _selectedReservations;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
+  List<Kiosk> allKioks = [];
 
   KioskStore store = KioskStore(
     repository: KioskRepository(
@@ -92,27 +94,70 @@ class _ReservesFormState extends State<ReservesForm> {
           onPageChanged: (focusedDay) {
             _focusedDay = focusedDay;
           },
+          calendarStyle: CalendarStyle(
+            selectedDecoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Config.orange,
+            ),
+          ),
         ),
-        const SizedBox(height: 8.0),
+        Divider(),
         Expanded(
           child: ValueListenableBuilder<List<Kiosk>>(
             valueListenable: _selectedReservations,
             builder: (context, value, _) {
               return ListView.builder(
-                itemCount: value.length,
+                itemCount: allKioks.length,
                 itemBuilder: (context, index) {
+                  String status = 'Disponível';
+                  Color statusColor = Config.orange;
+                  bool isReserved = false;
+                  for (var i = 0; i < value.length; i++) {
+                    if (allKioks[index].id == value[i].id) {
+                      status = 'Indisponível';
+                      statusColor = Config.grey600;
+                      isReserved = true;
+                    }
+                  }
+
                   return Container(
                     margin: const EdgeInsets.symmetric(
-                      horizontal: 12.0,
+                      horizontal: 10.0,
                       vertical: 4.0,
                     ),
                     decoration: BoxDecoration(
                       border: Border.all(),
-                      borderRadius: BorderRadius.circular(12.0),
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: ListTile(
-                      onTap: () => print('${value[index]}'),
-                      title: Text('${value[index]}'),
+                      onTap: () {
+                        if (isReserved) {
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ReservesAddPage(
+                                kiosk: allKioks[index],
+                                dateTime: _focusedDay,
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('${allKioks[index].type}'),
+                          Text(
+                            '$status',
+                            style: TextStyle(
+                              color: statusColor,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                      subtitle: Text('${allKioks[index].description}'),
                     ),
                   );
                 },
@@ -125,7 +170,11 @@ class _ReservesFormState extends State<ReservesForm> {
   }
 
   void _getAllDetails() {
-    store.getAllDetails(Config.resident.id).then((value) {});
+    store.getAllDetails(Config.resident.id).then((value) {
+      for (var element in value) {
+        allKioks.add(element.kiosk!);
+      }
+    });
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
