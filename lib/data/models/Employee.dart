@@ -6,6 +6,7 @@ class Employee {
   String? phone;
   String? position;
   String? workload;
+  String? email;
 
   Employee({
     required this.id,
@@ -15,6 +16,7 @@ class Employee {
     required this.phone,
     required this.position,
     required this.workload,
+    required this.email,
   });
 
   factory Employee.fromMap(Map map) {
@@ -26,6 +28,7 @@ class Employee {
       phone: map['phone'],
       position: map['position'],
       workload: map['workload'],
+      email: map['email'],
     );
   }
 
@@ -38,12 +41,13 @@ class Employee {
       'phone': phone,
       'position': position,
       'workload': workload,
+      'email': email,
     };
     return map;
   }
 
   @override
   String toString() {
-    return "EMPLOYEE(id: $id | name: $name | cpf: $cpf | rg: $rg | phone: $phone | position: $position | workload: $workload)";
+    return "EMPLOYEE(id: $id | name: $name | cpf: $cpf | rg: $rg | phone: $phone | position: $position | workload: $workload | email: $email)";
   }
 }

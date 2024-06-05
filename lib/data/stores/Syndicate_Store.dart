@@ -12,11 +12,10 @@ class SyndicateStore {
 
   SyndicateStore({required this.repository});
 
-  Future getSyndicate() async {
-    print('TESTE 1');
+  Future getSyndicateById(int id) async {
     isLoading.value = true;
     try {
-      final result = await repository.getSyndicate();
+      final result = await repository.getSyndicateById(id);
       state.value.add(result);
     } on NotFoundException catch (e) {
       erro.value = e.message;

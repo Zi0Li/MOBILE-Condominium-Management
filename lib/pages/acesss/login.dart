@@ -6,6 +6,7 @@ import 'package:tcc/data/repositories/Authentication_Repository.dart';
 import 'package:tcc/data/stores/Authentication_Store.dart';
 import 'package:tcc/pages/acesss/register_condo.dart';
 import 'package:tcc/pages/resident%20pages/resident_homepage.dart';
+import 'package:tcc/pages/syndicate%20pages/syndicate_homepage.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/error.dart';
@@ -212,10 +213,16 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => HomePage(),
+          builder: (context) => ResidentHomePage(),
         ),
       );
     } else if (store.state.value[0].role == Config.sindico) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SyndicateHomePage(),
+        ),
+      );
     } else if (store.state.value[0].role == Config.funcionario) {
     } else {}
   }

@@ -7,6 +7,7 @@ class Syndicate {
   String? rg;
   String? cpf;
   String? phone;
+  String? email;
   List<Condominium>? condominiums;
 
   Syndicate(
@@ -15,6 +16,7 @@ class Syndicate {
       required this.rg,
       required this.cpf,
       required this.phone,
+      required this.email,
       required this.condominiums});
 
   factory Syndicate.fromMap(Map map) {
@@ -37,6 +39,7 @@ class Syndicate {
       rg: map['rg'],
       cpf: map['cpf'],
       phone: map['phone'],
+      email: map['email'],
       condominiums: condominiumList,
     );
   }
@@ -48,6 +51,7 @@ class Syndicate {
       'rg': rg,
       'cpf': cpf,
       'phone': phone,
+      'email': email,
       'condominiums': condominiums,
     };
     return map;
@@ -55,6 +59,6 @@ class Syndicate {
 
   @override
   String toString() {
-    return "SYNDICATE(id: $id | name: $name | rg: $rg | cpf: $cpf | phone: $phone | condominiums: $condominiums)";
+    return "SYNDICATE(id: $id | name: $name | rg: $rg | cpf: $cpf | phone: $phone | email: $email | condominiums: $condominiums)";
   }
 }

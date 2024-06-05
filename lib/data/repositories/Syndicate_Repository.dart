@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:tcc/data/http/exceptions.dart';
@@ -6,25 +5,20 @@ import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/Syndicate.dart';
 
 abstract class ISyndicateRepository {
-  Future<Syndicate> getSyndicate();
+  Future<Syndicate> getSyndicateById(int id);
 }
 
 class SyndicateRepository implements ISyndicateRepository {
   final IHttpClient client;
 
- SyndicateRepository({required this.client});
+  SyndicateRepository({required this.client});
 
   @override
-  Future<Syndicate> getSyndicate() async {
-    print('TESTE 2');
-
-    final response = await client.get(address: "/auth/login");
-    print('RESPONSE: ${response.statusCode}');
+  Future<Syndicate> getSyndicateById(int id) async {
+    final response = await client.get(address: "/syndicate/$id", withToken: true);
+    final body = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      
-      final body = jsonDecode(response.body);
-      return Syndicate.fromMap(body['entity']);
-
+      return Syndicate.fromMap(body);
     } else if (response.statusCode == 404) {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {

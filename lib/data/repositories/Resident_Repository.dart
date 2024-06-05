@@ -98,7 +98,7 @@ class ResidentRepository implements IResidentRepository {
         residents.add(resident);
       }).toList();
       for (var i = 0; i < residents.length; i++) {
-        if (residents[i].id == Config.resident.id) {
+        if (residents[i].id == Config.user.id) {
           residents.removeAt(i);
         }
       }

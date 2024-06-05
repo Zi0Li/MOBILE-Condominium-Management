@@ -15,14 +15,14 @@ import 'package:tcc/widgets/error.dart';
 import 'package:tcc/widgets/loading.dart';
 import 'package:tcc/widgets/reservation_card.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class ResidentHomePage extends StatefulWidget {
+  const ResidentHomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ResidentHomePage> createState() => _ResidentHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ResidentHomePageState extends State<ResidentHomePage> {
   final ResidentStore residentStore = ResidentStore(
     repository: ResidentRepository(
       client: HttpClient(),
@@ -209,9 +209,7 @@ class _HomePageState extends State<HomePage> {
         shrinkWrap: true,
         itemCount: authorizedPersons.length,
         itemBuilder: (context, index) {
-          List<String> aux = authorizedPersons[index].name!.split(' ');
-          String logoName = aux[0][0];
-          logoName += aux[aux.length - 1][0];
+          
 
           return ListTile(
             onLongPress: () {},
@@ -228,7 +226,7 @@ class _HomePageState extends State<HomePage> {
               ),
               child: Center(
                 child: Text(
-                  logoName.toUpperCase(),
+                  Config.logoName(authorizedPersons[index].name!).toUpperCase(),
                   style: TextStyle(
                     fontSize: 14,
                   ),
@@ -285,7 +283,7 @@ class _HomePageState extends State<HomePage> {
     LoginController.internal().getAllLogins().then((value) {
       if (value.isNotEmpty) {
         residentStore.getResident(value.first.id).then((residents) {
-          Config.resident = residentStore.state.value.first;
+          Config.user = residentStore.state.value.first;
           _getAuthorizationPerons();
           _getReservation();
         });
@@ -302,7 +300,7 @@ class _HomePageState extends State<HomePage> {
 
   void _getAuthorizationPerons() {
     authorizedPersonsStore
-        .getAuthorizedPersonsByResident(Config.resident.id)
+        .getAuthorizedPersonsByResident(Config.user.id)
         .then(
           (authorizedPersons) =>
               setState(() => contAuthorizedPersons = authorizedPersons.length),
@@ -310,7 +308,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _getReservation() {
-    reservationStore.getReservationByResident(Config.resident.id);
+    reservationStore.getReservationByResident(Config.user.id);
   }
 
   Widget _isEmpty(String text) {
