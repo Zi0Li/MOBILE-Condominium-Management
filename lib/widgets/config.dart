@@ -23,7 +23,7 @@ class Config {
   static Color green = Color.fromRGBO(0, 128, 0, 1);
   static Color amber = Colors.amber;
 
-  static dynamic resident;
+  static dynamic user;
 
   static String sindico = "SINDICO";
   static String morador = "MORADOR";
@@ -139,5 +139,12 @@ class Config {
 
   static String textToUtf8(String text) {
     return utf8.decode(text.codeUnits);
+  }
+
+  static String logoName(String name){
+    List<String> aux = name.split(' ');
+    String logoName = aux.first[0];
+    logoName += aux.last[0];
+    return logoName;
   }
 }

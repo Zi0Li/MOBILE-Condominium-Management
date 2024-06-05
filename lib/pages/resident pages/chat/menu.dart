@@ -191,7 +191,7 @@ class _MenuChatPageState extends State<MenuChatPage> {
 
   void _getAllNeighbors() {
     store
-        .getAllNeighbors(Config.resident.id)
+        .getAllNeighbors(Config.user.id)
         .then((value){
           setState(() {
             contNeighbors = store.state.value.length;

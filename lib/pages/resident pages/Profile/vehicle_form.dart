@@ -206,7 +206,7 @@ class _VehicleFormState extends State<VehicleForm> {
       "plate": _plateController.text,
       "color": _colorController.text,
       "type": _selectTypeVehicle,
-      "resident": {"id": Config.resident.id}
+      "resident": {"id": Config.user.id}
     };
 
     if (widget.vehicle != null) {

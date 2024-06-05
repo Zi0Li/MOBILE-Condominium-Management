@@ -170,7 +170,7 @@ class _ReservesFormState extends State<ReservesForm> {
   }
 
   void _getAllDetails() {
-    store.getAllDetails(Config.resident.id).then((value) {
+    store.getAllDetails(Config.user.id).then((value) {
       for (var element in value) {
         allKioks.add(element.kiosk!);
       }

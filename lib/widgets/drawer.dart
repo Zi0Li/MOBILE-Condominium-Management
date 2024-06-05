@@ -31,25 +31,23 @@ class _DrawerAppState extends State<DrawerApp> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> aux = Config.resident.name.split(' ');
-    String logoName = aux[0][0];
-    logoName += aux[aux.length - 1][0];
+    
     return Drawer(
       backgroundColor: Config.backgroundColor,
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
             accountName: Text(
-              Config.resident.name,
+              Config.user.name,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
-            accountEmail: Text(Config.resident.email),
+            accountEmail: Text(Config.user.email),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Config.backgroundColor,
               child: Text(
-                logoName,
+                Config.logoName(Config.user.name),
                 style: TextStyle(
                   color: Config.grey_letter,
                   fontWeight: FontWeight.w600,
@@ -73,7 +71,7 @@ class _DrawerAppState extends State<DrawerApp> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HomePage(),
+                  builder: (context) => ResidentHomePage(),
                 ),
               );
             },

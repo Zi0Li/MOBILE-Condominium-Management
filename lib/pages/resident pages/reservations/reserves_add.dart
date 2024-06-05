@@ -155,7 +155,7 @@ class _ReservesAddPageState extends State<ReservesAddPage> {
     Map<String, dynamic> reservation = {
       "date": widget.dateTime.toString(),
       "description": _descriptionController.text,
-      "resident": {"id": Config.resident.id},
+      "resident": {"id": Config.user.id},
       "kiosk": {"id": widget.kiosk!.id}
     };
 

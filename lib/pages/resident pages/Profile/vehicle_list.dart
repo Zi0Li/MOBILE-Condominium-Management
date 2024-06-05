@@ -114,6 +114,6 @@ class _VehiclePageState extends State<VehiclePage> {
   }
 
   void _getVehicles() {
-    store.getVehicleByResident(Config.resident.id);
+    store.getVehicleByResident(Config.user.id);
   }
 }

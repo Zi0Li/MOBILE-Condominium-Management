@@ -33,8 +33,8 @@ class _AddressPageState extends State<AddressPage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Config.text('Bloco: ', Config.resident.block, 18),
-            Config.text('Apartamento: ', Config.resident.apt, 18),
+            Config.text('Bloco: ', Config.user.block, 18),
+            Config.text('Apartamento: ', Config.user.apt, 18),
           ],
         ),
         SizedBox(height: 30),

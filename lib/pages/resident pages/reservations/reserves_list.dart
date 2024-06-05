@@ -164,7 +164,7 @@ class _ReservesListState extends State<ReservesList> {
   }
 
     void _getReservation() {
-    store.getReservationByResident(Config.resident.id);
+    store.getReservationByResident(Config.user.id);
   }
 
   void _deleteReservation(int id){

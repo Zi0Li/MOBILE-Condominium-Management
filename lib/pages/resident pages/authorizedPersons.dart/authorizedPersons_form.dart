@@ -255,7 +255,7 @@ class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
       "rg": _rgController.text,
       "kinship": _kinshipController.text,
       "phone": _phoneController.text,
-      "resident": {"id": Config.resident.id}
+      "resident": {"id": Config.user.id}
     };
     if (widget.authorizedPersons != null) {
       store.putAuthorizedPersons(authorizedPerson).then((value) {

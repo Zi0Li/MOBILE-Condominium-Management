@@ -86,9 +86,6 @@ class _AuthorizedPersonsListPageState extends State<AuthorizedPersonsListPage> {
     return ListView.builder(
       itemCount: store.state.value.length,
       itemBuilder: (context, index) {
-        List<String> aux = store.state.value[index].name!.split(' ');
-        String logoName = aux[0][0];
-        logoName += aux[aux.length - 1][0];
         return ListTile(
           onTap: () {
             Navigator.push(
@@ -114,7 +111,7 @@ class _AuthorizedPersonsListPageState extends State<AuthorizedPersonsListPage> {
             ),
             child: Center(
               child: Text(
-                logoName.toUpperCase(),
+                Config.logoName(store.state.value[index].name!).toUpperCase(),
                 style: TextStyle(
                   fontSize: 14,
                 ),
@@ -128,7 +125,7 @@ class _AuthorizedPersonsListPageState extends State<AuthorizedPersonsListPage> {
   }
 
   void _getAuthorizedPersons() {
-    store.getAuthorizedPersonsByResident(Config.resident.id).then((value) {
+    store.getAuthorizedPersonsByResident(Config.user.id).then((value) {
       setState(() {
         _contList = value.length;
       });

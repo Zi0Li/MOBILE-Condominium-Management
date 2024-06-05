@@ -123,7 +123,7 @@ class _TestePageWidgetState extends State<TestePageWidget> {
   }
 
   void _getAllDetails() {
-    store.getAllDetails(Config.resident.id).then((value) {});
+    store.getAllDetails(Config.user.id).then((value) {});
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {

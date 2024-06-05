@@ -33,11 +33,11 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _nameController.text = Config.resident.name;
-    _emailController.text = Config.resident.email;
-    _phoneController.text = Config.resident.phone;
-    _rgController.text = Config.resident.rg;
-    _cpfController.text = Config.resident.cpf;
+    _nameController.text = Config.user.name;
+    _emailController.text = Config.user.email;
+    _phoneController.text = Config.user.phone;
+    _rgController.text = Config.user.rg;
+    _cpfController.text = Config.user.cpf;
   }
 
   //Controller Profile
@@ -138,7 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       Text(
-                        "${Config.resident.block} - ${Config.resident.apt}",
+                        "${Config.user.block} - ${Config.user.apt}",
                         style: TextStyle(
                           fontSize: 14,
                           color: Config.grey600,
@@ -237,7 +237,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HomePage(),
+                      builder: (context) => ResidentHomePage(),
                     ),
                   );
                 },
@@ -334,19 +334,19 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void _updateResident() {
     Resident resident = Resident(
-      id: Config.resident.id,
+      id: Config.user.id,
       name: _nameController.text,
       rg: _rgController.text,
       cpf: _cpfController.text,
-      block: Config.resident.block,
-      apt: Config.resident.apt,
+      block: Config.user.block,
+      apt: Config.user.apt,
       phone: _phoneController.text,
       email: _emailController.text,
       authorizedPersons: null,
     );
     store.putResident(resident).then((value) {
       setState(() {
-        Config.resident = value.first;
+        Config.user = value.first;
       });
     });
   }
