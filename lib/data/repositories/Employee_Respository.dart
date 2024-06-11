@@ -6,7 +6,7 @@ import 'package:tcc/data/models/Employee.dart';
 import 'package:tcc/widgets/config.dart';
 
 abstract class IEmployeeRepository {
-  Future<dynamic> getEmployee(int code);
+  Future<List<Employee>> getEmployeeByCondominium(int code);
 }
 
 class EmployeeRepository implements IEmployeeRepository {
@@ -15,15 +15,16 @@ class EmployeeRepository implements IEmployeeRepository {
   EmployeeRepository({required this.client});
 
   @override
-  Future<dynamic> getEmployee(int code) async {
-
-    final response = await client.get(address: "/Employee/code=$code");
-    print('Depois da requisição');
-    print('STATUS CODE: ${response.statusCode}');
-    print('BODY: ${response.body}');
+  Future<List<Employee>> getEmployeeByCondominium(int code) async {
+    final response = await client.get(
+        address: "/employee/condominium=$code", withToken: true);
     final body = jsonDecode(response.body);
-    if (response.statusCode == 200) {    
-      return Employee.fromMap(body);
+    if (response.statusCode == 200) {
+      List<Employee> employees = [];
+      body.map((item) {
+        employees.add(Employee.fromMap(item));
+      }).toList();
+      return employees;
     } else if (response.statusCode == 404) {
       throw NotFoundException("Código do condomínio inválido!");
     } else if (response.statusCode == 405) {
