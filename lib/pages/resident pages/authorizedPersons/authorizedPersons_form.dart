@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tcc/data/models/AuthorizedPersons.dart';
 import 'package:tcc/data/repositories/AuthorizedPersons_Repository.dart';
 import 'package:tcc/data/stores/AuthorizedPersons_Store.dart';
-import 'package:tcc/pages/resident%20pages/authorizedPersons.dart/authorizedPersons_list.dart';
+import 'package:tcc/pages/resident%20pages/authorizedPersons/authorizedPersons_list.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/input.dart';

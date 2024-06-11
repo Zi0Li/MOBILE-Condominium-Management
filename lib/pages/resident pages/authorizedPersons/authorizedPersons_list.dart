@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/repositories/AuthorizedPersons_Repository.dart';
 import 'package:tcc/data/stores/AuthorizedPersons_Store.dart';
-import 'package:tcc/pages/resident%20pages/authorizedPersons.dart/authorizedPersons_form.dart';
+import 'package:tcc/pages/resident%20pages/authorizedPersons/authorizedPersons_form.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
-import 'package:tcc/widgets/drawer.dart';
+import 'package:tcc/widgets/drawers/resident_drawer.dart';
 import 'package:tcc/widgets/error.dart';
 import 'package:tcc/widgets/loading.dart';
 
@@ -37,7 +37,7 @@ class _AuthorizedPersonsListPageState extends State<AuthorizedPersonsListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Config.backgroundColor,
-      drawer: DrawerApp(),
+      drawer: ResidentDrawerApp(),
       appBar: AppBarWidget(
         title: 'Pessoas autorizadas (${_contList}/4)',
         actions: [
