@@ -6,7 +6,7 @@ import 'package:tcc/data/stores/Reservation_Store.dart';
 import 'package:tcc/pages/resident%20pages/reservations/reserves_calender.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
-import 'package:tcc/widgets/drawer.dart';
+import 'package:tcc/widgets/drawers/resident_drawer.dart';
 import 'package:tcc/widgets/error.dart';
 import 'package:tcc/widgets/loading.dart';
 import 'package:tcc/widgets/reservation_card.dart';
@@ -35,7 +35,7 @@ class _ReservesListState extends State<ReservesList> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Config.backgroundColor,
-      drawer: DrawerApp(),
+      drawer: ResidentDrawerApp(),
       appBar: AppBarWidget(
         title: 'Reservas',
         actions: [

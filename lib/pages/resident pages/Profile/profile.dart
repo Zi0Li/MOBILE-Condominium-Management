@@ -9,7 +9,7 @@ import 'package:tcc/pages/resident%20pages/Profile/vehicle_list.dart';
 import 'package:tcc/pages/resident%20pages/resident_homepage.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
-import 'package:tcc/widgets/drawer.dart';
+import 'package:tcc/widgets/drawers/resident_drawer.dart';
 import 'package:tcc/widgets/error.dart';
 import 'package:tcc/widgets/input.dart';
 import 'package:tcc/data/http/http_client.dart';
@@ -63,7 +63,7 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBarWidget(
         title: 'Perfil',
       ),
-      drawer: DrawerApp(),
+      drawer: ResidentDrawerApp(),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(

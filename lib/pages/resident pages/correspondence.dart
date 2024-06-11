@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
-import 'package:tcc/widgets/drawer.dart';
+import 'package:tcc/widgets/drawers/resident_drawer.dart';
 
 class CorrespondencePage extends StatefulWidget {
   const CorrespondencePage({super.key});
@@ -14,7 +14,7 @@ class _CorrespondencePageState extends State<CorrespondencePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: DrawerApp(),
+      drawer: ResidentDrawerApp(),
       appBar: AppBarWidget(
         title: 'Correspondências',
       ),

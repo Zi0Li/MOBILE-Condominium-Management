@@ -10,7 +10,7 @@ import 'package:tcc/data/stores/Reservation_Store.dart';
 import 'package:tcc/data/stores/Resident_Store.dart';
 import 'package:tcc/pages/acesss/welcome.dart';
 import 'package:tcc/widgets/config.dart';
-import 'package:tcc/widgets/drawer.dart';
+import 'package:tcc/widgets/drawers/resident_drawer.dart';
 import 'package:tcc/widgets/error.dart';
 import 'package:tcc/widgets/loading.dart';
 import 'package:tcc/widgets/reservation_card.dart';
@@ -53,7 +53,7 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Config.backgroundColor,
-      drawer: DrawerApp(),
+      drawer: ResidentDrawerApp(),
       appBar: AppBar(
         backgroundColor: Config.backgroundColor,
         toolbarHeight: 56,

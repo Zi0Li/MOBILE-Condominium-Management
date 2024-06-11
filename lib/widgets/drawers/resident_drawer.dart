@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/repositories/Resident_Repository.dart';
 import 'package:tcc/data/stores/Resident_Store.dart';
-import 'package:tcc/pages/resident%20pages/authorizedPersons.dart/authorizedPersons_list.dart';
+import 'package:tcc/pages/resident%20pages/authorizedPersons/authorizedPersons_list.dart';
 import 'package:tcc/pages/resident%20pages/chat/menu.dart';
 import 'package:tcc/pages/resident%20pages/report/report_menu.dart';
 import 'package:tcc/pages/acesss/welcome.dart';
@@ -12,17 +11,16 @@ import 'package:tcc/pages/resident%20pages/resident_homepage.dart';
 import 'package:tcc/pages/resident%20pages/Profile/profile.dart';
 import 'package:tcc/pages/resident%20pages/reservations/reserves_list.dart';
 import 'package:tcc/pages/resident%20pages/rules.dart';
-import 'package:tcc/teste.dart';
 import 'package:tcc/widgets/config.dart';
 
-class DrawerApp extends StatefulWidget {
-  const DrawerApp({super.key});
+class ResidentDrawerApp extends StatefulWidget {
+  const ResidentDrawerApp({super.key});
 
   @override
-  State<DrawerApp> createState() => _DrawerAppState();
+  State<ResidentDrawerApp> createState() => _ResidentDrawerAppState();
 }
 
-class _DrawerAppState extends State<DrawerApp> {
+class _ResidentDrawerAppState extends State<ResidentDrawerApp> {
   final ResidentStore store = ResidentStore(
     repository: ResidentRepository(
       client: HttpClient(),
@@ -220,26 +218,6 @@ class _DrawerAppState extends State<DrawerApp> {
                   builder: (context) => WelcomePage(),
                 ),
               );
-            },
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.warning_amber,
-              color: Colors.green.shade600,
-            ),
-            title: Text(
-              "*TESTE*",
-              style: _textStyle(),
-            ),
-            onTap: () {
-              initializeDateFormatting().then((value) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TestePageWidget(),
-                  ),
-                );
-              });
             },
           ),
         ],
