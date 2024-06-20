@@ -10,7 +10,7 @@ class WidgetShowDialog {
       context: context,
       builder: (context) => AlertDialog(
         icon: Icon(
-          Icons.delete_forever,
+          icon,
           size: 36,
           color: Colors.black,
         ),
@@ -48,7 +48,6 @@ class WidgetShowDialog {
           TextButton(
             onPressed: () {
               function();
-              
             },
             style: TextButton.styleFrom(
               backgroundColor: Config.orange,
@@ -62,6 +61,39 @@ class WidgetShowDialog {
                 style: TextStyle(fontSize: 18, color: Colors.white)),
           ),
         ],
+      ),
+    );
+  }
+
+  static CustomShowDialog({
+    required BuildContext context,
+    required String text,
+    IconData? icon,
+    List<Widget>? actions,
+    required List<Widget> body,
+  }) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          text,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
+        ),
+        actionsAlignment: MainAxisAlignment.center,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: body,
+        ),
+        actions: actions,
       ),
     );
   }

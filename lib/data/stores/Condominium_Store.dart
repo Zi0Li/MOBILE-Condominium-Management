@@ -16,15 +16,53 @@ class CondominiumStore {
     isLoading.value = true;
     try {
       final result = await repository.getCondominiumByCode(code);
-      print("RESULT: $result");
       state.value.add(result);
     } on NotFoundException catch (e) {
-      print("Error: ${erro.value}");
       erro.value = e.message;
     } catch (e) {
       erro.value = e.toString();
     }
     isLoading.value = false;
     return state.value;
+  }
+
+  Future postCondomium(Map<String, dynamic> condominio) async {
+    isLoading.value = true;
+    try {
+      final result = await repository.postCondomium(condominio);
+      state.value.add(result);
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+    return state.value;
+  }
+
+  Future putCondomium(Map<String, dynamic> condominio) async {
+    isLoading.value = true;
+    try {
+      final result = await repository.putCondomium(condominio);
+      state.value.add(result);
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+    return state.value;
+  }
+
+  Future deleteCondomium(int id) async {
+    isLoading.value = true;
+    try {
+      await repository.deleteCondominium(id);
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
   }
 }

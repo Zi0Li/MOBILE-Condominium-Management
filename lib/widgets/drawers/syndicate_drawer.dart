@@ -3,6 +3,7 @@ import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/repositories/Resident_Repository.dart';
 import 'package:tcc/data/stores/Resident_Store.dart';
 import 'package:tcc/pages/acesss/welcome.dart';
+import 'package:tcc/pages/syndicate%20pages/condominiums/condominiums_list.dart';
 import 'package:tcc/pages/syndicate%20pages/syndicate_homepage.dart';
 import 'package:tcc/widgets/config.dart';
 
@@ -81,7 +82,7 @@ class _SyndicateDrawerAppState extends State<SyndicateDrawerApp> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SyndicateHomePage(),
+                  builder: (context) => CondominiumsList(),
                 ),
               );
             },

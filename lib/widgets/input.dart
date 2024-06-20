@@ -14,13 +14,18 @@ class InputWidget extends StatelessWidget {
   bool obscureText;
   bool enabled;
 
-  InputWidget(this.label, this.controller, this.keyboardType, this.icon,
-      {super.key,
-      this.height,
-      this.width,
-      this.maxLine = 1,
-      this.obscureText = false,
-      this.enabled = true});
+  InputWidget(
+    this.label,
+    this.controller,
+    this.keyboardType,
+    this.icon, {
+    super.key,
+    this.height,
+    this.width,
+    this.maxLine = 1,
+    this.obscureText = false,
+    this.enabled = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +46,7 @@ class InputWidget extends StatelessWidget {
               icon,
               color: Config.grey600,
             ),
-            hintText: label,
-            hintStyle: TextStyle(
-              color: Config.grey400,
-            ),
+            label: Text(label),
           ),
         ),
       ),
