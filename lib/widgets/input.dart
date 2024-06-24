@@ -11,6 +11,7 @@ class InputWidget extends StatelessWidget {
   double? height;
   double? width;
   int? maxLine;
+  int? minLine;
   bool obscureText;
   bool enabled;
 
@@ -23,6 +24,7 @@ class InputWidget extends StatelessWidget {
     this.height,
     this.width,
     this.maxLine = 1,
+    this.minLine = 1,
     this.obscureText = false,
     this.enabled = true,
   });
@@ -40,6 +42,7 @@ class InputWidget extends StatelessWidget {
           controller: controller,
           keyboardType: keyboardType,
           maxLines: maxLine,
+          minLines: minLine,
           obscureText: obscureText,
           decoration: InputDecoration(
             prefixIcon: Icon(
