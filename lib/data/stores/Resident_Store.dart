@@ -66,4 +66,18 @@ class ResidentStore {
     isLoading.value = false;
     return state.value;
   }
+
+  Future getResidentsByCondominium(int id) async {
+    isLoading.value = true;
+    try {
+      final result = await repository.getResidentsByCondominium(id);
+      state.value = result;
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+    return state.value;
+  }
 }
