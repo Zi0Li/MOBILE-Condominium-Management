@@ -70,7 +70,7 @@ class _ResidentListPageState extends State<ResidentListPage> {
             } else {
               return Center(
                 child: Text(
-                  "Nenhum morador cadastrador neste condomínio",
+                  "Nenhum morador cadastrado neste condomínio",
                   style: TextStyle(
                     color: Config.grey_letter,
                     fontSize: 16,

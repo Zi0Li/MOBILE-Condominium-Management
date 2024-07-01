@@ -45,10 +45,8 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Config.backgroundColor,
       drawer: SyndicateDrawerApp(),
       appBar: AppBar(
-        backgroundColor: Config.backgroundColor,
         toolbarHeight: 56,
         actions: [
           (selectCondominium == null)
@@ -211,7 +209,6 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
                           width: 50,
                           height: 50,
                           decoration: BoxDecoration(
-                            color: Config.white,
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
                               width: 1,
@@ -255,7 +252,6 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
     return SizedBox(
       height: 80,
       child: Material(
-        color: Config.backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(10),

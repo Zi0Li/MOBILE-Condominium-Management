@@ -24,4 +24,48 @@ class EmployeeStore {
     isLoading.value = false;
     return state.value;
   }
+
+  Future postEmployee(
+    Map<String, dynamic> employee,
+    Map<String, dynamic> register,
+  ) async {
+    isLoading.value = true;
+    try {
+      final result = await repository.postEmployee(employee, register);
+      state.value.add(result);
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+    return state.value;
+  }
+
+  Future putEmployee(Map<String, dynamic> employee) async {
+    isLoading.value = true;
+    try {
+      final result = await repository.putEmployee(employee);
+      state.value.add(result);
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+    return state.value;
+  }
+
+  Future deleteEmployee(int id) async {
+    isLoading.value = true;
+    try {
+      await repository.deleteEmployee(id);
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+    return true;
+  }
 }

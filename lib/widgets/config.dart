@@ -141,10 +141,21 @@ class Config {
     return utf8.decode(text.codeUnits);
   }
 
-  static String logoName(String name){
+  static String logoName(String name) {
     List<String> aux = name.split(' ');
     String logoName = aux.first[0];
     logoName += aux.last[0];
     return logoName;
+  }
+
+  static String passwordEmployee(String cpf, String rg) {
+    String password = '';
+    if (cpf.isNotEmpty && rg.isNotEmpty) {
+      cpf = cpf.replaceAll('.', '').replaceAll('-', '');
+      rg = rg.replaceAll('.', '').replaceAll('-', '');
+      password += cpf.substring(0, 4);
+      password += rg.substring(rg.length - 4, rg.length);
+    }
+    return password;
   }
 }
