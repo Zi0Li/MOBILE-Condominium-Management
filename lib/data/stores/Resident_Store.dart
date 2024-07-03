@@ -80,4 +80,18 @@ class ResidentStore {
     isLoading.value = false;
     return state.value;
   }
+
+    Future getResidentSearch(String search) async {
+    isLoading.value = true;
+    Resident? result;
+    try {
+      result = await repository.getResidentSearch(search);
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+    return result;
+  }
 }

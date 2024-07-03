@@ -7,6 +7,7 @@ import 'package:tcc/pages/syndicate%20pages/condominiums/condominiums_list.dart'
 import 'package:tcc/pages/syndicate%20pages/employee/employee_list.dart';
 import 'package:tcc/pages/syndicate%20pages/kiosk/kiosk_list.dart';
 import 'package:tcc/pages/syndicate%20pages/resident/resident_list.dart';
+import 'package:tcc/pages/syndicate%20pages/search.dart';
 import 'package:tcc/pages/syndicate%20pages/syndicate_homepage.dart';
 import 'package:tcc/widgets/config.dart';
 
@@ -66,6 +67,25 @@ class _SyndicateDrawerAppState extends State<SyndicateDrawerApp> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => SyndicateHomePage(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.search,
+              color: Config.orange,
+            ),
+            title: Text(
+              "Buscar pessoas",
+              style: _textStyle(),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SearchPage(),
                 ),
               );
             },

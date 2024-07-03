@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tcc/data/http/exceptions.dart';
 import 'package:tcc/data/models/AuthorizedPersons.dart';
+import 'package:tcc/data/models/Resident.dart';
 import 'package:tcc/data/repositories/AuthorizedPersons_Repository.dart';
 
 class AuthorizedPersonsStore {
@@ -66,5 +67,19 @@ class AuthorizedPersonsStore {
     }
     isLoading.value = false;
     return state.value;
+  }
+
+  Future getAuthorizedPersonsSearch(String search) async {
+    isLoading.value = true;
+    Resident? resident;
+    try {
+      resident = await repository.getAuthorizedPersonsSearch(search);
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+    return resident;
   }
 }
