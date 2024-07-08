@@ -6,6 +6,7 @@ import 'package:tcc/pages/acesss/welcome.dart';
 import 'package:tcc/pages/syndicate%20pages/condominiums/condominiums_list.dart';
 import 'package:tcc/pages/syndicate%20pages/employee/employee_list.dart';
 import 'package:tcc/pages/syndicate%20pages/kiosk/kiosk_list.dart';
+import 'package:tcc/pages/syndicate%20pages/report/report_list.dart';
 import 'package:tcc/pages/syndicate%20pages/resident/resident_list.dart';
 import 'package:tcc/pages/syndicate%20pages/search.dart';
 import 'package:tcc/pages/syndicate%20pages/syndicate_homepage.dart';
@@ -124,6 +125,24 @@ class _SyndicateDrawerAppState extends State<SyndicateDrawerApp> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => EmployeeListPage(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.library_books_outlined,
+              color: Config.orange,
+            ),
+            title: Text(
+              "Reportes/Tickets",
+              style: _textStyle(),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ReportListPage(),
                 ),
               );
             },
