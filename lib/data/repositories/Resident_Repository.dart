@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:tcc/data/http/exceptions.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/AuthorizedPersons.dart';
+import 'package:tcc/data/models/Condominium.dart';
 import 'package:tcc/data/models/Resident.dart';
 import 'package:tcc/data/models/Vehicle.dart';
 import 'package:tcc/data/repositories/Authentication_Repository.dart';
@@ -31,7 +32,9 @@ class ResidentRepository implements IResidentRepository {
     // print('BODY: ${response.body}');
     final body = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      return Resident.fromMap(body);
+      Resident resident = Resident.fromMap(body['resident']);
+      resident.condominium = Condominium.fromMap(body['condominium']);
+      return resident;
     } else if (response.statusCode == 404) {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {

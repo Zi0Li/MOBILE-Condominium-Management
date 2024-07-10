@@ -1,8 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -34,47 +32,6 @@ class Config {
     "Moto",
     "Bicicleta",
     "Transporte"
-  ];
-
-  static final List<String> listCategory = [
-    'Administração',
-    'Funcionário',
-    'Manutenção',
-    'Morador',
-    'Reclamação',
-  ];
-
-  static final block = [
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J',
-    'K',
-  ];
-
-  static final Apartment = [
-    '101',
-    '102',
-    '103',
-    '104',
-    '201',
-    '202',
-    '203',
-    '204',
-    '301',
-    '302',
-    '303',
-    '304',
-    '401',
-    '402',
-    '403',
-    '404',
   ];
 
   static String? validator(value) {
@@ -115,26 +72,6 @@ class Config {
         ],
       ),
     );
-  }
-
-  static String randomNumber({int qty = 10}) {
-    Random _random = Random();
-    int randomNumber(int min, int max) => min + _random.nextInt(max - min);
-    int from, to;
-    String random = '';
-
-    from = 0;
-    to = 9;
-
-    for (int i = 0; i < qty; i++) {
-      int selectedNumber = randomNumber(from, to);
-      random += selectedNumber.toString();
-      if (i == (qty / 2) - 1) {
-        random += ' - ';
-      }
-    }
-
-    return random;
   }
 
   static String textToUtf8(String text) {

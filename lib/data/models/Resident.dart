@@ -1,4 +1,5 @@
 import 'package:tcc/data/models/AuthorizedPersons.dart';
+import 'package:tcc/data/models/Condominium.dart';
 import 'package:tcc/data/models/Vehicle.dart';
 import 'package:tcc/widgets/config.dart';
 
@@ -11,6 +12,7 @@ class Resident {
   String? apt;
   String? phone;
   String? email;
+  Condominium? condominium;
   List<AuthorizedPersons>? authorizedPersons;
   List<Vehicle>? vehicle;
 

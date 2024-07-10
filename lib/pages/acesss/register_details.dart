@@ -352,8 +352,8 @@ class _RegisterDetailsPageState extends State<RegisterDetailsPage> {
                   });
                 },
                 dropdownMenuEntries:
-                    Config.block.map<DropdownMenuEntry<String>>(
-                  (String value) {
+                    widget.condominium!.block!.map<DropdownMenuEntry<String>>(
+                  (dynamic value) {
                     return DropdownMenuEntry<String>(
                       value: value,
                       label: value,
@@ -390,8 +390,8 @@ class _RegisterDetailsPageState extends State<RegisterDetailsPage> {
                   });
                 },
                 dropdownMenuEntries:
-                    Config.Apartment.map<DropdownMenuEntry<String>>(
-                  (String value) {
+                    widget.condominium!.number_apt!.map<DropdownMenuEntry<String>>(
+                  (dynamic value) {
                     return DropdownMenuEntry<String>(
                       value: value,
                       label: value,
