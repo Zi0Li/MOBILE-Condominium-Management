@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:tcc/data/controllers/Login_Controller.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/Condominium.dart';
+import 'package:tcc/data/models/Report.dart';
 import 'package:tcc/data/repositories/Employee_Respository.dart';
+import 'package:tcc/data/repositories/Report_Repository.dart';
 import 'package:tcc/data/repositories/Syndicate_Repository.dart';
 import 'package:tcc/data/stores/Employee_Store.dart';
+import 'package:tcc/data/stores/Report_Store.dart';
 import 'package:tcc/data/stores/Syndicate_Store.dart';
 import 'package:tcc/pages/acesss/welcome.dart';
 import 'package:tcc/widgets/config.dart';
@@ -32,9 +35,18 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
     ),
   );
 
+    ReportStore reportStore = ReportStore(
+    repository: ReportRepository(
+      client: HttpClient(),
+    ),
+  );
+
   int contAuthorizedPersons = 0;
   Condominium? selectCondominium;
   List<Condominium> condominiums = [];
+  List<Report> reportsTicket = [];
+  List<Report> reportsAnonymous = [];
+  List<Report> reports = [];
 
   @override
   void initState() {
@@ -117,18 +129,20 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
               Row(
                 children: [
                   Expanded(
-                    child: _button(
+                    child: _cardReport(
                       "Denúncias Anônimas",
                       Icons.person_off_outlined,
+                      reportsAnonymous.length
                     ),
                   ),
                   SizedBox(
                     width: 10,
                   ),
                   Expanded(
-                    child: _button(
+                    child: _cardReport(
                       "Reportes/Tickets",
                       Icons.report_gmailerrorred_sharp,
+                      reportsTicket.length
                     ),
                   ),
                 ],
@@ -248,7 +262,7 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
     );
   }
 
-  Widget _button(String label, IconData icon) {
+  Widget _cardReport(String label, IconData icon, int listLenght) {
     return SizedBox(
       height: 80,
       child: Material(
@@ -260,7 +274,6 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
         ),
         child: InkWell(
           splashColor: Config.orange,
-          onTap: () => print('Teste'),
           borderRadius: BorderRadius.circular(10),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(15, 10, 25, 10),
@@ -277,7 +290,7 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
                       size: 30,
                     ),
                     Text(
-                      '1',
+                      listLenght.toString(),
                       style: TextStyle(
                         fontSize: 16,
                         color: Config.black,
@@ -364,10 +377,30 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
 
   void _updateInformations(int id) {
     _getEmployeeByCondominium(id);
+    _getReports(id);
   }
 
   void _getEmployeeByCondominium(int id) {
     employeeStore.getEmployeeByCondominium(id);
+  }
+
+  void _getReports(int id) {
+    reportStore.getReportByCondominium(id).then(
+      (value) {
+        setState(() {
+          reportsTicket.clear();
+          reportsAnonymous.clear();
+          reports.clear();
+          for (Report element in value) {
+            if (element.type == "Ticket") {
+              reportsTicket.add(element);
+            } else {
+              reportsAnonymous.add(element);
+            }
+          }
+        });
+      },
+    );
   }
 
   Widget _isEmpty(String text) {

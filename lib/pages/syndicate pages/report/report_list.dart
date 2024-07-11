@@ -261,7 +261,7 @@ class _ReportListPageState extends State<ReportListPage> {
           reportsAnonymous.clear();
           reports.clear();
           for (Report element in value) {
-            if (element.resident != null) {
+            if (element.type == "Ticket") {
               reportsTicket.add(element);
             } else {
               reportsAnonymous.add(element);
