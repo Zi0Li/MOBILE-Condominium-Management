@@ -2,29 +2,55 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:tcc/data/repositories/Report_Repository.dart';
+import 'package:tcc/data/stores/Report_Store.dart';
+import 'package:tcc/pages/resident%20pages/report/report_menu.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/input.dart';
+import 'package:tcc/data/http/http_client.dart';
+import 'package:tcc/widgets/snackMessage.dart';
 
-class ReportTicketPage extends StatefulWidget {
-  const ReportTicketPage({super.key});
+class ReportFormPage extends StatefulWidget {
+  final type;
+  ReportFormPage({required this.type, super.key});
 
   @override
-  State<ReportTicketPage> createState() => _ReportTicketPageState();
+  State<ReportFormPage> createState() => _ReportFormPageState();
 }
 
-class _ReportTicketPageState extends State<ReportTicketPage> {
-  TextEditingController _reportController = TextEditingController();
+class _ReportFormPageState extends State<ReportFormPage> {
   TextEditingController _titleController = TextEditingController();
-  String? selectedCategoryValue;
+  TextEditingController _dateController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
   List<Map<String, String>> listImagePath = [];
+  String _obsrvation =
+      'Nenhum dos seus dados serão exibidos, evitando a sua identificação.';
 
+  ReportStore store = ReportStore(
+    repository: ReportRepository(
+      client: HttpClient(),
+    ),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.type == "Ticket") {
+      _obsrvation =
+          'Seus dados serão exibidos, desta forma será possível a sua identificação.';
+    }
+    _dateController.text =
+        _dateController.text = DateFormat('d/MM/y').format(DateTime.now());
+    ;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-        title: 'Reportar/Ticket',
+        title: 'Denúncia ${widget.type.toLowerCase()}',
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -33,45 +59,11 @@ class _ReportTicketPageState extends State<ReportTicketPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Seus dados serão exibidos, desta forma será possível a sua identificação.',
+                _obsrvation,
                 style: TextStyle(
                   color: Config.grey600,
                   fontStyle: FontStyle.italic,
                 ),
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Categoria: ',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Config.grey800,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: DropdownButton<String?>(
-                      value: selectedCategoryValue,
-                      onChanged: (String? newValue) =>
-                          setState(() => selectedCategoryValue = newValue!),
-                      items: Config.listCategory
-                          .map<DropdownMenuItem<String?>>(
-                            (String? value) => DropdownMenuItem<String?>(
-                              value: value,
-                              child: Text(value!),
-                            ),
-                          )
-                          .toList(),
-                      icon: Icon(Icons.arrow_drop_down),
-                      iconSize: 42,
-                      underline: SizedBox(),
-                    ),
-                  ),
-                ],
               ),
               InputWidget(
                 'Titulo',
@@ -80,8 +72,15 @@ class _ReportTicketPageState extends State<ReportTicketPage> {
                 Icons.title_rounded,
               ),
               InputWidget(
+                'Data',
+                _dateController,
+                TextInputType.text,
+                Icons.date_range,
+                enabled: false,
+              ),
+              InputWidget(
                 'Descrição',
-                _reportController,
+                _descriptionController,
                 TextInputType.multiline,
                 Icons.description_outlined,
                 maxLine: null,
@@ -117,6 +116,39 @@ class _ReportTicketPageState extends State<ReportTicketPage> {
                 itemCount: listImagePath.length,
                 itemBuilder: (context, index) =>
                     _image(listImagePath[index], index),
+              ),
+              SizedBox(
+                height: 35,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () {
+                        _saveReport();
+                      },
+                      style: TextButton.styleFrom(
+                        fixedSize: Size.fromHeight(52),
+                        backgroundColor: Config.orange,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        side: BorderSide(
+                          width: 1,
+                          color: Config.orange,
+                        ),
+                      ),
+                      child: Text(
+                        'Reportar',
+                        style: TextStyle(
+                          color: Config.backgroundColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               )
             ],
           ),
@@ -291,6 +323,35 @@ class _ReportTicketPageState extends State<ReportTicketPage> {
           ),
         ),
       ),
+    );
+  }
+
+  void _saveReport() {
+    Map<String, dynamic> report = {
+      "title": _titleController.text,
+      "type": widget.type,
+      "description": _descriptionController.text,
+      "status": "Enviado",
+      "date": _dateController.text,
+      "view": false,
+      "condominium": {"id": Config.user.condominium.id},
+      "resident": {"id": Config.user.id}
+    };
+    store.create(report).then(
+      (value) {
+        if (value != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ReportMenuPage(),
+            ),
+          );
+          WidgetSnackMessage.notificationSnackMessage(
+            context: context,
+            mensage: "${widget.type} foi criado com sucesso",
+          );
+        }
+      },
     );
   }
 }
