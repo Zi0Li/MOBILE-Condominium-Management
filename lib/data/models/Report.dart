@@ -31,7 +31,7 @@ class Report {
       status: Config.textToUtf8(map['status']),
       description: Config.textToUtf8(map['description']),
       resident: null,
-      view: (map['view'] == 1) ? true : false,
+      view: map['view'],
     );
   }
 

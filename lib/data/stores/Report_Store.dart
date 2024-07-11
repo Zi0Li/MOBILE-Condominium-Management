@@ -25,6 +25,20 @@ class ReportStore {
     return state.value;
   }
 
+  Future getReportByResident(int id) async {
+    isLoading.value = true;
+    try {
+      final result = await repository.getReportByResident(id);
+      state.value = result;
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+    return state.value;
+  }
+
   Future update(Map<String, dynamic> report) async {
     isLoading.value = true;
     try {
@@ -37,5 +51,31 @@ class ReportStore {
     }
     isLoading.value = false;
     return state.value;
+  }
+
+  Future create(Map<String, dynamic> report) async {
+    isLoading.value = true;
+    try {
+      final result = await repository.create(report);
+      state.value.add(result);
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+    return state.value;
+  }
+
+  Future delete(int id) async {
+    isLoading.value = true;
+    try {
+      await repository.delete(id);
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
   }
 }

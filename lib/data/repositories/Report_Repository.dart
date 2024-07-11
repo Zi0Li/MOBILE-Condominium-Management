@@ -8,7 +8,10 @@ import 'package:tcc/widgets/config.dart';
 
 abstract class IReportRepository {
   Future<List<Report>> getReportByCondominium(int id);
+  Future<List<Report>> getReportByResident(int id);
+  Future<void> delete(int id);
   Future<Report> update(Map<String, dynamic> report);
+  Future<Report> create(Map<String, dynamic> report);
 }
 
 class ReportRepository implements IReportRepository {
@@ -45,15 +48,77 @@ class ReportRepository implements IReportRepository {
   }
 
   @override
+  Future<List<Report>> getReportByResident(int id) async {
+    final response = await client.get(
+      address: "/report/resident=$id",
+      withToken: true,
+    );
+
+    final body = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      final List<Report> reportList = [];
+      body.map((item) {
+        print("ITEM : $item");
+        reportList.add(Report.fromMap(item));
+      }).toList();
+      return reportList;
+    } else if (response.statusCode == 404) {
+      throw NotFoundException("A url informada não e valida!");
+    } else if (response.statusCode == 405) {
+      throw NotFoundException("Sem autorização");
+    } else if (response.statusCode == 500) {
+      throw NotFoundException("Usuário ou senha inválido!");
+    } else {
+      throw NotFoundException(Config.textToUtf8(body['message']));
+    }
+  }
+
+  @override
   Future<Report> update(Map<String, dynamic> report) async {
-    final response = await client.post(
+    final response = await client.put(
       address: "/report",
       object: report,
-      withToken: true,
     );
     final body = jsonDecode(response.body);
     if (response.statusCode == 200) {
       return Report.fromMap(body);
+    } else if (response.statusCode == 404) {
+      throw NotFoundException("A url informada não e valida!");
+    } else if (response.statusCode == 405) {
+      throw NotFoundException("Sem autorização");
+    } else if (response.statusCode == 500) {
+      throw NotFoundException("Usuário ou senha inválido!");
+    } else {
+      throw NotFoundException(Config.textToUtf8(body['message']));
+    }
+  }
+
+  @override
+  Future<Report> create(Map<String, dynamic> report) async {
+    final response =
+        await client.post(address: "/report", object: report, withToken: true);
+    final body = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      return Report.fromMap(body);
+    } else if (response.statusCode == 404) {
+      throw NotFoundException("A url informada não e valida!");
+    } else if (response.statusCode == 405) {
+      throw NotFoundException("Sem autorização");
+    } else if (response.statusCode == 500) {
+      throw NotFoundException("Usuário ou senha inválido!");
+    } else {
+      throw NotFoundException(Config.textToUtf8(body['message']));
+    }
+  }
+
+  @override
+  Future<void> delete(int id) async {
+    final response = await client.delete(
+      address: "/report/$id",
+    );
+
+    final body = jsonDecode(response.body);
+    if (response.statusCode == 200) {
     } else if (response.statusCode == 404) {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {
