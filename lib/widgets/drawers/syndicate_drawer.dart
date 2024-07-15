@@ -4,6 +4,7 @@ import 'package:tcc/data/repositories/Resident_Repository.dart';
 import 'package:tcc/data/stores/Resident_Store.dart';
 import 'package:tcc/pages/acesss/welcome.dart';
 import 'package:tcc/pages/syndicate%20pages/condominiums/condominiums_list.dart';
+import 'package:tcc/pages/syndicate%20pages/correspondence/correspondence_list.dart';
 import 'package:tcc/pages/syndicate%20pages/employee/employee_list.dart';
 import 'package:tcc/pages/syndicate%20pages/kiosk/kiosk_list.dart';
 import 'package:tcc/pages/syndicate%20pages/report/report_list.dart';
@@ -143,6 +144,24 @@ class _SyndicateDrawerAppState extends State<SyndicateDrawerApp> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ReportListPage(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.mark_as_unread_outlined,
+              color: Config.orange,
+            ),
+            title: Text(
+              "Correspondências",
+              style: _textStyle(),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CorrespondenceListPage(),
                 ),
               );
             },
