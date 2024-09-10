@@ -3,6 +3,7 @@ import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/Condominium.dart';
 import 'package:tcc/data/repositories/Syndicate_Repository.dart';
 import 'package:tcc/data/stores/Syndicate_Store.dart';
+import 'package:tcc/pages/syndicate%20pages/correspondence/correspondence_add.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawers/syndicate_drawer.dart';
@@ -36,6 +37,23 @@ class _CorrespondenceListPageState extends State<CorrespondenceListPage> {
       drawer: SyndicateDrawerApp(),
       appBar: AppBarWidget(
         title: "Correspondências",
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CorrespondenceAddPage(),
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.add,
+              color: Config.orange,
+              size: 28,
+            ),
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
