@@ -113,7 +113,7 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _cardNotification(
-                'Atualmente você não tem correspondência',
+                'Quantidade de correspondência: 9',
                 Icons.markunread_mailbox_outlined,
               ),
               SizedBox(
