@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:tcc/data/http/http_client.dart';
+import 'package:tcc/data/models/Condominium.dart';
 import 'package:tcc/data/models/Resident.dart';
 import 'package:tcc/data/repositories/Correspondence_Repository.dart';
 import 'package:tcc/data/repositories/Resident_Repository.dart';
 import 'package:tcc/data/stores/Correspondence_Store.dart';
 import 'package:tcc/data/stores/Resident_Store.dart';
+import 'package:tcc/pages/syndicate%20pages/correspondence/correspondence_list.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/input.dart';
+import 'package:tcc/widgets/snackMessage.dart';
 
 class CorrespondenceAddPage extends StatefulWidget {
-  const CorrespondenceAddPage({super.key});
+  final Condominium condominium;
+  const CorrespondenceAddPage({required this.condominium, super.key});
 
   @override
   State<CorrespondenceAddPage> createState() => _CorrespondenceAddPageState();
@@ -94,7 +98,28 @@ class _CorrespondenceAddPageState extends State<CorrespondenceAddPage> {
                 height: 15,
               ),
               Text(
-                'Dados do pacote',
+                'Condominio',
+                style: TextStyle(
+                  color: Config.grey_letter,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 20,
+                ),
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.home_work_outlined,
+                  size: 30,
+                ),
+                title: Text(
+                  widget.condominium.name!,
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Text(
+                'Dados do morador',
                 style: TextStyle(
                   color: Config.grey_letter,
                   fontWeight: FontWeight.w500,
@@ -256,7 +281,6 @@ class _CorrespondenceAddPageState extends State<CorrespondenceAddPage> {
       residentStore.getResidentSearch(search).then(
         (value) {
           setState(() {
-            print(value);
             resident = value;
           });
         },
@@ -271,21 +295,50 @@ class _CorrespondenceAddPageState extends State<CorrespondenceAddPage> {
   }
 
   void _createCorrepondence() {
-    if (resident != null) {
+    if (resident != null &&
+        _senderController.text.isNotEmpty &&
+        _dateController.text.isNotEmpty &&
+        _hoursController.text.isNotEmpty) {
       Map<String, dynamic> correspondence = {
         'sender': _senderController.text,
         'date': _dateController.text,
         'hours': _hoursController.text,
         'resident': {
           'id': resident!.id,
+        },
+        'condominium': {
+          'id': widget.condominium.id,
         }
       };
 
       correspondenceStore.create(correspondence).then(
         (value) {
-          print(value);
+          if (value.isNotEmpty) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CorrespondenceListPage(),
+              ),
+            );
+            WidgetSnackMessage.notificationSnackMessage(
+              context: context,
+              mensage: "Correspondência criada com sucesso!",
+            );
+          } else {
+            WidgetSnackMessage.notificationSnackMessage(
+                context: context,
+                mensage: "Ops, ocorreu um erro!",
+                backgroundColor: Config.red,
+                icon: Icons.close);
+          }
         },
       );
-    } else {}
+    } else {
+      WidgetSnackMessage.notificationSnackMessage(
+          context: context,
+          mensage: "Preencha todos os dados",
+          backgroundColor: Config.red,
+          icon: Icons.warning_amber_outlined);
+    }
   }
 }

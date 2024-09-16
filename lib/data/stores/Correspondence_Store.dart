@@ -25,4 +25,31 @@ class CorrespondenceStore {
     isLoading.value = false;
     return state.value;
   }
+
+  Future findByIdCondominium(int id) async {
+    isLoading.value = true;
+    try {
+      final result = await repository.findByIdCondominium(id);
+      state.value = result;
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+    return state.value;
+  }
+
+  Future delete(int id) async {
+    isLoading.value = true;
+    try {
+      await repository.delete(id);
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+    return state.value;
+  }
 }

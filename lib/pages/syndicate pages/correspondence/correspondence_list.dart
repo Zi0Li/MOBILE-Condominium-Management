@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/Condominium.dart';
+import 'package:tcc/data/models/Correspondence.dart';
+import 'package:tcc/data/repositories/Correspondence_Repository.dart';
 import 'package:tcc/data/repositories/Syndicate_Repository.dart';
+import 'package:tcc/data/stores/Correspondence_Store.dart';
 import 'package:tcc/data/stores/Syndicate_Store.dart';
 import 'package:tcc/pages/syndicate%20pages/correspondence/correspondence_add.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawers/syndicate_drawer.dart';
+import 'package:tcc/widgets/error.dart';
+import 'package:tcc/widgets/loading.dart';
+import 'package:tcc/widgets/showDialog.dart';
+import 'package:tcc/widgets/snackMessage.dart';
 
 class CorrespondenceListPage extends StatefulWidget {
   const CorrespondenceListPage({super.key});
@@ -18,9 +25,16 @@ class CorrespondenceListPage extends StatefulWidget {
 class _CorrespondenceListPageState extends State<CorrespondenceListPage> {
   Condominium? selectCondominium;
   List<Condominium> condominiums = [];
+  List<Correspondence> correspondences = [];
 
   SyndicateStore syndicateStore = SyndicateStore(
     repository: SyndicateRepository(
+      client: HttpClient(),
+    ),
+  );
+
+  CorrespondenceStore correspondenceStore = CorrespondenceStore(
+    repository: CorrespondenceRepository(
       client: HttpClient(),
     ),
   );
@@ -43,7 +57,9 @@ class _CorrespondenceListPageState extends State<CorrespondenceListPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CorrespondenceAddPage(),
+                  builder: (context) => CorrespondenceAddPage(
+                    condominium: selectCondominium!,
+                  ),
                 ),
               );
             },
@@ -69,6 +85,7 @@ class _CorrespondenceListPageState extends State<CorrespondenceListPage> {
               ),
               onChanged: (Condominium? newValue) => setState(() {
                 selectCondominium = newValue!;
+                _getCorrespondece();
               }),
               items: condominiums
                   .map<DropdownMenuItem<Condominium>>(
@@ -83,9 +100,32 @@ class _CorrespondenceListPageState extends State<CorrespondenceListPage> {
               underline: SizedBox(),
             ),
             AnimatedBuilder(
-              animation: Listenable.merge([]),
+              animation: Listenable.merge([
+                correspondenceStore.isLoading,
+                correspondenceStore.erro,
+                correspondenceStore.state,
+              ]),
               builder: (context, child) {
-                return _body();
+                if (correspondenceStore.isLoading.value) {
+                  return Center(
+                    child: WidgetLoading.containerLoading(),
+                  );
+                } else if (correspondenceStore.erro.value.isNotEmpty) {
+                  return WidgetError.containerError(
+                      correspondenceStore.erro.value, () {
+                    setState(() {
+                      correspondenceStore.erro.value;
+                    });
+                  });
+                } else {
+                  if (correspondences.isNotEmpty) {
+                    return _body();
+                  } else {
+                    return Center(
+                      child: Text('Sem nenhuma correspondência cadastrada'),
+                    );
+                  }
+                }
               },
             )
           ],
@@ -98,114 +138,137 @@ class _CorrespondenceListPageState extends State<CorrespondenceListPage> {
     return Flexible(
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: 5,
-        itemBuilder: (context, index) => _cardCorrespondence(),
+        itemCount: correspondences.length,
+        itemBuilder: (context, index) =>
+            _cardCorrespondence(correspondences[index]),
       ),
     );
   }
 
-  Widget _cardCorrespondence() {
+  Widget _cardCorrespondence(Correspondence correspondence) {
     double screenWidth = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 2.5,
-      ),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 1,
-            color: Config.grey400,
-          ),
-          borderRadius: BorderRadius.circular(10),
+    return GestureDetector(
+      onTap: () {
+        WidgetShowDialog.DeleteShowDialog(
+          context,
+          "a correspondência? ",
+          Icons.delete,
+          () => _deleteCorrespondence(correspondence.id!),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 2.5,
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset(
-                'img/correios.jpg',
-                fit: BoxFit.fill,
-                height: 130,
-                width: 150,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Container(
-                width: screenWidth * 0.5,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Flexible(
-                          child: Config.text(
-                            'Remetente: ',
-                            'Mercado livre',
-                            16,
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 1,
+              color: Config.grey400,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  'img/correios.jpg',
+                  fit: BoxFit.fill,
+                  height: 130,
+                  width: 150,
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Container(
+                  width: screenWidth * 0.5,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Flexible(
+                            child: Config.text(
+                              'Remetente: ',
+                              correspondence.sender!,
+                              16,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Config.text(
-                      'Entregue: ',
-                      '12/04/2002',
-                      16,
-                    ),
-                    Config.text(
-                      'Chegou: ',
-                      '12:34',
-                      16,
-                    ),
-                    Divider(),
-                    Row(
-                      children: [
-                        Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            border: Border.all(width: 1, color: Config.grey400),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: Text(
-                              Config.logoName("Nome do morador").toUpperCase(),
-                              style: TextStyle(
-                                fontSize: 10,
+                        ],
+                      ),
+                      Config.text(
+                        'Entregue: ',
+                        correspondence.date!,
+                        16,
+                      ),
+                      Config.text(
+                        'Chegou: ',
+                        correspondence.hours!,
+                        16,
+                      ),
+                      Divider(),
+                      Row(
+                        children: [
+                          Container(
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              border:
+                                  Border.all(width: 1, color: Config.grey400),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Text(
+                                Config.logoName(correspondence.resident!.name!)
+                                    .toUpperCase(),
+                                style: TextStyle(
+                                  fontSize: 10,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Nome do morador',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            Text(
-                              'Bloco-apt',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ],
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                correspondence.resident!.name!,
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              Text(
+                                '${correspondence.resident!.block!}-${correspondence.resident!.apt!}',
+                                style: TextStyle(fontSize: 14),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  void _getCorrespondece() {
+    correspondenceStore.findByIdCondominium(selectCondominium!.id!).then(
+      (value) {
+        setState(() {
+          correspondences = value;
+        });
+      },
     );
   }
 
@@ -214,7 +277,31 @@ class _CorrespondenceListPageState extends State<CorrespondenceListPage> {
       setState(() {
         condominiums = syndicate.first.condominiums!;
         selectCondominium = syndicate.first.condominiums!.first;
+        _getCorrespondece();
       });
     });
+  }
+
+  void _deleteCorrespondence(int id) {
+    correspondenceStore.delete(id).then(
+      (value) {
+        if (correspondenceStore.erro.value.isEmpty) {
+          WidgetSnackMessage.notificationSnackMessage(
+            context: context,
+            mensage: "Correspondência deletada com sucesso",
+            icon: Icons.check,
+          );
+          _getCorrespondece();
+        } else {
+          WidgetSnackMessage.notificationSnackMessage(
+            context: context,
+            mensage: "Ops, ocorreu um erro!",
+            icon: Icons.close,
+            backgroundColor: Config.red,
+          );
+        }
+        Navigator.pop(context);
+      },
+    );
   }
 }
