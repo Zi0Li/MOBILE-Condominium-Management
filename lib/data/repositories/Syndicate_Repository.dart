@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:tcc/data/http/exceptions.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/Syndicate.dart';
+import 'package:tcc/widgets/config.dart';
 
 abstract class ISyndicateRepository {
   Future<Syndicate> getSyndicateById(int id);
@@ -24,7 +25,7 @@ class SyndicateRepository implements ISyndicateRepository {
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
     } else {
-      throw Exception("não foi possivel carregar os Funcionarios");
+      throw NotFoundException(Config.textToUtf8(body['message']));
     }
   }
 }

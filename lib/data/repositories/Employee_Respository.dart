@@ -34,8 +34,6 @@ class EmployeeRepository implements IEmployeeRepository {
       throw NotFoundException("Código do condomínio inválido!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException(Config.textToUtf8(body['message']));
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }
@@ -100,8 +98,6 @@ class EmployeeRepository implements IEmployeeRepository {
       throw NotFoundException("Código do condomínio inválido!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException("E-mail já cadastrado!");
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }

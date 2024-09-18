@@ -56,8 +56,6 @@ class AuthenticationRepository implements IAuthenticationRepository {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException("Usuário ou senha inválido!");
     } else {
       throw NotFoundException("Error");
     }

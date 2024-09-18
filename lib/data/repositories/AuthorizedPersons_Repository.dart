@@ -25,9 +25,6 @@ class AuthorizedPersonsRepository implements IAuthorizedPersonsRepository {
   Future<List<AuthorizedPersons>> getAuthorizedPersonsByResident(int id) async {
     final response = await client.get(
         address: "/authorizedPersons/resident=$id", withToken: true);
-    // print('Depois da requisição');
-    // print('STATUS CODE: ${response.statusCode}');
-    // print('BODY: ${response.body}');
     final body = jsonDecode(response.body);
     if (response.statusCode == 200) {
       final List<AuthorizedPersons> authorizedPersonsList = [];
@@ -41,8 +38,6 @@ class AuthorizedPersonsRepository implements IAuthorizedPersonsRepository {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException("Usuário ou senha inválido!");
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }
@@ -51,17 +46,12 @@ class AuthorizedPersonsRepository implements IAuthorizedPersonsRepository {
   @override
   Future<dynamic> deleteAuthorizedPersons(int id) async {
     final response = await client.delete(address: "/authorizedPersons/$id");
-    // print('Depois da requisição');
-    // print('STATUS CODE: ${response.statusCode}');
-    // print('BODY: ${response.body}');
     final body = jsonDecode(response.body);
     if (response.statusCode == 200) {
     } else if (response.statusCode == 404) {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException("Usuário ou senha inválido!");
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }
@@ -75,9 +65,6 @@ class AuthorizedPersonsRepository implements IAuthorizedPersonsRepository {
       object: authorizedPersons,
       withToken: true,
     );
-    // print('Depois da requisição');
-    // print('STATUS CODE: ${response.statusCode}');
-    // print('BODY: ${response.body}');
     final body = jsonDecode(response.body);
     if (response.statusCode == 200) {
       return AuthorizedPersons.fromMap(body);
@@ -85,8 +72,6 @@ class AuthorizedPersonsRepository implements IAuthorizedPersonsRepository {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException("Usuário ou senha inválido!");
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }
@@ -97,9 +82,6 @@ class AuthorizedPersonsRepository implements IAuthorizedPersonsRepository {
       Map<String, dynamic> authorizedPersons) async {
     final response = await client.put(
         address: "/authorizedPersons", object: authorizedPersons);
-    print('Depois da requisição');
-    print('STATUS CODE: ${response.statusCode}');
-    print('BODY: ${response.body}');
     final body = jsonDecode(response.body);
     if (response.statusCode == 200) {
       return AuthorizedPersons.fromMap(body);
@@ -119,14 +101,13 @@ class AuthorizedPersonsRepository implements IAuthorizedPersonsRepository {
     final body = jsonDecode(response.body);
     if (response.statusCode == 200) {
       Resident resident = Resident.fromMap(body['resident']);
-      resident.authorizedPersons!.add(AuthorizedPersons.fromMap(body['authorizedPersonsList'].first));
+      resident.authorizedPersons!
+          .add(AuthorizedPersons.fromMap(body['authorizedPersonsList'].first));
       return resident;
     } else if (response.statusCode == 404) {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException(Config.textToUtf8(body['message']));
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }

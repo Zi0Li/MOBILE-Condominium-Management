@@ -27,8 +27,6 @@ class CondominiumRepository implements ICondominiumRepository {
       throw NotFoundException("Código do condomínio inválido!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException(Config.textToUtf8(body['message']));
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }
@@ -48,8 +46,6 @@ class CondominiumRepository implements ICondominiumRepository {
       throw NotFoundException("Código do condomínio inválido!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException(Config.textToUtf8(body['message']));
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }
@@ -68,8 +64,6 @@ class CondominiumRepository implements ICondominiumRepository {
       throw NotFoundException("Código do condomínio inválido!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException(Config.textToUtf8(body['message']));
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }
@@ -86,8 +80,6 @@ class CondominiumRepository implements ICondominiumRepository {
       throw NotFoundException("Código do condomínio inválido!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException(Config.textToUtf8(body['message']));
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }

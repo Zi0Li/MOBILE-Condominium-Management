@@ -27,9 +27,6 @@ class ResidentRepository implements IResidentRepository {
   Future<Resident> getResident(int id) async {
     final response =
         await client.get(address: "/resident/$id", withToken: true);
-    // print('Depois da requisição');
-    // print('STATUS CODE: ${response.statusCode}');
-    // print('BODY: ${response.body}');
     final body = jsonDecode(response.body);
     if (response.statusCode == 200) {
       Resident resident = Resident.fromMap(body['resident']);
@@ -39,8 +36,6 @@ class ResidentRepository implements IResidentRepository {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException(Config.textToUtf8(body['message']));
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }
@@ -110,8 +105,6 @@ class ResidentRepository implements IResidentRepository {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException("E-mail já cadastrado!");
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }
@@ -150,8 +143,6 @@ class ResidentRepository implements IResidentRepository {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException("E-mail já cadastrado!");
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }
@@ -168,8 +159,6 @@ class ResidentRepository implements IResidentRepository {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException(Config.textToUtf8(body['message']));
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }

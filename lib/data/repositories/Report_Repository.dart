@@ -40,8 +40,6 @@ class ReportRepository implements IReportRepository {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException("Usuário ou senha inválido!");
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }
@@ -58,7 +56,6 @@ class ReportRepository implements IReportRepository {
     if (response.statusCode == 200) {
       final List<Report> reportList = [];
       body.map((item) {
-        print("ITEM : $item");
         reportList.add(Report.fromMap(item));
       }).toList();
       return reportList;
@@ -66,8 +63,6 @@ class ReportRepository implements IReportRepository {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException("Usuário ou senha inválido!");
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }
@@ -86,9 +81,7 @@ class ReportRepository implements IReportRepository {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException("Usuário ou senha inválido!");
-    } else {
+    }  else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }
   }
@@ -104,8 +97,6 @@ class ReportRepository implements IReportRepository {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException("Usuário ou senha inválido!");
     } else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }
@@ -123,9 +114,7 @@ class ReportRepository implements IReportRepository {
       throw NotFoundException("A url informada não e valida!");
     } else if (response.statusCode == 405) {
       throw NotFoundException("Sem autorização");
-    } else if (response.statusCode == 500) {
-      throw NotFoundException("Usuário ou senha inválido!");
-    } else {
+    }else {
       throw NotFoundException(Config.textToUtf8(body['message']));
     }
   }
