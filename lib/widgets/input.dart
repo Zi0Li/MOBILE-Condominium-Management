@@ -36,7 +36,7 @@ class InputWidget extends StatefulWidget {
 }
 
 class _InputWidgetState extends State<InputWidget> {
-  IconData iconSuffix = Icons.remove_red_eye_outlined;
+  IconData iconSuffix = Icons.visibility_off_outlined;
   late bool _withSuffix;
 
   @override
@@ -68,8 +68,8 @@ class _InputWidgetState extends State<InputWidget> {
                       setState(() {
                         widget.obscureText = widget.obscureText ? false : true;
                         iconSuffix = widget.obscureText
-                            ? Icons.remove_red_eye_outlined
-                            : Icons.visibility_off_outlined;
+                            ? Icons.visibility_off_outlined
+                            : Icons.remove_red_eye_outlined;
                       });
                     },
                     child: Icon(
