@@ -64,6 +64,7 @@ class _EmployeeFormPageState extends State<EmployeeFormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Config.white,
       appBar: AppBarWidget(
         title: '$_title funcionário',
         actions: [
@@ -104,7 +105,7 @@ class _EmployeeFormPageState extends State<EmployeeFormPage> {
                   height: 100,
                   decoration: BoxDecoration(
                       shape: BoxShape.rectangle,
-                      color: Config.backgroundColor,
+                      color: Config.white,
                       border: Border.all(
                         width: 1,
                         color: Config.grey800,
@@ -317,7 +318,7 @@ class _EmployeeFormPageState extends State<EmployeeFormPage> {
                     child: Text(
                       _title,
                       style: TextStyle(
-                        color: Config.backgroundColor,
+                        color: Config.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),

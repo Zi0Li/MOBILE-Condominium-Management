@@ -44,6 +44,7 @@ class _KioskFormPageState extends State<KioskFormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Config.white,
       appBar: AppBarWidget(
         title: '$_title quiosque',
         actions: [
@@ -114,7 +115,7 @@ class _KioskFormPageState extends State<KioskFormPage> {
                       child: Text(
                         _title,
                         style: TextStyle(
-                          color: Config.backgroundColor,
+                          color: Config.white,
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),

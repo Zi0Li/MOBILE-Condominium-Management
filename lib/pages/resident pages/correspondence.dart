@@ -14,6 +14,7 @@ class _CorrespondencePageState extends State<CorrespondencePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Config.white,
       drawer: ResidentDrawerApp(),
       appBar: AppBarWidget(
         title: 'Correspondências',
@@ -54,7 +55,10 @@ class _CorrespondencePageState extends State<CorrespondencePage> {
                 fit: BoxFit.fill,
                 height: 130,
                 width: 150,
-              ), SizedBox(width: 5,),
+              ),
+              SizedBox(
+                width: 5,
+              ),
               Container(
                 width: screenWidth * 0.5,
                 child: Column(

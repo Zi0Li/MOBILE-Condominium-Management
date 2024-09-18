@@ -47,6 +47,7 @@ class _ReportViewPageState extends State<ReportViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Config.white,
       appBar: AppBarWidget(
         title: 'Reporte - ${_title}',
       ),

@@ -36,7 +36,7 @@ class _AuthorizedPersonsListPageState extends State<AuthorizedPersonsListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Config.backgroundColor,
+      backgroundColor: Config.white,
       drawer: ResidentDrawerApp(),
       appBar: AppBarWidget(
         title: 'Pessoas autorizadas (${_contList}/4)',

@@ -12,7 +12,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     this.height = 56,
     this.title = '',
-    this.backgroundColor,
+    this.backgroundColor = Colors.white,
     this.actions
   });
 

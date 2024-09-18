@@ -49,6 +49,7 @@ class _ReportFormPageState extends State<ReportFormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Config.white,
       appBar: AppBarWidget(
         title: 'Denúncia ${widget.type.toLowerCase()}',
       ),
@@ -141,7 +142,7 @@ class _ReportFormPageState extends State<ReportFormPage> {
                       child: Text(
                         'Reportar',
                         style: TextStyle(
-                          color: Config.backgroundColor,
+                          color: Config.white,
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),

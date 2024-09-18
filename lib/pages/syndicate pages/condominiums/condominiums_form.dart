@@ -67,6 +67,7 @@ class _CondominiumsShowState extends State<CondominiumsShow> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Config.white,
       appBar: AppBarWidget(
         title: '${_title} condomínio',
         actions: [
@@ -315,7 +316,7 @@ class _CondominiumsShowState extends State<CondominiumsShow> {
                     child: Text(
                       _title,
                       style: TextStyle(
-                        color: Config.backgroundColor,
+                        color: Config.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),

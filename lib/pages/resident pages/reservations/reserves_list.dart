@@ -34,7 +34,7 @@ class _ReservesListState extends State<ReservesList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Config.backgroundColor,
+      backgroundColor: Config.white,
       drawer: ResidentDrawerApp(),
       appBar: AppBarWidget(
         title: 'Reservas',

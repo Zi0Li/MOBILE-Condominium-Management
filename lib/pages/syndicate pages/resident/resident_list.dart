@@ -46,6 +46,7 @@ class _ResidentListPageState extends State<ResidentListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Config.white,
       drawer: SyndicateDrawerApp(),
       appBar: AppBarWidget(
         title: "Moradores",

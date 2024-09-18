@@ -48,6 +48,7 @@ class _CorrespondenceListPageState extends State<CorrespondenceListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Config.white,
       drawer: SyndicateDrawerApp(),
       appBar: AppBarWidget(
         title: "Correspondências",

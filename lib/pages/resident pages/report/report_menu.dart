@@ -37,6 +37,7 @@ class _ReportMenuPageState extends State<ReportMenuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Config.white,
       drawer: ResidentDrawerApp(),
       appBar: AppBarWidget(
         title: 'Reportar',
@@ -154,7 +155,7 @@ class _ReportMenuPageState extends State<ReportMenuPage> {
           color: Config.white,
           child: InkWell(
             borderRadius: BorderRadius.circular(10),
-            splashColor: Config.red,
+            splashColor: Config.orange,
             onTap: () {
               Navigator.push(
                 context,
@@ -169,7 +170,7 @@ class _ReportMenuPageState extends State<ReportMenuPage> {
                 children: [
                   Icon(
                     icon,
-                    color: Config.red,
+                    color: Config.orange,
                     size: 30,
                   ),
                   SizedBox(

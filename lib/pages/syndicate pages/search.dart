@@ -53,6 +53,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Config.white,
       drawer: SyndicateDrawerApp(),
       appBar: AppBarWidget(
         title: 'Pesquisar',
@@ -374,8 +375,6 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void _getSearch(String? search) {
-    print(resident);
-    print(search);
     resident = null;
     if (search!.isNotEmpty) {
       residentStore.getResidentSearch(search).then(

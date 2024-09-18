@@ -35,6 +35,7 @@ class _CondominiumsListState extends State<CondominiumsList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Config.white,
       drawer: SyndicateDrawerApp(),
       appBar: AppBarWidget(
         title: 'Condominios',

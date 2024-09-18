@@ -18,6 +18,7 @@ class _RulesPageState extends State<RulesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Config.white,
       appBar: AppBarWidget(
         title: 'Regras',
       ),
@@ -38,6 +39,7 @@ class _RulesPageState extends State<RulesPage> {
       },
       children: _rules.map<ExpansionPanel>((Rules rules) {
         return ExpansionPanel(
+          backgroundColor: Config.white,
           headerBuilder: (BuildContext context, bool isExpanded) {
             return Padding(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),

@@ -59,6 +59,7 @@ class _CorrespondenceAddPageState extends State<CorrespondenceAddPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Config.white,
       appBar: AppBarWidget(
         title: 'Adicionar uma correspondência',
       ),
@@ -202,7 +203,7 @@ class _CorrespondenceAddPageState extends State<CorrespondenceAddPage> {
                       child: Text(
                         "Cadastrar",
                         style: TextStyle(
-                          color: Config.backgroundColor,
+                          color: Config.white,
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),

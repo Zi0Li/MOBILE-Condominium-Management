@@ -56,7 +56,7 @@ class _ReservesFormState extends State<ReservesForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Config.backgroundColor,
+      backgroundColor: Config.white,
       appBar: AppBarWidget(
         title: 'Cadastrar reserva',
       ),

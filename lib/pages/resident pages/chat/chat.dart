@@ -22,6 +22,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Config.white,
       appBar: AppBar(
         toolbarHeight: 56,
         actions: [

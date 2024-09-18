@@ -31,7 +31,7 @@ class _ResidentDrawerAppState extends State<ResidentDrawerApp> {
   Widget build(BuildContext context) {
     
     return Drawer(
-      backgroundColor: Config.backgroundColor,
+      backgroundColor: Config.white,
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
@@ -43,7 +43,7 @@ class _ResidentDrawerAppState extends State<ResidentDrawerApp> {
             ),
             accountEmail: Text(Config.user.email),
             currentAccountPicture: CircleAvatar(
-              backgroundColor: Config.backgroundColor,
+              backgroundColor: Config.white,
               child: Text(
                 Config.logoName(Config.user.name),
                 style: TextStyle(

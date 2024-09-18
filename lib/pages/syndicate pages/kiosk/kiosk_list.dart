@@ -46,6 +46,7 @@ class _KioskListPageState extends State<KioskListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Config.white,
       drawer: SyndicateDrawerApp(),
       appBar: AppBarWidget(
         title: 'Quiosques',

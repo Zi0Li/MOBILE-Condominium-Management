@@ -52,7 +52,7 @@ class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Config.backgroundColor,
+      backgroundColor: Config.white,
       appBar: AppBarWidget(
         title: 'Pessoas autorizadas',
         actions: [
@@ -88,7 +88,7 @@ class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
                     height: 100,
                     decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
-                        color: Config.backgroundColor,
+                        color: Config.white,
                         border: Border.all(
                           width: 1,
                           color: Config.grey800,
@@ -229,7 +229,7 @@ class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
                       child: Text(
                         'Salvar',
                         style: TextStyle(
-                          color: Config.backgroundColor,
+                          color: Config.white,
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),

@@ -15,6 +15,7 @@ class _ResidentViewPageState extends State<ResidentViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Config.white,
       appBar: AppBarWidget(
         title: 'Morador',
       ),

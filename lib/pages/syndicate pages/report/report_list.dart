@@ -60,6 +60,7 @@ class _ReportListPageState extends State<ReportListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Config.white,
       drawer: SyndicateDrawerApp(),
       appBar: AppBarWidget(
         title: 'Reportes/Tickets',

@@ -52,10 +52,10 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Config.backgroundColor,
+      backgroundColor: Config.white,
       drawer: ResidentDrawerApp(),
       appBar: AppBar(
-        backgroundColor: Config.backgroundColor,
+        backgroundColor: Config.white,
         toolbarHeight: 56,
         title: Text(
           'Tela inicial',

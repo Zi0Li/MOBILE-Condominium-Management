@@ -33,6 +33,7 @@ class _MenuChatPageState extends State<MenuChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Config.white,
       appBar: AppBarWidget(
         title: 'Chat',
       ),
