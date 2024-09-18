@@ -12,7 +12,7 @@ abstract class IHttpClient {
       bool withToken = false});
 }
 
-const String url = "http://172.17.0.154:8080";
+const String url = "http://192.168.0.211:8080";
 String token = "";
 
 class HttpClient implements IHttpClient {
@@ -24,7 +24,7 @@ class HttpClient implements IHttpClient {
 
   @override
   Future get({required String address, bool withToken = false}) async {
-    // print('GET(ADDRESS: $url$address |  TOKEN: $token)');
+    print('GET(ADDRESS: $url$address |  TOKEN: $token)');
     if (withToken) {
       return await client.get(Uri.parse("$url$address"),
           headers: requestHeaders);

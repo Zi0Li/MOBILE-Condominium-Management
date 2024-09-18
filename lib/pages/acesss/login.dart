@@ -14,7 +14,8 @@ import 'package:tcc/widgets/input.dart';
 import 'package:tcc/widgets/loading.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final Login? login;
+  const LoginPage({this.login, super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -27,7 +28,6 @@ class _LoginPageState extends State<LoginPage> {
     ),
   );
 
-  Login? login;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _checkBox = false;
@@ -35,7 +35,13 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    _getLogin();
+    if (widget.login != null) {
+      _emailController.text = widget.login!.email!;
+      _passwordController.text = widget.login!.password!;
+      _checkBox = (widget.login!.remember == 1) ? true : false;
+    } else {
+      _getLogin();
+    }
   }
 
   @override
@@ -158,6 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                       .getLogin(_emailController.text, _passwordController.text)
                       .then((value) {
                     if (value.isNotEmpty) {
+                      print('TESTE');
                       _saveLogin();
                       _navigatorPage();
                     }
@@ -188,12 +195,7 @@ class _LoginPageState extends State<LoginPage> {
           Center(
             child: GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RegisterCondoPage(),
-                  ),
-                );
+                _managerOrResident(context);
               },
               child: Text(
                 'ou Registra-se',
@@ -251,15 +253,114 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _getLogin() {
-    store.isLoading.value = true;
     LoginController.internal().getAllLogins().then((value) {
       if (value.isNotEmpty) {
-        login = value[0];
-        _emailController.text = login!.email!;
-        _passwordController.text = login!.password!;
-        _checkBox = (login!.remember == 1) ? true : false;
+        setState(() {
+          _emailController.text = value.first.email!;
+          _passwordController.text = value.first.password!;
+          _checkBox = (value.first.remember == 1) ? true : false;
+        });
       }
-      store.isLoading.value = false;
     });
+  }
+
+  Future _managerOrResident(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: BorderSide(
+            width: 1,
+            color: Colors.black,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        title: Text(
+          'Você é',
+          style: TextStyle(color: Colors.black),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RegisterCondoPage(),
+                  ),
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    width: 1,
+                    color: Config.grey400,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.people_alt_outlined,
+                        color: Config.orange,
+                        size: 32,
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        'Morador',
+                        style: TextStyle(color: Config.black, fontSize: 18),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            InkWell(
+              onTap: () {},
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    width: 1,
+                    color: Config.grey400,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.home_work_outlined,
+                        color: Config.orange,
+                        size: 32,
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Flexible(
+                        child: Text(
+                          'Síndico/Operário',
+                          style: TextStyle(color: Config.black, fontSize: 18),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
