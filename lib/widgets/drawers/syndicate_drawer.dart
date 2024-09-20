@@ -3,6 +3,7 @@ import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/repositories/Resident_Repository.dart';
 import 'package:tcc/data/stores/Resident_Store.dart';
 import 'package:tcc/pages/acesss/welcome.dart';
+import 'package:tcc/pages/syndicate%20pages/notification/notification_list.dart';
 import 'package:tcc/pages/syndicate%20pages/condominiums/condominiums_list.dart';
 import 'package:tcc/pages/syndicate%20pages/correspondence/correspondence_list.dart';
 import 'package:tcc/pages/syndicate%20pages/employee/employee_list.dart';
@@ -73,6 +74,7 @@ class _SyndicateDrawerAppState extends State<SyndicateDrawerApp> {
               );
             },
           ),
+          Divider(),
           ListTile(
             leading: Icon(
               Icons.search,
@@ -113,6 +115,25 @@ class _SyndicateDrawerAppState extends State<SyndicateDrawerApp> {
           ),
           ListTile(
             leading: Icon(
+              Icons.outdoor_grill_outlined,
+              color: Config.orange,
+            ),
+            title: Text(
+              "Areas de lazer",
+              style: _textStyle(),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => KioskListPage(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: Icon(
               Icons.contact_emergency_outlined,
               color: Config.orange,
             ),
@@ -126,6 +147,44 @@ class _SyndicateDrawerAppState extends State<SyndicateDrawerApp> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => EmployeeListPage(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.person_outline,
+              color: Config.orange,
+            ),
+            title: Text(
+              "Moradores",
+              style: _textStyle(),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResidentListPage(),
+                ),
+              );
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.notification_important_outlined,
+              color: Config.orange,
+            ),
+            title: Text(
+              "Notificações",
+              style: _textStyle(),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NotitificationListPage(),
                 ),
               );
             },
@@ -166,44 +225,7 @@ class _SyndicateDrawerAppState extends State<SyndicateDrawerApp> {
               );
             },
           ),
-          ListTile(
-            leading: Icon(
-              Icons.outdoor_grill_outlined,
-              color: Config.orange,
-            ),
-            title: Text(
-              "Areas de lazer",
-              style: _textStyle(),
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => KioskListPage(),
-                ),
-              );
-            },
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.person_outline,
-              color: Config.orange,
-            ),
-            title: Text(
-              "Moradores",
-              style: _textStyle(),
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ResidentListPage(),
-                ),
-              );
-            },
-          ),
+          Divider(),
           ListTile(
             leading: Icon(
               Icons.exit_to_app_rounded,
