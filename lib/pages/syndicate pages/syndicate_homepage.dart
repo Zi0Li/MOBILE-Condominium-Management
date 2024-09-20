@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tcc/data/controllers/Login_Controller.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/Condominium.dart';
 import 'package:tcc/data/models/Report.dart';
@@ -9,7 +8,6 @@ import 'package:tcc/data/repositories/Syndicate_Repository.dart';
 import 'package:tcc/data/stores/Employee_Store.dart';
 import 'package:tcc/data/stores/Report_Store.dart';
 import 'package:tcc/data/stores/Syndicate_Store.dart';
-import 'package:tcc/pages/acesss/welcome.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawers/syndicate_drawer.dart';
 import 'package:tcc/widgets/error.dart';
@@ -35,7 +33,7 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
     ),
   );
 
-    ReportStore reportStore = ReportStore(
+  ReportStore reportStore = ReportStore(
     repository: ReportRepository(
       client: HttpClient(),
     ),
@@ -51,7 +49,9 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
   @override
   void initState() {
     super.initState();
-    _getSyndicate();
+    condominiums = Config.user.condominiums!;
+    selectCondominium = Config.user.condominiums!.first;
+    _updateInformations(Config.user.condominiums!.first.id!);
   }
 
   @override
@@ -129,21 +129,15 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
               Row(
                 children: [
                   Expanded(
-                    child: _cardReport(
-                      "Denúncias Anônimas",
-                      Icons.person_off_outlined,
-                      reportsAnonymous.length
-                    ),
+                    child: _cardReport("Denúncias Anônimas",
+                        Icons.person_off_outlined, reportsAnonymous.length),
                   ),
                   SizedBox(
                     width: 10,
                   ),
                   Expanded(
-                    child: _cardReport(
-                      "Reportes/Tickets",
-                      Icons.report_gmailerrorred_sharp,
-                      reportsTicket.length
-                    ),
+                    child: _cardReport("Reportes/Tickets",
+                        Icons.report_gmailerrorred_sharp, reportsTicket.length),
                   ),
                 ],
               ),
@@ -339,7 +333,7 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
               Flexible(
                 child: Text(
                   title,
-                  style: TextStyle(
+                  style: TextStyle( 
                     color: Config.grey_letter,
                     fontSize: 18,
                   ),
@@ -350,29 +344,6 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
         ),
       ),
     );
-  }
-
-  void _getSyndicate() {
-    syndicateStore.isLoading.value = true;
-    LoginController.internal().getAllLogins().then((value) {
-      if (value.isNotEmpty) {
-        syndicateStore.getSyndicateById(value.first.id).then((syndicate) {
-          setState(() {
-            Config.user = syndicate.first;
-            condominiums = syndicate.first.condominiums!;
-            selectCondominium = syndicate.first.condominiums!.first;
-            _updateInformations(syndicate.first.condominiums!.first.id!);
-          });
-        });
-      } else {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => WelcomePage(),
-          ),
-        );
-      }
-    });
   }
 
   void _updateInformations(int id) {

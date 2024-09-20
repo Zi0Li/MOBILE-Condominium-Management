@@ -5,6 +5,7 @@ import 'package:tcc/data/models/Login.dart';
 import 'package:tcc/data/repositories/Authentication_Repository.dart';
 import 'package:tcc/data/stores/Authentication_Store.dart';
 import 'package:tcc/pages/acesss/register_condo.dart';
+import 'package:tcc/pages/employee%20pages/employee_homepage.dart';
 import 'package:tcc/pages/resident%20pages/resident_homepage.dart';
 import 'package:tcc/pages/syndicate%20pages/syndicate_homepage.dart';
 import 'package:tcc/widgets/appBar.dart';
@@ -210,60 +211,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _navigatorPage() {
-    if (store.state.value[0].role == Config.morador) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ResidentHomePage(),
-        ),
-      );
-    } else if (store.state.value[0].role == Config.sindico) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => SyndicateHomePage(),
-        ),
-      );
-    } else if (store.state.value[0].role == Config.funcionario) {
-    } else {}
-  }
-
-  void _saveLogin() {
-    LoginController.internal().deletaAll();
-    if (_checkBox) {
-      LoginController.internal().saveLogin(
-        Login(
-          id: store.state.value[0].entity.id,
-          email: _emailController.text,
-          password: _passwordController.text,
-          remember: (_checkBox) ? 1 : 0,
-        ),
-      );
-    } else {
-      LoginController.internal().saveLogin(
-        Login(
-          id: store.state.value[0].entity.id,
-          email: "",
-          password: "",
-          remember: 0,
-        ),
-      );
-    }
-  }
-
-  void _getLogin() {
-    LoginController.internal().getAllLogins().then((value) {
-      if (value.isNotEmpty) {
-        setState(() {
-          _emailController.text = value.first.email!;
-          _passwordController.text = value.first.password!;
-          _checkBox = (value.first.remember == 1) ? true : false;
-        });
-      }
-    });
-  }
-
   Future _managerOrResident(BuildContext context) {
     return showDialog(
       context: context,
@@ -362,5 +309,66 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  void _navigatorPage() {
+    Config.user = store.state.value[0].entity;
+    if (store.state.value[0].role == Config.morador) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ResidentHomePage(),
+        ),
+      );
+    } else if (store.state.value[0].role == Config.sindico) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SyndicateHomePage(),
+        ),
+      );
+    } else if (store.state.value[0].role == Config.funcionario) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => EmployeeHomepage(),
+        ),
+      );
+    } else {}
+  }
+
+  void _saveLogin() {
+    LoginController.internal().deletaAll();
+    if (_checkBox) {
+      LoginController.internal().saveLogin(
+        Login(
+          id: store.state.value[0].entity.id,
+          email: _emailController.text,
+          password: _passwordController.text,
+          remember: (_checkBox) ? 1 : 0,
+        ),
+      );
+    } else {
+      LoginController.internal().saveLogin(
+        Login(
+          id: store.state.value[0].entity.id,
+          email: "",
+          password: "",
+          remember: 0,
+        ),
+      );
+    }
+  }
+
+  void _getLogin() {
+    LoginController.internal().getAllLogins().then((value) {
+      if (value.isNotEmpty) {
+        setState(() {
+          _emailController.text = value.first.email!;
+          _passwordController.text = value.first.password!;
+          _checkBox = (value.first.remember == 1) ? true : false;
+        });
+      }
+    });
   }
 }

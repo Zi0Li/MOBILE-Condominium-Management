@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tcc/data/controllers/Login_Controller.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/AuthorizedPersons.dart';
 import 'package:tcc/data/repositories/AuthorizedPersons_Repository.dart';
@@ -8,7 +7,6 @@ import 'package:tcc/data/repositories/Resident_Repository.dart';
 import 'package:tcc/data/stores/AuthorizedPersons_Store.dart';
 import 'package:tcc/data/stores/Reservation_Store.dart';
 import 'package:tcc/data/stores/Resident_Store.dart';
-import 'package:tcc/pages/acesss/welcome.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawers/resident_drawer.dart';
 import 'package:tcc/widgets/error.dart';
@@ -46,7 +44,8 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
   @override
   void initState() {
     super.initState();
-    _getResident();
+    _getAuthorizationPerons();
+    _getReservation();
   }
 
   @override
@@ -209,8 +208,6 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
         shrinkWrap: true,
         itemCount: authorizedPersons.length,
         itemBuilder: (context, index) {
-          
-
           return ListTile(
             onLongPress: () {},
             title: Text(
@@ -278,30 +275,8 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
     );
   }
 
-  void _getResident() {
-    residentStore.isLoading.value = true;
-    LoginController.internal().getAllLogins().then((value) {
-      if (value.isNotEmpty) {
-        residentStore.getResident(value.first.id).then((residents) {
-          Config.user = residentStore.state.value.first;
-          _getAuthorizationPerons();
-          _getReservation();
-        });
-      } else {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => WelcomePage(),
-          ),
-        );
-      }
-    });
-  }
-
   void _getAuthorizationPerons() {
-    authorizedPersonsStore
-        .getAuthorizedPersonsByResident(Config.user.id)
-        .then(
+    authorizedPersonsStore.getAuthorizedPersonsByResident(Config.user.id).then(
           (authorizedPersons) =>
               setState(() => contAuthorizedPersons = authorizedPersons.length),
         );
