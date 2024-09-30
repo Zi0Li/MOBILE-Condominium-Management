@@ -10,6 +10,7 @@ import 'package:tcc/pages/syndicate%20pages/employee/employee_list.dart';
 import 'package:tcc/pages/syndicate%20pages/kiosk/kiosk_list.dart';
 import 'package:tcc/pages/syndicate%20pages/report/report_list.dart';
 import 'package:tcc/pages/syndicate%20pages/resident/resident_list.dart';
+import 'package:tcc/pages/syndicate%20pages/rules/rules.dart';
 import 'package:tcc/pages/syndicate%20pages/search.dart';
 import 'package:tcc/pages/syndicate%20pages/syndicate_homepage.dart';
 import 'package:tcc/widgets/config.dart';
@@ -171,6 +172,24 @@ class _SyndicateDrawerAppState extends State<SyndicateDrawerApp> {
             },
           ),
           Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.rule,
+              color: Config.orange,
+            ),
+            title: Text(
+              "Regras",
+              style: _textStyle(),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RulesSyndicatePage(),
+                ),
+              );
+            },
+          ),
           ListTile(
             leading: Icon(
               Icons.notification_important_outlined,
