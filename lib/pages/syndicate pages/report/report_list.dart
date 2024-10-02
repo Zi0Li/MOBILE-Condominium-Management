@@ -9,7 +9,6 @@ import 'package:tcc/data/stores/Syndicate_Store.dart';
 import 'package:tcc/pages/syndicate%20pages/report/report_view.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
-import 'package:tcc/widgets/drawers/syndicate_drawer.dart';
 import 'package:tcc/widgets/error.dart';
 import 'package:tcc/widgets/loading.dart';
 
@@ -61,7 +60,7 @@ class _ReportListPageState extends State<ReportListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Config.white,
-      drawer: SyndicateDrawerApp(),
+      drawer: Config.managersDrawer(),
       appBar: AppBarWidget(
         title: 'Reportes/Tickets',
       ),

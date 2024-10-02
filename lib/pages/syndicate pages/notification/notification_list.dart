@@ -6,7 +6,6 @@ import 'package:tcc/data/stores/Notification_store.dart';
 import 'package:tcc/pages/syndicate%20pages/notification/notification_form.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
-import 'package:tcc/widgets/drawers/syndicate_drawer.dart';
 import 'package:tcc/widgets/error.dart';
 import 'package:tcc/widgets/loading.dart';
 import 'package:tcc/widgets/showDialog.dart';
@@ -39,7 +38,7 @@ class _NotitificationListPageState extends State<NotitificationListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Config.white,
-      drawer: SyndicateDrawerApp(),
+      drawer: Config.managersDrawer(),
       appBar: AppBarWidget(
         title: "Notificações",
         actions: [

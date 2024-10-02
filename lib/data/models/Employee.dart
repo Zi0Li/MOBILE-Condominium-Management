@@ -1,3 +1,5 @@
+import 'package:tcc/data/models/Condominium.dart';
+
 class Employee {
   int? id;
   String? name;
@@ -7,6 +9,8 @@ class Employee {
   String? position;
   String? workload;
   String? email;
+  List<Condominium>? condominiums = [];
+  String? role;
 
   Employee({
     required this.id,
@@ -48,6 +52,6 @@ class Employee {
 
   @override
   String toString() {
-    return "EMPLOYEE(id: $id | name: $name | cpf: $cpf | rg: $rg | phone: $phone | position: $position | workload: $workload | email: $email)";
+    return "EMPLOYEE(id: $id | name: $name | cpf: $cpf | rg: $rg | phone: $phone | position: $position | workload: $workload | email: $email | condominium: $condominiums)";
   }
 }

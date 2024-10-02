@@ -3,6 +3,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:tcc/widgets/drawers/employee_drawer.dart';
+import 'package:tcc/widgets/drawers/syndicate_drawer.dart';
 
 class Config {
   Config._();
@@ -93,5 +95,13 @@ class Config {
       password += rg.substring(rg.length - 4, rg.length);
     }
     return password;
+  }
+
+  static Widget managersDrawer(){
+    if (user.role == funcionario) {
+      return EmployeeDrawerApp();
+    } else {
+      return SyndicateDrawerApp();
+    }
   }
 }

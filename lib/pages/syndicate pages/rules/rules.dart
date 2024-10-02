@@ -6,7 +6,6 @@ import 'package:tcc/data/repositories/Rule_Repository.dart';
 import 'package:tcc/data/stores/Rule_Store.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
-import 'package:tcc/widgets/drawers/syndicate_drawer.dart';
 import 'package:tcc/widgets/error.dart';
 import 'package:tcc/widgets/input.dart';
 import 'package:tcc/widgets/loading.dart';
@@ -44,7 +43,7 @@ class _RulesSyndicatePageState extends State<RulesSyndicatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SyndicateDrawerApp(),
+      drawer: Config.managersDrawer(),
       backgroundColor: Config.white,
       appBar: AppBarWidget(
         title: "Regras",

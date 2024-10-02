@@ -8,7 +8,6 @@ import 'package:tcc/data/stores/AuthorizedPersons_Store.dart';
 import 'package:tcc/data/stores/Resident_Store.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
-import 'package:tcc/widgets/drawers/syndicate_drawer.dart';
 import 'package:tcc/widgets/loading.dart';
 
 class SearchPage extends StatefulWidget {
@@ -54,7 +53,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Config.white,
-      drawer: SyndicateDrawerApp(),
+      drawer: Config.managersDrawer(),
       appBar: AppBarWidget(
         title: 'Pesquisar',
       ),

@@ -27,18 +27,18 @@ class AuthenticationRepository implements IAuthenticationRepository {
     final body = jsonDecode(response.body);
     if (response.statusCode == 200) {
       token = body['token'];
-      Object? entity;
+      var entity;
       if (body['role'] == Config.sindico) {
         entity = Syndicate.fromMap(body['entity']);
+        entity.role = Config.sindico;
       } else if (body['role'] == Config.morador) {
-        Resident aux;
-        aux = Resident.fromMap(body['entity']['resident']);
-        aux.condominium = Condominium.fromMap(body['entity']['condominium']);
-        entity = aux;
+        entity = Resident.fromMap(body['entity']['resident']);
+        entity.condominium = Condominium.fromMap(body['entity']['condominium']);
       } else if (body['role'] == Config.funcionario) {
-        entity = Employee.fromMap(body['entity']);
+        entity = Employee.fromMap(body['entity']['employee']);
+        entity.condominiums!.add(Condominium.fromMap(body['entity']['condominium']));
+        entity.role = Config.funcionario;
       }
-
       return User(role: body['role'], entity: entity);
     } else if (response.statusCode == 404) {
       throw NotFoundException("A url informada não e valida!");

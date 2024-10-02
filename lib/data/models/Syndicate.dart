@@ -9,6 +9,7 @@ class Syndicate {
   String? phone;
   String? email;
   List<Condominium>? condominiums;
+  String? role;
 
   Syndicate(
       {required this.id,

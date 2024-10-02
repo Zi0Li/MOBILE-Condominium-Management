@@ -9,7 +9,6 @@ import 'package:tcc/data/stores/Syndicate_Store.dart';
 import 'package:tcc/pages/syndicate%20pages/correspondence/correspondence_add.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
-import 'package:tcc/widgets/drawers/syndicate_drawer.dart';
 import 'package:tcc/widgets/error.dart';
 import 'package:tcc/widgets/loading.dart';
 import 'package:tcc/widgets/showDialog.dart';
@@ -42,14 +41,16 @@ class _CorrespondenceListPageState extends State<CorrespondenceListPage> {
   @override
   void initState() {
     super.initState();
-    _getCondominiums();
+    condominiums = Config.user.condominiums;
+    selectCondominium = Config.user.condominiums.first;
+    _getCorrespondece();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Config.white,
-      drawer: SyndicateDrawerApp(),
+      drawer: Config.managersDrawer(),
       appBar: AppBarWidget(
         title: "Correspondências",
         actions: [
@@ -271,16 +272,6 @@ class _CorrespondenceListPageState extends State<CorrespondenceListPage> {
         });
       },
     );
-  }
-
-  void _getCondominiums() {
-    syndicateStore.getSyndicateById(Config.user.id).then((syndicate) {
-      setState(() {
-        condominiums = syndicate.first.condominiums!;
-        selectCondominium = syndicate.first.condominiums!.first;
-        _getCorrespondece();
-      });
-    });
   }
 
   void _deleteCorrespondence(int id) {

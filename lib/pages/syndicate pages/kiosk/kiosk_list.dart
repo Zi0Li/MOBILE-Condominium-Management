@@ -9,7 +9,6 @@ import 'package:tcc/data/stores/Syndicate_Store.dart';
 import 'package:tcc/pages/syndicate%20pages/kiosk/kiosk_form.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
-import 'package:tcc/widgets/drawers/syndicate_drawer.dart';
 import 'package:tcc/widgets/error.dart';
 import 'package:tcc/widgets/loading.dart';
 
@@ -47,7 +46,7 @@ class _KioskListPageState extends State<KioskListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Config.white,
-      drawer: SyndicateDrawerApp(),
+      drawer: Config.managersDrawer(),
       appBar: AppBarWidget(
         title: 'Quiosques',
         actions: [
