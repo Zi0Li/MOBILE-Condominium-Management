@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/Condominium.dart';
+import 'package:tcc/data/models/Correspondence.dart';
+import 'package:tcc/data/models/Notification.dart';
 import 'package:tcc/data/models/Report.dart';
+import 'package:tcc/data/repositories/Correspondence_Repository.dart';
 import 'package:tcc/data/repositories/Employee_Respository.dart';
+import 'package:tcc/data/repositories/Notification_Repository.dart';
 import 'package:tcc/data/repositories/Report_Repository.dart';
 import 'package:tcc/data/repositories/Syndicate_Repository.dart';
+import 'package:tcc/data/stores/Correspondence_Store.dart';
 import 'package:tcc/data/stores/Employee_Store.dart';
+import 'package:tcc/data/stores/Notification_store.dart';
 import 'package:tcc/data/stores/Report_Store.dart';
 import 'package:tcc/data/stores/Syndicate_Store.dart';
 import 'package:tcc/widgets/config.dart';
@@ -39,9 +45,23 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
     ),
   );
 
+  CorrespondenceStore correspondenceStore = CorrespondenceStore(
+    repository: CorrespondenceRepository(
+      client: HttpClient(),
+    ),
+  );
+
+  NotificationStore notificationStore = NotificationStore(
+    repository: NotificationRepository(
+      client: HttpClient(),
+    ),
+  );
+
   int contAuthorizedPersons = 0;
   Condominium? selectCondominium;
   List<Condominium> condominiums = [];
+  List<Correspondence> correspondences = [];
+  List<NotificationMessage> notifications = [];
   List<Report> reportsTicket = [];
   List<Report> reportsAnonymous = [];
   List<Report> reports = [];
@@ -113,14 +133,16 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _cardNotification(
-                'Quantidade de correspondência: 9',
+                'Quantidade de correspondências na portaria: ${correspondences.length}',
                 Icons.markunread_mailbox_outlined,
               ),
               SizedBox(
                 height: 10,
               ),
               _cardNotification(
-                'Você não tem nenhuma notificação',
+                (notifications.isEmpty)
+                    ? 'Você não tem nenhuma notificação'
+                    : 'Você está com ${notifications.length} notificações ativas',
                 Icons.notifications_none_outlined,
               ),
               Divider(
@@ -333,7 +355,7 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
               Flexible(
                 child: Text(
                   title,
-                  style: TextStyle( 
+                  style: TextStyle(
                     color: Config.grey_letter,
                     fontSize: 18,
                   ),
@@ -349,10 +371,32 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
   void _updateInformations(int id) {
     _getEmployeeByCondominium(id);
     _getReports(id);
+    _getCorrespondece(id);
+    _getNotification(id);
   }
 
   void _getEmployeeByCondominium(int id) {
     employeeStore.getEmployeeByCondominium(id);
+  }
+
+  void _getCorrespondece(int id) {
+    correspondenceStore.findByIdCondominium(id).then(
+      (value) {
+        setState(() {
+          correspondences = value;
+        });
+      },
+    );
+  }
+
+  void _getNotification(int id) {
+    notificationStore.findAllByIdCondominium(id).then(
+      (value) {
+        setState(() {
+          notifications = value;
+        });
+      },
+    );
   }
 
   void _getReports(int id) {

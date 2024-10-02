@@ -3,6 +3,7 @@ import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/Report.dart';
 import 'package:tcc/data/repositories/Report_Repository.dart';
 import 'package:tcc/data/stores/Report_Store.dart';
+import 'package:tcc/pages/syndicate%20pages/report/report_list.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 
@@ -289,7 +290,12 @@ class _ReportViewPageState extends State<ReportViewPage> {
                 style: TextStyle(color: Config.white),
               ),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ReportListPage(),
+                  ),
+                );
               },
             ),
           ],
