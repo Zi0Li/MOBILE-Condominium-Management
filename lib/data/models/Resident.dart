@@ -66,6 +66,6 @@ class Resident {
 
   @override
   String toString() {
-    return "RESIDENT(id: $id | name: $name | rg: $rg | cpf: $cpf | block: $block | apt: $apt | phone: $phone | email: $email | authorizedPersons: $authorizedPersons | vehicle: $vehicle)";
+    return "RESIDENT(id: $id | name: $name | rg: $rg | cpf: $cpf | block: $block | apt: $apt | phone: $phone | email: $email | condominium: $condominium | authorizedPersons: $authorizedPersons | vehicle: $vehicle)";
   }
 }

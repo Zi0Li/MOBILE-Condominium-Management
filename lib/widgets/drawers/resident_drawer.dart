@@ -29,7 +29,6 @@ class _ResidentDrawerAppState extends State<ResidentDrawerApp> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Drawer(
       backgroundColor: Config.white,
       child: ListView(
@@ -74,6 +73,7 @@ class _ResidentDrawerAppState extends State<ResidentDrawerApp> {
               );
             },
           ),
+          Divider(),
           ListTile(
             leading: Icon(
               Icons.person_outline,
@@ -148,6 +148,7 @@ class _ResidentDrawerAppState extends State<ResidentDrawerApp> {
               );
             },
           ),
+          Divider(),
           ListTile(
             leading: Icon(
               Icons.mark_as_unread_outlined,
@@ -202,6 +203,7 @@ class _ResidentDrawerAppState extends State<ResidentDrawerApp> {
               );
             },
           ),
+          Divider(),
           ListTile(
             leading: Icon(
               Icons.exit_to_app_rounded,

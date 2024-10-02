@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:tcc/data/http/exceptions.dart';
 import 'package:tcc/data/http/http_client.dart';
+import 'package:tcc/data/models/Condominium.dart';
 import 'package:tcc/data/models/Employee.dart';
 import 'package:tcc/data/models/Resident.dart';
 import 'package:tcc/data/models/Syndicate.dart';
@@ -30,7 +31,10 @@ class AuthenticationRepository implements IAuthenticationRepository {
       if (body['role'] == Config.sindico) {
         entity = Syndicate.fromMap(body['entity']);
       } else if (body['role'] == Config.morador) {
-        entity = Resident.fromMap(body['entity']);
+        Resident aux;
+        aux = Resident.fromMap(body['entity']['resident']);
+        aux.condominium = Condominium.fromMap(body['entity']['condominium']);
+        entity = aux;
       } else if (body['role'] == Config.funcionario) {
         entity = Employee.fromMap(body['entity']);
       }
