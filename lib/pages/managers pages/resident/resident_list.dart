@@ -6,7 +6,7 @@ import 'package:tcc/data/repositories/Resident_Repository.dart';
 import 'package:tcc/data/repositories/Syndicate_Repository.dart';
 import 'package:tcc/data/stores/Resident_Store.dart';
 import 'package:tcc/data/stores/Syndicate_Store.dart';
-import 'package:tcc/pages/syndicate%20pages/resident/resident_view.dart';
+import 'package:tcc/pages/managers%20pages/resident/resident_view.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/error.dart';

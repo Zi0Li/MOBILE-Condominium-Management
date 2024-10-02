@@ -3,16 +3,16 @@ import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/repositories/Resident_Repository.dart';
 import 'package:tcc/data/stores/Resident_Store.dart';
 import 'package:tcc/pages/acesss/welcome.dart';
-import 'package:tcc/pages/syndicate%20pages/notification/notification_list.dart';
-import 'package:tcc/pages/syndicate%20pages/condominiums/condominiums_list.dart';
-import 'package:tcc/pages/syndicate%20pages/correspondence/correspondence_list.dart';
-import 'package:tcc/pages/syndicate%20pages/employee/employee_list.dart';
-import 'package:tcc/pages/syndicate%20pages/kiosk/kiosk_list.dart';
-import 'package:tcc/pages/syndicate%20pages/report/report_list.dart';
-import 'package:tcc/pages/syndicate%20pages/resident/resident_list.dart';
-import 'package:tcc/pages/syndicate%20pages/rules/rules.dart';
-import 'package:tcc/pages/syndicate%20pages/search.dart';
-import 'package:tcc/pages/syndicate%20pages/syndicate_homepage.dart';
+import 'package:tcc/pages/managers%20pages/notification/notification_list.dart';
+import 'package:tcc/pages/managers%20pages/condominiums/condominiums_list.dart';
+import 'package:tcc/pages/managers%20pages/correspondence/correspondence_list.dart';
+import 'package:tcc/pages/managers%20pages/employee/employee_list.dart';
+import 'package:tcc/pages/managers%20pages/kiosk/kiosk_list.dart';
+import 'package:tcc/pages/managers%20pages/report/report_list.dart';
+import 'package:tcc/pages/managers%20pages/resident/resident_list.dart';
+import 'package:tcc/pages/managers%20pages/rules/rules.dart';
+import 'package:tcc/pages/managers%20pages/search.dart';
+import 'package:tcc/pages/managers%20pages/syndicate_homepage.dart';
 import 'package:tcc/widgets/config.dart';
 
 class SyndicateDrawerApp extends StatefulWidget {

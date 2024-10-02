@@ -6,7 +6,7 @@ import 'package:tcc/data/repositories/Kiosk_repository.dart';
 import 'package:tcc/data/repositories/Syndicate_Repository.dart';
 import 'package:tcc/data/stores/Kiosk_Store.dart';
 import 'package:tcc/data/stores/Syndicate_Store.dart';
-import 'package:tcc/pages/syndicate%20pages/kiosk/kiosk_form.dart';
+import 'package:tcc/pages/managers%20pages/kiosk/kiosk_form.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/error.dart';

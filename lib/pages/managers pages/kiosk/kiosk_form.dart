@@ -4,7 +4,7 @@ import 'package:tcc/data/models/Condominium.dart';
 import 'package:tcc/data/models/Kiosk.dart';
 import 'package:tcc/data/repositories/Kiosk_repository.dart';
 import 'package:tcc/data/stores/Kiosk_Store.dart';
-import 'package:tcc/pages/syndicate%20pages/kiosk/kiosk_list.dart';
+import 'package:tcc/pages/managers%20pages/kiosk/kiosk_list.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/input.dart';

@@ -3,7 +3,7 @@ import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/Condominium.dart';
 import 'package:tcc/data/repositories/Notification_Repository.dart';
 import 'package:tcc/data/stores/Notification_store.dart';
-import 'package:tcc/pages/syndicate%20pages/notification/notification_list.dart';
+import 'package:tcc/pages/managers%20pages/notification/notification_list.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/input.dart';

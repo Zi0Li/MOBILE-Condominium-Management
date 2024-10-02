@@ -3,7 +3,7 @@ import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/Condominium.dart';
 import 'package:tcc/data/repositories/Syndicate_Repository.dart';
 import 'package:tcc/data/stores/Syndicate_Store.dart';
-import 'package:tcc/pages/syndicate%20pages/condominiums/condominiums_form.dart';
+import 'package:tcc/pages/managers%20pages/condominiums/condominiums_form.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/drawers/syndicate_drawer.dart';
@@ -174,7 +174,11 @@ class _CondominiumsListState extends State<CondominiumsList> {
   void _getCondominiums() {
     store.getSyndicateById(Config.user.id).then(
       (value) {
-        condominiums.addAll(value.first.condominiums);
+        condominiums.clear();
+        setState(() {
+          condominiums.addAll(value.first.condominiums);
+          Config.user = value.first;
+        });
       },
     );
   }

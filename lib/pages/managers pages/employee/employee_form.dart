@@ -7,7 +7,7 @@ import 'package:tcc/data/models/Employee.dart';
 import 'package:tcc/data/repositories/Employee_Respository.dart';
 import 'package:tcc/data/stores/Employee_Store.dart';
 import 'package:tcc/data/http/http_client.dart';
-import 'package:tcc/pages/syndicate%20pages/employee/employee_list.dart';
+import 'package:tcc/pages/managers%20pages/employee/employee_list.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/input.dart';
