@@ -25,4 +25,18 @@ class SyndicateStore {
     isLoading.value = false;
     return state.value;
   }
+
+  Future postSyndicateById(dynamic syndicate, dynamic register) async {
+    isLoading.value = true;
+    try {
+      final result = await repository.postSyndicate(syndicate, register);
+      state.value.add(result);
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+    return state.value;
+  }
 }

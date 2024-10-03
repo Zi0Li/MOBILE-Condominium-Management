@@ -78,25 +78,6 @@ class _SyndicateDrawerAppState extends State<SyndicateDrawerApp> {
           Divider(),
           ListTile(
             leading: Icon(
-              Icons.search,
-              color: Config.orange,
-            ),
-            title: Text(
-              "Buscar pessoas",
-              style: _textStyle(),
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SearchPage(),
-                ),
-              );
-            },
-          ),
-          ListTile(
-            leading: Icon(
               Icons.home_work_outlined,
               color: Config.orange,
             ),
@@ -114,136 +95,172 @@ class _SyndicateDrawerAppState extends State<SyndicateDrawerApp> {
               );
             },
           ),
-          ListTile(
-            leading: Icon(
-              Icons.outdoor_grill_outlined,
-              color: Config.orange,
-            ),
-            title: Text(
-              "Areas de lazer",
-              style: _textStyle(),
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => KioskListPage(),
+          (Config.user.condominiums.isNotEmpty)
+              ? Column(
+                  children: [
+                    ListTile(
+                      leading: Icon(
+                        Icons.search,
+                        color: Config.orange,
+                      ),
+                      title: Text(
+                        "Buscar pessoas",
+                        style: _textStyle(),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SearchPage(),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.outdoor_grill_outlined,
+                        color: Config.orange,
+                      ),
+                      title: Text(
+                        "Areas de lazer",
+                        style: _textStyle(),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => KioskListPage(),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.contact_emergency_outlined,
+                        color: Config.orange,
+                      ),
+                      title: Text(
+                        "Funcionários",
+                        style: _textStyle(),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EmployeeListPage(),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.person_outline,
+                        color: Config.orange,
+                      ),
+                      title: Text(
+                        "Moradores",
+                        style: _textStyle(),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ResidentListPage(),
+                          ),
+                        );
+                      },
+                    ),
+                    Divider(),
+                    ListTile(
+                      leading: Icon(
+                        Icons.rule,
+                        color: Config.orange,
+                      ),
+                      title: Text(
+                        "Regras",
+                        style: _textStyle(),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RulesSyndicatePage(),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.notification_important_outlined,
+                        color: Config.orange,
+                      ),
+                      title: Text(
+                        "Notificações",
+                        style: _textStyle(),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NotitificationListPage(),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.library_books_outlined,
+                        color: Config.orange,
+                      ),
+                      title: Text(
+                        "Reportes/Tickets",
+                        style: _textStyle(),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ReportListPage(),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.mark_as_unread_outlined,
+                        color: Config.orange,
+                      ),
+                      title: Text(
+                        "Correspondências",
+                        style: _textStyle(),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CorrespondenceListPage(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                )
+              : Center(
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      'Cadastre um condominio, para liberar novas funcionalidades.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
-              );
-            },
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.contact_emergency_outlined,
-              color: Config.orange,
-            ),
-            title: Text(
-              "Funcionários",
-              style: _textStyle(),
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => EmployeeListPage(),
-                ),
-              );
-            },
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.person_outline,
-              color: Config.orange,
-            ),
-            title: Text(
-              "Moradores",
-              style: _textStyle(),
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ResidentListPage(),
-                ),
-              );
-            },
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(
-              Icons.rule,
-              color: Config.orange,
-            ),
-            title: Text(
-              "Regras",
-              style: _textStyle(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => RulesSyndicatePage(),
-                ),
-              );
-            },
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.notification_important_outlined,
-              color: Config.orange,
-            ),
-            title: Text(
-              "Notificações",
-              style: _textStyle(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => NotitificationListPage(),
-                ),
-              );
-            },
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.library_books_outlined,
-              color: Config.orange,
-            ),
-            title: Text(
-              "Reportes/Tickets",
-              style: _textStyle(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ReportListPage(),
-                ),
-              );
-            },
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.mark_as_unread_outlined,
-              color: Config.orange,
-            ),
-            title: Text(
-              "Correspondências",
-              style: _textStyle(),
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CorrespondenceListPage(),
-                ),
-              );
-            },
-          ),
           Divider(),
           ListTile(
             leading: Icon(

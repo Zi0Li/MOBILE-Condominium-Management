@@ -69,8 +69,11 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
   void initState() {
     super.initState();
     condominiums = Config.user.condominiums!;
-    selectCondominium = Config.user.condominiums!.first;
-    _updateInformations(Config.user.condominiums!.first.id!);
+
+    if (Config.user.condominiums.isNotEmpty) {
+      selectCondominium = Config.user.condominiums!.first;
+      _updateInformations(Config.user.condominiums!.first.id!);
+    }
   }
 
   @override

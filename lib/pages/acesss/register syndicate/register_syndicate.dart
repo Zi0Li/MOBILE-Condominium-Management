@@ -1,36 +1,22 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:tcc/data/models/Condominium.dart';
-import 'package:tcc/data/models/Resident.dart';
-import 'package:tcc/pages/acesss/register_details.dart';
+import 'package:tcc/data/models/Syndicate.dart';
+import 'package:tcc/pages/acesss/register%20syndicate/register_syndicate_login.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/input.dart';
 
-class RegisterProfilePage extends StatefulWidget {
-  Condominium? condominium;
-  String? block;
-  String? apt;
-  RegisterProfilePage({
-    required this.condominium,
-    required this.block,
-    required this.apt,
-    super.key,
-  });
+class RegisterSyndicatePage extends StatefulWidget {
+  const RegisterSyndicatePage({super.key});
 
   @override
-  State<RegisterProfilePage> createState() => _RegisterProfilePageState();
+  State<RegisterSyndicatePage> createState() => _RegisterSyndicatePageState();
 }
 
-class _RegisterProfilePageState extends State<RegisterProfilePage> {
-  final TextEditingController _emailController = TextEditingController();
+class _RegisterSyndicatePageState extends State<RegisterSyndicatePage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _cpfController = TextEditingController();
   final TextEditingController _rgController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -76,34 +62,12 @@ class _RegisterProfilePageState extends State<RegisterProfilePage> {
                               height: 55,
                               width: 55,
                               decoration: BoxDecoration(
-                                color: Config.light_purple,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  '1',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Config.white),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 50,
-                              height: 10,
-                              color: Config.light_purple,
-                            ),
-                            Container(
-                              height: 55,
-                              width: 55,
-                              decoration: BoxDecoration(
                                 color: Config.white,
                                 shape: BoxShape.circle,
                               ),
                               child: Center(
                                 child: Text(
-                                  '2',
+                                  '1',
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -125,7 +89,7 @@ class _RegisterProfilePageState extends State<RegisterProfilePage> {
                               ),
                               child: Center(
                                 child: Text(
-                                  '3',
+                                  '2',
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -180,76 +144,42 @@ class _RegisterProfilePageState extends State<RegisterProfilePage> {
                     TextInputType.phone,
                     Icons.phone_android_outlined,
                   ),
-                  Row(
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        child: InputWidget(
-                          'Rg',
-                          _rgController,
-                          TextInputType.number,
-                          Icons.wallet_rounded,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: InputWidget(
-                          'Cpf',
-                          _cpfController,
-                          TextInputType.number,
-                          Icons.description_outlined,
-                        ),
-                      ),
-                    ],
+                  InputWidget(
+                    'Rg',
+                    _rgController,
+                    TextInputType.number,
+                    Icons.wallet_rounded,
                   ),
-                  Text(
-                    'Login',
-                    style: TextStyle(
-                      fontSize: 22,
-                      color: Config.black,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  SizedBox(
+                    width: 15,
                   ),
                   InputWidget(
-                    'E-mail',
-                    _emailController,
-                    TextInputType.emailAddress,
-                    Icons.email_outlined,
-                  ),
-                  InputWidget(
-                    'Senha',
-                    _passwordController,
-                    TextInputType.text,
-                    Icons.lock_outline,
-                    obscureText: true,
+                    'Cpf',
+                    _cpfController,
+                    TextInputType.number,
+                    Icons.description_outlined,
                   ),
                   Row(
                     children: [
                       Expanded(
                         child: TextButton(
                           onPressed: () {
-                            Resident resident = Resident(
+                            Syndicate syndicate = Syndicate(
                               id: null,
                               name: _nameController.text,
                               rg: _rgController.text,
                               cpf: _cpfController.text,
-                              block: widget.block,
-                              apt: widget.apt,
                               phone: _phoneController.text,
-                              email: _emailController.text,
-                              authorizedPersons: null,
+                              email: null,
+                              condominiums: null,
                             );
 
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => RegisterDetailsPage(
-                                  condominium: widget.condominium,
-                                  resident: resident,
-                                  password: _passwordController.text,
+                                builder: (context) =>
+                                    RegisterSyndicateLoginPage(
+                                  syndicate: syndicate,
                                 ),
                               ),
                             );

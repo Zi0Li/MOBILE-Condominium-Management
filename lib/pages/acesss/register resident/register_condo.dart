@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/repositories/Condominium_Repository.dart';
 import 'package:tcc/data/stores/Condominium_Store.dart';
-import 'package:tcc/pages/acesss/register_profile.dart';
+import 'package:tcc/pages/acesss/register%20resident/register_profile.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/error.dart';

@@ -4,7 +4,8 @@ import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/Login.dart';
 import 'package:tcc/data/repositories/Authentication_Repository.dart';
 import 'package:tcc/data/stores/Authentication_Store.dart';
-import 'package:tcc/pages/acesss/register_condo.dart';
+import 'package:tcc/pages/acesss/register%20resident/register_condo.dart';
+import 'package:tcc/pages/acesss/register%20syndicate/register_syndicate.dart';
 import 'package:tcc/pages/managers%20pages/employee_homepage.dart';
 import 'package:tcc/pages/resident%20pages/resident_homepage.dart';
 import 'package:tcc/pages/managers%20pages/syndicate_homepage.dart';
@@ -165,7 +166,6 @@ class _LoginPageState extends State<LoginPage> {
                       .getLogin(_emailController.text, _passwordController.text)
                       .then((value) {
                     if (value.isNotEmpty) {
-                      print('TESTE');
                       _saveLogin();
                       _navigatorPage();
                     }
@@ -273,7 +273,14 @@ class _LoginPageState extends State<LoginPage> {
               height: 10,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RegisterSyndicatePage(),
+                  ),
+                );
+              },
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -296,7 +303,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       Flexible(
                         child: Text(
-                          'Síndico/Operário',
+                          'Síndico',
                           style: TextStyle(color: Config.black, fontSize: 18),
                         ),
                       ),

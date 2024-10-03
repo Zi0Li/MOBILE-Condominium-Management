@@ -27,13 +27,14 @@ class Syndicate {
     // print("${map['name']} | ${map['name'].runtimeType}");
     // print("${map['phone']} | ${map['phone'].runtimeType}");
     // print("${map['condominiums']} | ${map['condominiums'].runtimeType}");
-    
-    final List<Condominium> condominiumList = [];
-    map['condominiums'].map((item) {
-      final Condominium condominium = Condominium.fromMap(item);
-      condominiumList.add(condominium);
-    }).toList();
 
+    final List<Condominium> condominiumList = [];
+    if (map['condominiums'] != null) {
+      map['condominiums'].map((item) {
+        final Condominium condominium = Condominium.fromMap(item);
+        condominiumList.add(condominium);
+      }).toList();
+    }
     return Syndicate(
       id: map['id'],
       name: Config.textToUtf8(map['name']),
