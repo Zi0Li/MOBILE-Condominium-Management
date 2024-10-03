@@ -64,7 +64,6 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
   List<NotificationMessage> notifications = [];
   List<Report> reportsTicket = [];
   List<Report> reportsAnonymous = [];
-  List<Report> reports = [];
 
   @override
   void initState() {
@@ -405,7 +404,6 @@ class _SyndicateHomePageState extends State<SyndicateHomePage> {
         setState(() {
           reportsTicket.clear();
           reportsAnonymous.clear();
-          reports.clear();
           for (Report element in value) {
             if (element.type == "Ticket") {
               reportsTicket.add(element);
