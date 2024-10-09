@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tcc/widgets/config.dart';
 
 class InputWidget extends StatefulWidget {
@@ -14,6 +15,7 @@ class InputWidget extends StatefulWidget {
   int? minLine;
   bool obscureText;
   bool enabled;
+  List<TextInputFormatter>? textInputFormatter;
   Function()? function;
 
   InputWidget(
@@ -27,6 +29,7 @@ class InputWidget extends StatefulWidget {
     this.minLine = 1,
     this.obscureText = false,
     this.enabled = true,
+    this.textInputFormatter,
     this.function,
     super.key,
   });
@@ -61,6 +64,7 @@ class _InputWidgetState extends State<InputWidget> {
           maxLines: widget.maxLine,
           minLines: widget.minLine,
           obscureText: widget.obscureText,
+          inputFormatters: widget.textInputFormatter,
           decoration: InputDecoration(
             suffixIcon: (_withSuffix)
                 ? GestureDetector(

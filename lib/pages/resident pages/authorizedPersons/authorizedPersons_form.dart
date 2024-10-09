@@ -9,6 +9,7 @@ import 'package:tcc/pages/resident%20pages/authorizedPersons/authorizedPersons_l
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/input.dart';
+import 'package:tcc/widgets/mask.dart';
 import 'package:tcc/widgets/showDialog.dart';
 import 'package:tcc/widgets/snackMessage.dart';
 import 'package:tcc/data/http/http_client.dart';
@@ -169,14 +170,29 @@ class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
               ),
               InputWidget('Nome', _nameController, TextInputType.text,
                   Icons.person_outline_rounded),
-              InputWidget('Rg', _rgController, TextInputType.text,
-                  Icons.wallet_rounded),
-              InputWidget('CPF', _cpfController, TextInputType.text,
-                  Icons.description_outlined),
+              InputWidget(
+                'Rg',
+                _rgController,
+                TextInputType.text,
+                Icons.wallet_rounded,
+                textInputFormatter: [CustomInputMask.maskRg],
+              ),
+              InputWidget(
+                'CPF',
+                _cpfController,
+                TextInputType.text,
+                Icons.description_outlined,
+                textInputFormatter: [CustomInputMask.maskCpf],
+              ),
               InputWidget('Parentesco', _kinshipController, TextInputType.text,
                   Icons.family_restroom_rounded),
-              InputWidget('Telefone', _phoneController, TextInputType.phone,
-                  Icons.phone_android_outlined),
+              InputWidget(
+                'Telefone',
+                _phoneController,
+                TextInputType.phone,
+                Icons.phone_android_outlined,
+                textInputFormatter: [CustomInputMask.maskPhone],
+              ),
               SizedBox(
                 height: 20,
               ),
@@ -281,8 +297,7 @@ class _AuthorizedPersonsAddPageState extends State<AuthorizedPersonsAddPage> {
         );
         WidgetSnackMessage.notificationSnackMessage(
           context: context,
-          mensage:
-              "${_nameController.text} foi criado com sucesso",
+          mensage: "${_nameController.text} foi criado com sucesso",
         );
       });
     }

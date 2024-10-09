@@ -11,6 +11,7 @@ import 'package:tcc/pages/managers%20pages/employee/employee_list.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/input.dart';
+import 'package:tcc/widgets/mask.dart';
 import 'package:tcc/widgets/showDialog.dart';
 import 'package:tcc/widgets/snackMessage.dart';
 
@@ -201,14 +202,33 @@ class _EmployeeFormPageState extends State<EmployeeFormPage> {
                 ),
               ],
             ),
-            InputWidget('Nome', _nameController, TextInputType.text,
-                Icons.person_outline_rounded),
             InputWidget(
-                'Rg', _rgController, TextInputType.text, Icons.wallet_rounded),
-            InputWidget('CPF', _cpfController, TextInputType.text,
-                Icons.description_outlined),
-            InputWidget('Telefone', _phoneController, TextInputType.phone,
-                Icons.phone_android_outlined),
+              'Nome',
+              _nameController,
+              TextInputType.text,
+              Icons.person_outline_rounded,
+            ),
+            InputWidget(
+              'Rg',
+              _rgController,
+              TextInputType.text,
+              Icons.wallet_rounded,
+              textInputFormatter: [CustomInputMask.maskRg],
+            ),
+            InputWidget(
+              'CPF',
+              _cpfController,
+              TextInputType.text,
+              Icons.description_outlined,
+              textInputFormatter: [CustomInputMask.maskCpf],
+            ),
+            InputWidget(
+              'Telefone',
+              _phoneController,
+              TextInputType.phone,
+              Icons.phone_android_outlined,
+              textInputFormatter: [CustomInputMask.maskPhone],
+            ),
             Divider(),
             Row(
               children: [
@@ -226,10 +246,19 @@ class _EmployeeFormPageState extends State<EmployeeFormPage> {
                 ),
               ],
             ),
-            InputWidget('Cargo', _positionController, TextInputType.text,
-                Icons.construction_outlined),
-            InputWidget('Carga horária', _workloadController,
-                TextInputType.text, Icons.timer_outlined),
+            InputWidget(
+              'Cargo',
+              _positionController,
+              TextInputType.text,
+              Icons.construction_outlined,
+            ),
+            InputWidget(
+              'Carga horária',
+              _workloadController,
+              TextInputType.text,
+              Icons.timer_outlined,
+              textInputFormatter: [CustomInputMask.maskTime],
+            ),
             Divider(),
             Row(
               children: [
@@ -255,13 +284,23 @@ class _EmployeeFormPageState extends State<EmployeeFormPage> {
               function: () {
                 setState(() {
                   _passwordController.text = Config.passwordEmployee(
-                      _cpfController.text, _rgController.text);
+                    _cpfController.text,
+                    _rgController.text,
+                  );
                 });
               },
             ),
-            InputWidget('Senha', _passwordController, TextInputType.text,
-                Icons.lock_outline,
-                obscureText: true),
+            InputWidget(
+              'Senha',
+              _passwordController,
+              TextInputType.text,
+              Icons.lock_outline,
+              obscureText: false,
+              enabled: false,
+            ),
+            Text(
+              'A senha do funcionario é 4 primeiros digitos do CPF + 4 ultimos do RG',
+            ),
             SizedBox(
               height: 20,
             ),

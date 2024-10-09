@@ -21,8 +21,8 @@ class _RegisterCondoPageState extends State<RegisterCondoPage> {
   List<String> code = ['0', '0', '0', '0', '0'];
   bool condominio = false;
 
-  String selectedBlockValue = 'A';
-  String selectedApartamentValue = '101';
+  String selectedBlockValue = '';
+  String selectedApartamentValue = '';
 
   final CondominiumStore store = CondominiumStore(
     repository: CondominiumRepository(
@@ -540,7 +540,8 @@ class _RegisterCondoPageState extends State<RegisterCondoPage> {
                         store
                             .getCondominiumByCode(int.parse(sumCode))
                             .then((value) {
-                          print(store.state.value);
+                          selectedBlockValue = value.first.block.first;
+                          selectedApartamentValue = value.first.number_apt.first;
                         });
                       },
                       child: Text(

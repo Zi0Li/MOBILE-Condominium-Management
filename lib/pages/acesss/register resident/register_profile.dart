@@ -7,6 +7,7 @@ import 'package:tcc/pages/acesss/register%20resident/register_details.dart';
 import 'package:tcc/widgets/appBar.dart';
 import 'package:tcc/widgets/config.dart';
 import 'package:tcc/widgets/input.dart';
+import 'package:tcc/widgets/mask.dart';
 
 class RegisterProfilePage extends StatefulWidget {
   Condominium? condominium;
@@ -178,6 +179,7 @@ class _RegisterProfilePageState extends State<RegisterProfilePage> {
                     _phoneController,
                     TextInputType.phone,
                     Icons.phone_android_outlined,
+                    textInputFormatter: [CustomInputMask.maskPhone],
                   ),
                   Row(
                     children: [
@@ -188,6 +190,7 @@ class _RegisterProfilePageState extends State<RegisterProfilePage> {
                           _rgController,
                           TextInputType.number,
                           Icons.wallet_rounded,
+                          textInputFormatter: [CustomInputMask.maskRg],
                         ),
                       ),
                       SizedBox(
@@ -200,6 +203,7 @@ class _RegisterProfilePageState extends State<RegisterProfilePage> {
                           _cpfController,
                           TextInputType.number,
                           Icons.description_outlined,
+                          textInputFormatter: [CustomInputMask.maskCpf],
                         ),
                       ),
                     ],

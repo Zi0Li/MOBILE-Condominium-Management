@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:tcc/widgets/drawers/employee_drawer.dart';
 import 'package:tcc/widgets/drawers/syndicate_drawer.dart';
 
@@ -41,14 +40,6 @@ class Config {
     }
     return null;
   }
-
-  static var maskPhone = MaskTextInputFormatter(
-    mask: '(##) # ####-####',
-    filter: {"#": RegExp(r'[0-9]')},
-    type: MaskAutoCompletionType.lazy,
-  );
-
-  static var maskNull = MaskTextInputFormatter();
 
   static Widget text(String label1, String label2, double fontSize) {
     return RichText(
