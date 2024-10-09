@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:tcc/data/http/http_client.dart';
 import 'package:tcc/data/models/AuthorizedPersons.dart';
+import 'package:tcc/data/models/Correspondence.dart';
 import 'package:tcc/data/repositories/AuthorizedPersons_Repository.dart';
+import 'package:tcc/data/repositories/Correspondence_Repository.dart';
 import 'package:tcc/data/repositories/Reservation_Repository.dart';
 import 'package:tcc/data/repositories/Resident_Repository.dart';
 import 'package:tcc/data/stores/AuthorizedPersons_Store.dart';
+import 'package:tcc/data/stores/Correspondence_Store.dart';
 import 'package:tcc/data/stores/Reservation_Store.dart';
 import 'package:tcc/data/stores/Resident_Store.dart';
 import 'package:tcc/widgets/config.dart';
@@ -39,6 +42,14 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
     ),
   );
 
+  CorrespondenceStore correspondenceStore = CorrespondenceStore(
+    repository: CorrespondenceRepository(
+      client: HttpClient(),
+    ),
+  );
+
+  List<Correspondence> _correspondences = [];
+
   int contAuthorizedPersons = 0;
 
   @override
@@ -46,6 +57,7 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
     super.initState();
     _getAuthorizationPerons();
     _getReservation();
+    _getCorrespondenceByIdResident();
   }
 
   @override
@@ -93,7 +105,9 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _cardNotification(
-                'Atualmente você não tem correspondência',
+                (_correspondences.isEmpty)
+                    ? 'Atualmente você não tem correspondência'
+                    : 'Atualmente você tem ${_correspondences.length} correspondência',
                 Icons.markunread_mailbox_outlined,
               ),
               SizedBox(
@@ -284,6 +298,16 @@ class _ResidentHomePageState extends State<ResidentHomePage> {
 
   void _getReservation() {
     reservationStore.getReservationByResident(Config.user.id);
+  }
+
+  void _getCorrespondenceByIdResident() {
+    correspondenceStore.findByIdResident(Config.user.id).then(
+      (value) {
+        setState(() {
+          _correspondences = value;
+        });
+      },
+    );
   }
 
   Widget _isEmpty(String text) {

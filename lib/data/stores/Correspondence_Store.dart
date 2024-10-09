@@ -40,6 +40,20 @@ class CorrespondenceStore {
     return state.value;
   }
 
+  Future findByIdResident(int id) async {
+    isLoading.value = true;
+    try {
+      final result = await repository.findByIdResident(id);
+      state.value = result;
+    } on NotFoundException catch (e) {
+      erro.value = e.message;
+    } catch (e) {
+      erro.value = e.toString();
+    }
+    isLoading.value = false;
+    return state.value;
+  }
+
   Future delete(int id) async {
     isLoading.value = true;
     try {
